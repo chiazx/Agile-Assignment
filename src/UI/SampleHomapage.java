@@ -63,6 +63,7 @@ public class SampleHomapage extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         jLabel36 = new javax.swing.JLabel();
         jLabel37 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
@@ -269,6 +270,10 @@ public class SampleHomapage extends javax.swing.JFrame {
         jLabel37.setForeground(new java.awt.Color(255, 255, 255));
         jLabel37.setText("Notification");
 
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setText("Profile");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -294,7 +299,9 @@ public class SampleHomapage extends javax.swing.JFrame {
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel11)
                                 .addGap(31, 31, 31)
-                                .addComponent(jLabel14))))
+                                .addComponent(jLabel14)))
+                        .addGap(44, 44, 44)
+                        .addComponent(jLabel13))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(44, 44, 44)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -310,7 +317,7 @@ public class SampleHomapage extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(53, 53, 53)
                         .addComponent(jLabel4)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(101, Short.MAX_VALUE))))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -333,7 +340,8 @@ public class SampleHomapage extends javax.swing.JFrame {
                     .addComponent(jLabel11)
                     .addComponent(jLabel14)
                     .addComponent(jLabel16)
-                    .addComponent(jLabel37))
+                    .addComponent(jLabel37)
+                    .addComponent(jLabel13))
                 .addGap(15, 15, 15))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
@@ -519,6 +527,7 @@ public class SampleHomapage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
