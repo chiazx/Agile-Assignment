@@ -9,19 +9,22 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.sql.*;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 /**
  *
  * @author LO
  */
-public class Sample extends javax.swing.JFrame {
+public class CatalogOrderDisplayItem extends javax.swing.JFrame {
 
    
-        
+        ImageIcon img;
     
     /**
      * Creates new form StaffMaintenance
      */
-    public Sample() {
+    public CatalogOrderDisplayItem() {
        initComponents();
         initialize();
         
@@ -30,6 +33,11 @@ public class Sample extends javax.swing.JFrame {
         errorMsg.setVisible(false);
         FlowerStyleddl.setVisible(false);
         flowerStyleLabel.setVisible(false);
+        FlowerStyleddl.addItem(" ");
+        FlowerImage.setText("");
+        tfQuantity.setVisible(false);
+        lblQuanity.setVisible(false);
+  
     }
         public void increament(){
             
@@ -59,8 +67,6 @@ public class Sample extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        jLabel14 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
@@ -73,6 +79,9 @@ public class Sample extends javax.swing.JFrame {
         FlowerStyleddl = new javax.swing.JComboBox<>();
         errorMsg = new javax.swing.JLabel();
         FlowerImage = new javax.swing.JLabel();
+        imgDesclbl = new javax.swing.JLabel();
+        lblQuanity = new javax.swing.JLabel();
+        tfQuantity = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -167,33 +176,6 @@ public class Sample extends javax.swing.JFrame {
             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
         );
 
-        jPanel6.setBackground(new java.awt.Color(85, 65, 118));
-
-        jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ui/images/icons8_Delete_File_26px.png"))); // NOI18N
-        jLabel14.setText("Deleting");
-        jLabel14.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel14.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel14MouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
-        );
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -201,7 +183,6 @@ public class Sample extends javax.swing.JFrame {
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
@@ -218,8 +199,6 @@ public class Sample extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -269,6 +248,7 @@ public class Sample extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Microsoft Himalaya", 1, 24)); // NOI18N
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ui/images/icons8_Checked_26px.png"))); // NOI18N
         jButton1.setText("Customize");
+        jButton1.setToolTipText("");
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -282,8 +262,9 @@ public class Sample extends javax.swing.JFrame {
         });
 
         jButton2.setFont(new java.awt.Font("Microsoft Himalaya", 1, 24)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ui/images/icons8_Reset_24px_2.png"))); // NOI18N
-        jButton2.setText("Next");
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ui/images/icons8_Plus_26px_1.png"))); // NOI18N
+        jButton2.setText("Add to current order");
+        jButton2.setActionCommand("Add");
         jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -292,9 +273,9 @@ public class Sample extends javax.swing.JFrame {
         });
 
         jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel5.setText("Flower Type :");
+        jLabel5.setText("Product Type :");
 
-        flowerStyleLabel.setText("Please choose a style");
+        flowerStyleLabel.setText("Please choose a product");
 
         Flowerddl.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         Flowerddl.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Roses", "Lilies", "Tulips", "Others" }));
@@ -305,7 +286,14 @@ public class Sample extends javax.swing.JFrame {
         });
 
         FlowerStyleddl.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        FlowerStyleddl.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        FlowerStyleddl.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                FlowerStyleddlMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                FlowerStyleddlMousePressed(evt);
+            }
+        });
         FlowerStyleddl.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 FlowerStyleddlActionPerformed(evt);
@@ -316,7 +304,21 @@ public class Sample extends javax.swing.JFrame {
         errorMsg.setForeground(new java.awt.Color(255, 51, 51));
         errorMsg.setText("ERROR");
 
-        FlowerImage.setText("jLabel6");
+        FlowerImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        FlowerImage.setText("j");
+        FlowerImage.setToolTipText("");
+        FlowerImage.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        FlowerImage.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+        FlowerImage.setIconTextGap(2);
+        FlowerImage.setName(""); // NOI18N
+
+        imgDesclbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        imgDesclbl.setText("6");
+        imgDesclbl.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        imgDesclbl.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
+        lblQuanity.setLabelFor(tfQuantity);
+        lblQuanity.setText("Quanity ");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -326,24 +328,35 @@ public class Sample extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel8Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel8Layout.createSequentialGroup()
+                                        .addComponent(Flowerddl, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(43, 43, 43)
+                                        .addComponent(flowerStyleLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(FlowerStyleddl, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel8Layout.createSequentialGroup()
+                                        .addComponent(jButton1)
+                                        .addGap(79, 79, 79)
+                                        .addComponent(lblQuanity)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(tfQuantity))))
+                            .addGroup(jPanel8Layout.createSequentialGroup()
+                                .addGap(39, 39, 39)
+                                .addComponent(imgDesclbl, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(101, Short.MAX_VALUE))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(errorMsg)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
-                            .addGroup(jPanel8Layout.createSequentialGroup()
-                                .addComponent(Flowerddl, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(43, 43, 43)
-                                .addComponent(flowerStyleLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(FlowerImage)
-                                    .addComponent(FlowerStyleddl, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(jButton2))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(FlowerImage, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(162, 162, 162))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -355,12 +368,17 @@ public class Sample extends javax.swing.JFrame {
                     .addComponent(Flowerddl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(FlowerStyleddl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(70, 70, 70)
-                .addComponent(FlowerImage)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 200, Short.MAX_VALUE)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblQuanity)
+                    .addComponent(tfQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(FlowerImage, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(imgDesclbl, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
                     .addComponent(errorMsg))
                 .addContainerGap())
         );
@@ -372,17 +390,21 @@ public class Sample extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 575, Short.MAX_VALUE)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 22, Short.MAX_VALUE)
+                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 586, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -393,7 +415,7 @@ public class Sample extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
-        new Sample().setVisible(true);
+        new CatalogOrderDisplayItem().setVisible(true);
         this.setVisible(false);        
     }//GEN-LAST:event_jLabel2MouseClicked
 
@@ -404,10 +426,6 @@ public class Sample extends javax.swing.JFrame {
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         
     }//GEN-LAST:event_jLabel4MouseClicked
-
-    private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
-        
-    }//GEN-LAST:event_jLabel14MouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
@@ -424,28 +442,118 @@ public class Sample extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void FlowerStyleddlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FlowerStyleddlActionPerformed
-        // TODO add your handling code here:
+   String s="";
+   String imgFile="";
+   String imgDesc="";
+   FlowerStyleddl.addItem(" ");
+        // the image is show only when the flower styl drop down list is enable
+        if(FlowerStyleddl.isShowing()){
+            
+          //  FlowerStyleddl.setSelectedIndex(0);
+       s = FlowerStyleddl.getSelectedItem().toString();
+   
+    if(s=="Just For You"){
+        imgFile="JustForYou.jpg";
+        imgDesc="Including lavish wrapping with luxurious paper, guaranteed to make the recipient smile.";
+    }else if(s=="True Romance"){
+        imgFile="TrueRomance.jpg";
+        imgDesc="";
+    }else if(s=="Teddy Red"){
+        imgFile="TeddyRed.jpg";
+        imgDesc="";
+    }else if(s=="Queen"){
+        imgFile="Queen.jpg";
+        imgDesc="";
+    }else if(s=="Pink Delight"){
+        imgFile="PinkDelight.jpg";
+        imgDesc="";
+    }else if(s=="Lily Love"){
+        imgFile="Lily Love.jpg";
+        imgDesc="";
+    }else if(s=="Princess"){
+        imgFile="Princess.jpg";
+        imgDesc="";
+    }else if(s=="Over the Rainbow"){
+        imgFile="OverTheRainbow.jpg";imgDesc="";
+    }else if(s=="Sweet Admiration"){
+        imgFile="SweetAdmiration.jpg";
+        imgDesc="";
+    }else if(s=="Montrex Tulips"){
+        imgFile="MontrexTulips.jpg";
+        imgDesc="";
+    }else if(s=="Purple Tulips in a Vase"){
+        imgFile="PurpleTulips.jpg";
+        imgDesc="";
+    }
+        ImageIcon imgIcon;
+     imgIcon = new ImageIcon(getClass().getResource("/ui/images/"+imgFile));
+    Image image = imgIcon.getImage();
+    Image resize = image.getScaledInstance( 200, 150, java.awt.Image.SCALE_SMOOTH);
+    imgIcon = new ImageIcon(resize);
+     lblQuanity.setText(imgDesc);
+     
+    FlowerImage.setIcon(imgIcon);
+        }
+        if(FlowerStyleddl.getSelectedIndex()!=0){
+            lblQuanity.setVisible(true);
+             tfQuantity.setVisible(true);
+        }
     }//GEN-LAST:event_FlowerStyleddlActionPerformed
 
     private void FlowerddlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FlowerddlActionPerformed
        String flower=Flowerddl.getSelectedItem().toString();
+       
        if(flower =="Roses"){
+          
+           
            FlowerStyleddl.removeAllItems();
-          FlowerStyleddl.addItem("Just For You");
-          FlowerStyleddl.addItem("Just For Me");
+           FlowerStyleddl.addItem("Just For You");
+          FlowerStyleddl.addItem("True Romance");
+          FlowerStyleddl.addItem("Teddy Red");
           FlowerStyleddl.addItem("Queen");
-          FlowerStyleddl.addItem("Beautiful You");
           flowerStyleLabel.setVisible(true);
           FlowerStyleddl.setVisible(true);
+          //FlowerStyleddl.setSelectedIndex(0);
        }else if(flower == "Lilies"){
+          
            
+           FlowerStyleddl.removeAllItems();
+          FlowerStyleddl.addItem("Pink Delight");
+          FlowerStyleddl.addItem("Lily Love");
+          FlowerStyleddl.addItem("Princess");
+          flowerStyleLabel.setVisible(true);
+          FlowerStyleddl.setVisible(true);
+           //FlowerStyleddl.setSelectedIndex(0);
        }else if(flower == "Tulips"){
-           
+        
+            
+           FlowerStyleddl.removeAllItems();
+          FlowerStyleddl.addItem("Montrex Tulips");
+          FlowerStyleddl.addItem("Purple Tulips in a Vase");
+          flowerStyleLabel.setVisible(true);
+          FlowerStyleddl.setVisible(true);
+           //FlowerStyleddl.setSelectedIndex(0);
        }
        else if(flower =="Others"){
-           
+        
+            
+           FlowerStyleddl.removeAllItems();
+          FlowerStyleddl.addItem("Over the Rainbow");
+          FlowerStyleddl.addItem("Sweet Admiration");
+
+          flowerStyleLabel.setVisible(true);
+          FlowerStyleddl.setVisible(true);
+           //FlowerStyleddl.setSelectedIndex(0);
        }
     }//GEN-LAST:event_FlowerddlActionPerformed
+
+    private void FlowerStyleddlMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FlowerStyleddlMousePressed
+      
+    }//GEN-LAST:event_FlowerStyleddlMousePressed
+
+    private void FlowerStyleddlMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FlowerStyleddlMouseExited
+   
+    }//GEN-LAST:event_FlowerStyleddlMouseExited
 
     /**
      * @param args the command line arguments
@@ -464,14 +572,30 @@ public class Sample extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Sample.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CatalogOrderDisplayItem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Sample.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CatalogOrderDisplayItem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Sample.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CatalogOrderDisplayItem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Sample.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CatalogOrderDisplayItem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -492,7 +616,7 @@ public class Sample extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Sample().setVisible(true);
+                new CatalogOrderDisplayItem().setVisible(true);
             }
         });
     }
@@ -503,10 +627,10 @@ public class Sample extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> Flowerddl;
     private javax.swing.JLabel errorMsg;
     private javax.swing.JLabel flowerStyleLabel;
+    private javax.swing.JLabel imgDesclbl;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -517,8 +641,11 @@ public class Sample extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JLabel lblQuanity;
+    private javax.swing.JTextField tfQuantity;
     // End of variables declaration//GEN-END:variables
+
+    
 }
