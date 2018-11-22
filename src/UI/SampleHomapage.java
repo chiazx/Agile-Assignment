@@ -6,7 +6,6 @@
 package UI;
 
 import javax.swing.JOptionPane;
-import ui.*;
 
 /**
  *

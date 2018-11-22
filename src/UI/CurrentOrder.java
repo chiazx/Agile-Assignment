@@ -7,6 +7,7 @@ package UI;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author boonk
@@ -22,22 +23,8 @@ public class CurrentOrder extends javax.swing.JFrame {
     }
     public void initialize(){
         errorMsg.setVisible(false);
-        String[] columnNames = {"Nummemr", "PIN", "Dateipfad"};
-        Object[][] data = 
-   {
-    {"058", "2222", "C:/ls"},
-    {"0596", "2222", "C:/Uss"},
-    {"038", "2222", "C:/Usls"},
-    {"05696", "2222", "C:/Usels"},
-    {"05838", "2222", "C:/Usls"},
-    {"0696", "2222", "C:/Uss"},
-    {"038", "2222", "C:/Usexls"},
-    {"0596", "2222", "C:/Uss"},
-    
-  };
-        table = new JTable(data,columnNames);
-        table.setPreferredScrollableViewportSize(new Dimension((jTable2.getSize().width)/100*70, (jTable2.getSize().width)/100*30));
-        table.setFillsViewportHeight(true);
+      
+       
         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
        
         model.addRow(new Object[]{"Pink Delight","2"});
@@ -46,7 +33,7 @@ public class CurrentOrder extends javax.swing.JFrame {
     jTable2.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
     jTable2.getSize();
     jTable2.getColumnModel().getColumn(0).setPreferredWidth((jTable2.getSize().width)/100*70);
-    jTable2.getColumnModel().getColumn(1).setPreferredWidth((jTable2.getSize().width)/100*38);
+    jTable2.getColumnModel().getColumn(1).setPreferredWidth((jTable2.getSize().width)/100*30);
     }
     /**
      * This method is called from within the constructor to initialize the form.
