@@ -12,7 +12,6 @@ package Entity;
 public class Order {
     private Customer customer;
     private String orderID;
-    private String OLID;
     private String orderStatus;
     private String orderType; // delivery or pickup
     private double totalAmount;
@@ -26,10 +25,10 @@ public class Order {
         this.totalAmount = totalAmount;
     }
 
-    public Order(Customer customer, String orderID, String OLID, String orderStatus, String orderType, double totalAmount, String custID) {
+    public Order(Customer customer, String orderID, String orderStatus, String orderType, double totalAmount, String custID) {
         this.customer = customer;
         this.orderID = orderID;
-        this.OLID = OLID;
+    
         this.orderStatus = orderStatus;
         this.orderType = orderType;
         this.totalAmount = totalAmount;
@@ -38,7 +37,7 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{" + "customer=" + customer + ", orderID=" + orderID + ", OLID=" + OLID + ", orderStatus=" + orderStatus + ", orderType=" + orderType + ", totalAmount=" + totalAmount + ", custID=" + custID + '}';
+        return "Order{" + "customer=" + customer + ", orderID=" + orderID + ", orderStatus=" + orderStatus + ", orderType=" + orderType + ", totalAmount=" + totalAmount + ", custID=" + custID + '}';
     }
 
   
@@ -49,7 +48,6 @@ public class Order {
     public Order(Customer customer, String orderID, String OLID, String orderStatus, String orderType, String custID) {
         this.customer = customer;
         this.orderID = orderID;
-        this.OLID = OLID;
         this.orderStatus = orderStatus;
         this.orderType = orderType;
         this.custID = custID;
@@ -71,13 +69,6 @@ public class Order {
         this.orderID = orderID;
     }
 
-    public String getOLID() {
-        return OLID;
-    }
-
-    public void setOLID(String OLID) {
-        this.OLID = OLID;
-    }
 
     public String getOrderStatus() {
         return orderStatus;

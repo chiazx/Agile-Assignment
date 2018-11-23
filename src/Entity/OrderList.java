@@ -11,15 +11,45 @@ package Entity;
  */
 public class OrderList {
     private CatalogProduct catalogProduct;
+    private CustomizeProduct customizeProduct;
+    private Order order;
     private String OLID;
     private String prodID;
     private String quantity;
-
-    @Override
-    public String toString() {
-        return "OrderList{" + "catalogProduct=" + catalogProduct + ", OLID=" + OLID + ", prodID=" + prodID + ", quantity=" + quantity + '}';
+    public CustomizeProduct getCustomizeProduct() {
+        return customizeProduct;
     }
 
+    public void setCustomizeProduct(CustomizeProduct customizeProduct) {
+        this.customizeProduct = customizeProduct;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public OrderList(CatalogProduct catalogProduct, CustomizeProduct customizeProduct, Order order, String OLID, String prodID, String quantity) {
+        this.catalogProduct = catalogProduct;
+        this.customizeProduct = customizeProduct;
+        this.order = order;
+        this.OLID = OLID;
+        this.prodID = prodID;
+        this.quantity = quantity;
+    }
+   
+
+    public OrderList(CustomizeProduct customizeProduct, String OLID, String prodID, String quantity) {
+        this.customizeProduct = customizeProduct;
+        this.OLID = OLID;
+        this.prodID = prodID;
+        this.quantity = quantity;
+    }
+
+ 
     public OrderList() {
     }
 
