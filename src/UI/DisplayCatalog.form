@@ -386,9 +386,6 @@
                     <Property name="iconTextGap" type="int" value="2"/>
                     <Property name="name" type="java.lang.String" value="" noResource="true"/>
                   </Properties>
-                  <AccessibilityProperties>
-                    <Property name="AccessibleContext.accessibleName" type="java.lang.String" value=""/>
-                  </AccessibilityProperties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="imgDesclbl">
                   <Properties>

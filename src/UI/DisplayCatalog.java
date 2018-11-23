@@ -5,6 +5,8 @@
  */
 package UI;
 
+import ADT.*;
+import Entity.CatalogProduct;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -16,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
  * @author boonk
  */
 public class DisplayCatalog extends javax.swing.JFrame {
-
+ ListInterface<CatalogProduct> prodList = new LList();
     /**
      * Creates new form DisplayCatalog
      */
@@ -25,6 +27,55 @@ public class DisplayCatalog extends javax.swing.JFrame {
         initialize();
     }
 public void initialize(){
+    //initialize product details
+   
+   // CatalogProduct catalogProduct = new CatalogProduct();
+   
+   //insert dummy flower data
+    prodList.add(new CatalogProduct("CP001","Just For You","Roses","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",120.00));
+     prodList.add(new CatalogProduct("CP002","True Romance","Roses","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",120.00));
+      prodList.add(new CatalogProduct("CP003","Teddy Red","Roses","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",120.00));
+       prodList.add(new CatalogProduct("CP004","Queen","Roses","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",120.00));
+        prodList.add(new CatalogProduct("CP005","Pink Delight","Lilies","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",120.00));
+         prodList.add(new CatalogProduct("CP006","Lily Love","Lilies","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",120.00));
+          prodList.add(new CatalogProduct("CP007","Princess","Lilies","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",120.00));
+           prodList.add(new CatalogProduct("CP008","Montrex Tulips","Tulips","Available","Include red tulips, yellow tulips, purple tulips.",120.00));
+            prodList.add(new CatalogProduct("CP009","Purple Tulips in the vase","Tulips","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",120.00));
+             prodList.add(new CatalogProduct("CP010","Over The Rainbow","Others","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",120.00));
+              prodList.add(new CatalogProduct("CP011","Sweet Admiration","Others","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",120.00));
+              
+              System.out.print(prodList.getNumberOfEntries());
+              
+              Flowerddl.removeAllItems(); // make sure nothing in ddl
+              Flowerddl.addItem(" ");
+    // initialize the flower type drop down list
+    int containsInDDL = 0;
+    for(int i=0 ;i<prodList.getNumberOfEntries();i++){
+        containsInDDL =0;
+        if(Flowerddl.getItemCount()>1){
+            
+            for(int j =0;j<Flowerddl.getItemCount();j++){
+                
+                if(prodList.getEntry(i+1).getProdType().equals(Flowerddl.getItemAt(j+1))){
+                    System.out.println(prodList.getEntry(i+1).getProdType());
+                    containsInDDL++;
+                }
+                System.out.println(containsInDDL);
+               
+                
+            }
+             if(containsInDDL==0){
+                    
+                Flowerddl.addItem(prodList.getEntry(i+1).getProdType());
+            //check if no such item contain in drop down
+            
+            }
+    }else{
+            System.out.print(prodList.getEntry(i+1).getProdName());
+            Flowerddl.addItem(prodList.getEntry(i+1).getProdType().toString()); // if no item, add it
+        }
+    }
+    
     //close all the error message
     errorMsg.setVisible(false);
     errorMsg1.setVisible(false);
@@ -461,8 +512,11 @@ public void initialize(){
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void FlowerddlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FlowerddlActionPerformed
+    /*   Flowerddl.removeAllItems();
+       
+        
         String flower=Flowerddl.getSelectedItem().toString();
-
+        
         if(flower =="Roses"){
 
             FlowerStyleddl.removeAllItems();
@@ -500,7 +554,7 @@ public void initialize(){
             flowerStyleLabel.setVisible(true);
             FlowerStyleddl.setVisible(true);
             //FlowerStyleddl.setSelectedIndex(0);
-        }
+        }*/
     }//GEN-LAST:event_FlowerddlActionPerformed
 
     private void FlowerStyleddlMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FlowerStyleddlMouseExited
@@ -524,7 +578,7 @@ public void initialize(){
 
             if(s=="Just For You"){
                 imgFile="JustForYou.jpg";
-                imgDesc="Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.";
+                imgDesc="";
             }else if(s=="True Romance"){
                 imgFile="TrueRomance.jpg";
                 imgDesc="";
