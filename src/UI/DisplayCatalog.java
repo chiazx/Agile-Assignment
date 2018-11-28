@@ -7,6 +7,7 @@ package UI;
 
 import ADT.*;
 import Entity.CatalogProduct;
+import Entity.OrderList;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -19,6 +20,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class DisplayCatalog extends javax.swing.JFrame {
  ListInterface<CatalogProduct> prodList = new LList();
+ ListInterface<OrderList> orderList = new LList();
+ String orderID="";
     /**
      * Creates new form DisplayCatalog
      */
@@ -30,6 +33,8 @@ public void initialize(){
     //initialize product details
    
    // CatalogProduct catalogProduct = new CatalogProduct();
+   //fake order ID
+   orderID="OL0001";
    
    //insert dummy flower data
     prodList.add(new CatalogProduct("CP001","Just For You","Roses","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",120.00));
@@ -43,8 +48,13 @@ public void initialize(){
             prodList.add(new CatalogProduct("CP009","Purple Tulips in the vase","Tulips","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",120.00));
              prodList.add(new CatalogProduct("CP010","Over The Rainbow","Others","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",120.00));
               prodList.add(new CatalogProduct("CP011","Sweet Admiration","Others","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",120.00));
-              
-              System.out.print(prodList.getNumberOfEntries());
+              //insert dummy order data
+   orderList.add(new OrderList("OL0001","CP001","2","OR0001"));
+      orderList.add(new OrderList("OL0002","CP002","1","OR0001"));
+         orderList.add(new OrderList("OL0003","CP010","3","OR0001"));
+            orderList.add(new OrderList("OL0004","CP003","1","OR0001"));
+   
+            //  System.out.print(prodList.getNumberOfEntries());
               
               Flowerddl.removeAllItems(); // make sure nothing in ddl
               Flowerddl.addItem(" ");
@@ -57,10 +67,10 @@ public void initialize(){
             for(int j =0;j<Flowerddl.getItemCount();j++){
                 
                 if(prodList.getEntry(i+1).getProdType().equals(Flowerddl.getItemAt(j+1))){
-                    System.out.println(prodList.getEntry(i+1).getProdType());
+                 //   System.out.println(prodList.getEntry(i+1).getProdType());
                     containsInDDL++;
                 }
-                System.out.println(containsInDDL);
+               // System.out.println(containsInDDL);
                
                 
             }
@@ -93,10 +103,16 @@ public void initialize(){
       
        // current order ini
         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
-       
-        model.addRow(new Object[]{"Pink Delight","2"});
-        model.addRow(new Object[]{"Sweet Admiration","2"});
-        model.addRow(new Object[]{"Customize flower","1"});
+       for(int i=0;i<orderList.getNumberOfEntries();i++){
+           for(int j=0;j<prodList.getNumberOfEntries();j++){
+            //   System.out.println(prodList.getEntry(j+1).getProdName());
+               if(orderList.getEntry(i+1).getProdID().equals(prodList.getEntry(j+1).getProdID())){
+                   model.addRow(new Object[]{prodList.getEntry(j+1).getProdName(),orderList.getEntry(i+1).getQuantity()});
+           }
+           
+       }
+       }
+        
      jTable2.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
      jTable2.getSize();
       jTable2.getColumnModel().getColumn(0).setPreferredWidth((jTable2.getSize().width)/100*70);
@@ -185,11 +201,6 @@ public void initialize(){
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ui/images/icons8_Go_Back_35px.png"))); // NOI18N
         jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel1MouseClicked(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -348,8 +359,6 @@ public void initialize(){
                 .addContainerGap())
         );
 
-        FlowerImage.getAccessibleContext().setAccessibleName("");
-
         jTabbedPane1.addTab("Product Catalog", jPanel9);
         jPanel9.getAccessibleContext().setAccessibleName("");
 
@@ -389,6 +398,11 @@ public void initialize(){
         jTable2.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         jTable2.setColumnSelectionAllowed(true);
         jTable2.setRowSelectionAllowed(false);
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable2MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable2);
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
@@ -493,10 +507,6 @@ public void initialize(){
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-
-    }//GEN-LAST:event_jLabel1MouseClicked
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
 
@@ -631,6 +641,26 @@ public void initialize(){
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+        int selected = jTable2.getSelectedRow();
+        String selectedItem = jTable2.getModel().getValueAt(selected, 0).toString();
+        String updatedQuantity ="";
+        String string="";
+        do {
+                 string= JOptionPane.showInputDialog("Quantity");
+                if (string.matches("^[0-9]*$")) {
+                    updatedQuantity = string;
+                  
+                } else {
+                   JOptionPane.showMessageDialog(null, "Please enter a number");
+                }
+            } while (!string.matches("^[0-9]*$"));
+        
+        
+        
+        //String updatedQuantity =JOptionPane.showInputDialog(null,selectedItem+"\n Change Quantity: ","Edit Product Quantity",JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_jTable2MouseClicked
 
     /**
      * @param args the command line arguments

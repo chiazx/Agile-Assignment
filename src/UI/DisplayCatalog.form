@@ -149,9 +149,6 @@
               <Color id="Hand Cursor"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel1MouseClicked"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -498,6 +495,9 @@
                         <Property name="columnSelectionAllowed" type="boolean" value="true"/>
                         <Property name="rowSelectionAllowed" type="boolean" value="false"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTable2MouseClicked"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
