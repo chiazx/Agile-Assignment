@@ -49,7 +49,7 @@ public class CreatePromotion extends javax.swing.JFrame {
         flowerList.add(new Flower("","Lily","Bouquet",100,"Remaining Stock Rarely"));
         flowerList.add(new Flower("","Carnation","Bouquet",0,"Out-of-Stock"));
         
-        
+        sName.setSelectedItem(new Flower("","Rose","Bouquet",100,"Available"));
     }
     
     ListInterface<Flower> flowerList = new LList<>();
@@ -85,10 +85,11 @@ public class CreatePromotion extends javax.swing.JFrame {
         jButton9 = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         sQuantity = new javax.swing.JTextField();
-        sStatus = new javax.swing.JComboBox<>();
+        ChooseStatus = new javax.swing.JComboBox<>();
         sName = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         sType = new javax.swing.JTextField();
+        sStatus = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         jPanel7 = new javax.swing.JPanel();
         create = new javax.swing.JButton();
@@ -249,12 +250,18 @@ public class CreatePromotion extends javax.swing.JFrame {
             }
         });
 
-        sQuantity.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        sQuantity.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
 
-        sStatus.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        sStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Available", "Remaining Stock Rarely", "Out-of-Stock" }));
+        ChooseStatus.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        ChooseStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Available", "Remaining Stock Rarely", "Out-of-Stock" }));
+        ChooseStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ChooseStatusActionPerformed(evt);
+            }
+        });
 
         sName.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        sName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Rose", "Lily", "Carnation" }));
         sName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sNameActionPerformed(evt);
@@ -263,6 +270,12 @@ public class CreatePromotion extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         jLabel4.setText("Product Type");
+
+        sType.setEditable(false);
+        sType.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
+
+        sStatus.setEditable(false);
+        sStatus.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -274,7 +287,7 @@ public class CreatePromotion extends javax.swing.JFrame {
                     .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 913, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                         .addComponent(jButton9)
-                        .addGap(82, 82, 82))))
+                        .addGap(103, 103, 103))))
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
@@ -294,10 +307,12 @@ public class CreatePromotion extends javax.swing.JFrame {
                             .addComponent(jLabel21)
                             .addComponent(jLabel20))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(sType, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(sQuantity, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(sStatus, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(sType, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
+                            .addComponent(sQuantity)
+                            .addComponent(sStatus))
+                        .addGap(16, 16, 16)
+                        .addComponent(ChooseStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
@@ -323,18 +338,20 @@ public class CreatePromotion extends javax.swing.JFrame {
                         .addComponent(sType, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(2, 2, 2)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(jLabel21)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel20))
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel20)
+                            .addComponent(ChooseStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(sQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(sStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 121, Short.MAX_VALUE)
+                        .addComponent(sStatus)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
                 .addComponent(jButton9)
-                .addGap(57, 57, 57))
+                .addGap(72, 72, 72))
         );
 
         jTabbedPane2.addTab("Modify Status", jPanel6);
@@ -746,7 +763,7 @@ public class CreatePromotion extends javax.swing.JFrame {
     }//GEN-LAST:event_uNameActionPerformed
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
-        uName.getSelectedItem();
+
     }//GEN-LAST:event_deleteActionPerformed
 
     private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
@@ -816,7 +833,8 @@ public class CreatePromotion extends javax.swing.JFrame {
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         sType.setText("");
         sQuantity.setText("");
-        JOptionPane.showMessageDialog(null, "Changes Successful");
+        sStatus.setText("");
+        JOptionPane.showMessageDialog(null, "Updated Successful");
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -828,8 +846,37 @@ public class CreatePromotion extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void sNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sNameActionPerformed
-
+        if(sName.getSelectedItem() == "Rose"){
+            jLabel17.setIcon(new ImageIcon("C:\\Users\\User\\Desktop\\Agile-Assignment\\src\\UI\\Image\\Rose.jpg"));
+            sType.setText("bouquet");
+            sQuantity.setText("100");
+            sStatus.setText("Available");
+        }
+        else if(sName.getSelectedItem() == "Lily"){
+            sType.setText("Fresh Flower");
+            sQuantity.setText("20");
+            sStatus.setText("Remaining Stock Rarely");
+            
+        }
+        else if(sName.getSelectedItem() == "Carnation"){
+            sType.setText("Floral Arrangement");
+            sQuantity.setText("0");
+            sStatus.setText("Out-Of-Stock");
+        }
+        
     }//GEN-LAST:event_sNameActionPerformed
+
+    private void ChooseStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChooseStatusActionPerformed
+        if(ChooseStatus.getSelectedItem() == "Available"){
+            sStatus.setText("Available");
+        }
+        else if(ChooseStatus.getSelectedItem() == "Remaining Stock Rarely"){
+            sStatus.setText("Remaining Stock Rarely");
+        }
+        else if(ChooseStatus.getSelectedItem() == "Out-of-Stock"){
+            sStatus.setText("Out-Of-Stock");
+        }
+    }//GEN-LAST:event_ChooseStatusActionPerformed
 
     
     
@@ -849,6 +896,7 @@ public class CreatePromotion extends javax.swing.JFrame {
     }
  
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> ChooseStatus;
     private javax.swing.JButton MaintainBrowse1;
     private javax.swing.JButton NewType;
     private javax.swing.JTextField Price;
@@ -909,7 +957,7 @@ public class CreatePromotion extends javax.swing.JFrame {
     private javax.swing.JLabel path;
     private javax.swing.JComboBox<String> sName;
     private javax.swing.JTextField sQuantity;
-    private javax.swing.JComboBox<String> sStatus;
+    private javax.swing.JTextField sStatus;
     private javax.swing.JTextField sType;
     private javax.swing.JTextArea uDescription;
     private javax.swing.JComboBox<String> uName;
