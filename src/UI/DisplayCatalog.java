@@ -28,6 +28,7 @@ public class DisplayCatalog extends javax.swing.JFrame {
     public DisplayCatalog() {
         initComponents();
         initialize();
+       
     }
 public void initialize(){
     //initialize product details
@@ -35,19 +36,19 @@ public void initialize(){
    // CatalogProduct catalogProduct = new CatalogProduct();
    //fake order ID
    orderID="OL0001";
-   
+   jLabel3.setVisible(false);
    //insert dummy flower data
     prodList.add(new CatalogProduct("CP001","Just For You","Roses","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",120.00));
      prodList.add(new CatalogProduct("CP002","True Romance","Roses","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",120.00));
       prodList.add(new CatalogProduct("CP003","Teddy Red","Roses","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",120.00));
        prodList.add(new CatalogProduct("CP004","Queen","Roses","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",120.00));
-        prodList.add(new CatalogProduct("CP005","Pink Delight","Lilies","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",120.00));
-         prodList.add(new CatalogProduct("CP006","Lily Love","Lilies","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",120.00));
-          prodList.add(new CatalogProduct("CP007","Princess","Lilies","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",120.00));
-           prodList.add(new CatalogProduct("CP008","Montrex Tulips","Tulips","Available","Include red tulips, yellow tulips, purple tulips.",120.00));
-            prodList.add(new CatalogProduct("CP009","Purple Tulips in the vase","Tulips","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",120.00));
-             prodList.add(new CatalogProduct("CP010","Over The Rainbow","Others","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",120.00));
-              prodList.add(new CatalogProduct("CP011","Sweet Admiration","Others","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",120.00));
+        prodList.add(new CatalogProduct("CP005","Pink Delight","Lilies","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",100.00));
+         prodList.add(new CatalogProduct("CP006","Lily Love","Lilies","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",100.00));
+          prodList.add(new CatalogProduct("CP007","Princess","Lilies","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",100.00));
+           prodList.add(new CatalogProduct("CP008","Montrex Tulips","Tulips","Available","Include red tulips, yellow tulips, purple tulips.",100.00));
+            prodList.add(new CatalogProduct("CP009","Purple Tulips","Tulips","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",100.00));
+             prodList.add(new CatalogProduct("CP010","Over The Rainbow","Others","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",100.00));
+              prodList.add(new CatalogProduct("CP011","Sweet Admiration","Others","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",100.00));
               //insert dummy order data
    orderList.add(new OrderList("OL0001","CP001","2","OR0001"));
       orderList.add(new OrderList("OL0002","CP002","1","OR0001"));
@@ -70,9 +71,6 @@ public void initialize(){
                  //   System.out.println(prodList.getEntry(i+1).getProdType());
                     containsInDDL++;
                 }
-               // System.out.println(containsInDDL);
-               
-                
             }
              if(containsInDDL==0){
                     
@@ -130,12 +128,12 @@ public void initialize(){
         jPanel2 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel9 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         flowerStyleLabel = new javax.swing.JLabel();
@@ -146,6 +144,7 @@ public void initialize(){
         imgDesclbl = new javax.swing.JLabel();
         lblQuanity = new javax.swing.JLabel();
         tfQuantity = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
         errorMsg1 = new javax.swing.JLabel();
@@ -174,7 +173,11 @@ public void initialize(){
 
         jLabel9.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 36)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("Catalog Order");
+        jLabel9.setText("Product Order");
+
+        jLabel2.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Order Catlog Product or Customize Product from here!");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -185,7 +188,9 @@ public void initialize(){
                     .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(52, 52, 52)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -194,7 +199,9 @@ public void initialize(){
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21)
                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(97, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addContainerGap(77, Short.MAX_VALUE))
         );
 
         jPanel1.setBackground(new java.awt.Color(54, 33, 89));
@@ -223,23 +230,6 @@ public void initialize(){
 
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
 
-        jButton1.setBackground(new java.awt.Color(204, 255, 204));
-        jButton1.setFont(new java.awt.Font("Microsoft Himalaya", 1, 24)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ui/images/icons8_Checked_26px.png"))); // NOI18N
-        jButton1.setText("Customize");
-        jButton1.setToolTipText("");
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
-            }
-        });
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         jButton2.setFont(new java.awt.Font("Microsoft Himalaya", 1, 24)); // NOI18N
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ui/images/icons8_Add_28px.png"))); // NOI18N
         jButton2.setText("Add to current order");
@@ -257,7 +247,6 @@ public void initialize(){
         flowerStyleLabel.setText("Please choose a product");
 
         Flowerddl.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        Flowerddl.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Roses", "Lilies", "Tulips", "Others" }));
         Flowerddl.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 FlowerddlActionPerformed(evt);
@@ -297,6 +286,8 @@ public void initialize(){
 
         lblQuanity.setText("Quanity ");
 
+        jLabel3.setText("Unit Price:");
+
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
@@ -313,20 +304,21 @@ public void initialize(){
                             .addGroup(jPanel9Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(jPanel9Layout.createSequentialGroup()
                                         .addComponent(Flowerddl, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(43, 43, 43)
-                                        .addComponent(flowerStyleLabel)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(FlowerStyleddl, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(flowerStyleLabel))
                                     .addGroup(jPanel9Layout.createSequentialGroup()
-                                        .addComponent(jButton1)
-                                        .addGap(79, 79, 79)
-                                        .addComponent(lblQuanity)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(tfQuantity)))
-                                .addGap(0, 146, Short.MAX_VALUE))
+                                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel3)
+                                            .addComponent(lblQuanity))
+                                        .addGap(8, 8, 8)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(FlowerStyleddl, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tfQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 76, Short.MAX_VALUE))
                             .addComponent(imgDesclbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())
                     .addGroup(jPanel9Layout.createSequentialGroup()
@@ -343,14 +335,15 @@ public void initialize(){
                     .addComponent(flowerStyleLabel)
                     .addComponent(Flowerddl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(FlowerStyleddl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblQuanity)
                     .addComponent(tfQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40)
+                .addGap(29, 29, 29)
                 .addComponent(FlowerImage, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addComponent(imgDesclbl, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -365,8 +358,8 @@ public void initialize(){
         jPanel10.setBackground(new java.awt.Color(255, 255, 255));
 
         jButton3.setFont(new java.awt.Font("Microsoft Himalaya", 1, 24)); // NOI18N
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ui/images/icons8_Next_page_28px.png"))); // NOI18N
-        jButton3.setText("Next");
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ui/images/icons8_Checked_26px.png"))); // NOI18N
+        jButton3.setText("Confirm Order");
         jButton3.setActionCommand("Add");
         jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -422,7 +415,7 @@ public void initialize(){
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
-                .addContainerGap(72, Short.MAX_VALUE)
+                .addContainerGap(92, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(84, 84, 84)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -463,7 +456,7 @@ public void initialize(){
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
-                .addContainerGap(409, Short.MAX_VALUE)
+                .addContainerGap(424, Short.MAX_VALUE)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton4)
                     .addComponent(errorMsg2))
@@ -508,21 +501,76 @@ public void initialize(){
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-
-    }//GEN-LAST:event_jButton1MouseClicked
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
+    public void refreshOrderTable(){
+        
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        int rowCount = model.getRowCount();
+      //  System.out.print(rowCount+"222");
+        for (int i = rowCount - 1; i >= 0; i--) {
+    model.removeRow(i);
+}
+        
+        System.out.print(orderList.getNumberOfEntries());
+       for(int i=0;i<orderList.getNumberOfEntries();i++){
+           for(int j=0;j<prodList.getNumberOfEntries();j++){
+            //   System.out.println(prodList.getEntry(j+1).getProdName                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+               if(orderList.getEntry(i+1).getProdID().equals(prodList.getEntry(j+1).getProdID())){
+                   model.addRow(new Object[]{prodList.getEntry(j+1).getProdName(),orderList.getEntry(i+1).getQuantity()});
+           }
+           
+       }
+       }
+    }
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+      // check whether item is slected
+      //System.out.print(FlowerStyleddl.getItemCount()<3);
       
-        JOptionPane.showMessageDialog(null,"Item is successfully addedd to cart","Confirmation message", JOptionPane.INFORMATION_MESSAGE);
+      if(Flowerddl.getSelectedIndex()==0){
+          JOptionPane.showMessageDialog(null,"Please select product type!","Warning", JOptionPane.WARNING_MESSAGE);
+      }else if(tfQuantity.getText().equals("")){
+          //check if quantity is entered
+           // check whether item is slected
+      
+          JOptionPane.showMessageDialog(null,"Please enter quantity!","Warning", JOptionPane.WARNING_MESSAGE);
+      }else if (tfQuantity.getText()!=""){
+          //check if quantity is number
+          if(!tfQuantity.getText().matches("^[0-9]*$")){
+          JOptionPane.showMessageDialog(null,"Quantity must be Integer! \n E.G(0-9)","Warning", JOptionPane.WARNING_MESSAGE);
+      }else{
+              //get the flower ID
+              String prodID="";
+              for(int j=0;j<prodList.getNumberOfEntries();j++){
+            if(prodList.getEntry(j+1).getProdName().equals(FlowerStyleddl.getSelectedItem().toString())){
+                prodID =prodList.getEntry(j+1).getProdID();
+            }
+           }
+           
+       
+              orderList.add(new OrderList(GenerateNextOLID(),prodID,tfQuantity.getText(),"OR0001"));
+              refreshOrderTable();
+          JOptionPane.showMessageDialog(null,"Item is successfully addedd to cart","Confirmation message", JOptionPane.INFORMATION_MESSAGE);
+      }  
+      }
+        
     }//GEN-LAST:event_jButton2ActionPerformed
-
+    public String GenerateNextOLID(){
+        // read the last item and add to next
+        String newID="";
+          int lastOrderItemIndex = orderList.getNumberOfEntries();
+          //update the last orderListID
+          String lastOrderListID = orderList.getEntry(lastOrderItemIndex).getOLID();
+          String prefix =lastOrderListID.substring(0, 2);
+          int integer = Integer.parseInt(lastOrderListID.substring(2,6));
+          integer +=1;
+          
+          newID=prefix+String.format("%04d", integer);
+          System.out.println(newID);
+          System.out.println(lastOrderItemIndex);
+     return newID;
+          
+    }
     private void FlowerddlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FlowerddlActionPerformed
-    /*   Flowerddl.removeAllItems();
+      // Flowerddl.removeAllItems();
        
         
         String flower=Flowerddl.getSelectedItem().toString();
@@ -564,7 +612,7 @@ public void initialize(){
             flowerStyleLabel.setVisible(true);
             FlowerStyleddl.setVisible(true);
             //FlowerStyleddl.setSelectedIndex(0);
-        }*/
+        }
     }//GEN-LAST:event_FlowerddlActionPerformed
 
     private void FlowerStyleddlMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FlowerStyleddlMouseExited
@@ -579,51 +627,62 @@ public void initialize(){
         String s="";
         String imgFile="";
         String imgDesc="";
+        jLabel3.setVisible(true);
+        String price="Unit price: ";
+        
         FlowerStyleddl.addItem(" ");
         // the image is show only when the flower styl drop down list is enable
         if(FlowerStyleddl.isShowing()){
-
+        s = FlowerStyleddl.getSelectedItem().toString();
+           /* for(int i=0; i<prodList.getNumberOfEntries();i++){
+                if(s==prodList.getEntry(i+1).getProdName()){
+                    
+                }
+            }*/
             //  FlowerStyleddl.setSelectedIndex(0);
-            s = FlowerStyleddl.getSelectedItem().toString();
+            
 
             if(s=="Just For You"){
                 imgFile="JustForYou.jpg";
                 imgDesc="";
+                price+= String.format("%.2f",120.00);
             }else if(s=="True Romance"){
                 imgFile="TrueRomance.jpg";
                 imgDesc="";
+                price+= String.format("%.2f",120.00);
             }else if(s=="Teddy Red"){
                 imgFile="TeddyRed.jpg";
-                imgDesc="";
+                imgDesc="";price+= String.format("%.2f",120.00);
             }else if(s=="Queen"){
                 imgFile="Queen.jpg";
-                imgDesc="";
+                imgDesc="";price+= String.format("%.2f",120.00);
             }else if(s=="Pink Delight"){
                 imgFile="PinkDelight.jpg";
-                imgDesc="";
+                imgDesc="";price+= String.format("%.2f",100.00);
             }else if(s=="Lily Love"){
                 imgFile="Lily Love.jpg";
-                imgDesc="";
+                imgDesc="";price+= String.format("%.2f",100.00);
             }else if(s=="Princess"){
                 imgFile="Princess.jpg";
-                imgDesc="";
+                imgDesc="";price+= String.format("%.2f",100.00);
             }else if(s=="Over the Rainbow"){
-                imgFile="OverTheRainbow.jpg";imgDesc="";
+                imgFile="OverTheRainbow.jpg";imgDesc="";price+= String.format("%.2f",100.00);
             }else if(s=="Sweet Admiration"){
                 imgFile="SweetAdmiration.jpg";
-                imgDesc="";
+                imgDesc="";price+= String.format("%.2f",100.00);
             }else if(s=="Montrex Tulips"){
                 imgFile="MontrexTulips.jpg";
-                imgDesc="";
-            }else if(s=="Purple Tulips in a Vase"){
+                imgDesc="";price+= String.format("%.2f",100.00);
+            }else if(s=="Purple Tulips"){
                 imgFile="PurpleTulips.jpg";
-                imgDesc="";
+                imgDesc="";price+= String.format("%.2f",100.00);
             }
             ImageIcon imgIcon;
             imgIcon = new ImageIcon(getClass().getResource("/ui/images/"+imgFile));
             Image image = imgIcon.getImage();
             Image resize = image.getScaledInstance( 200, 150, java.awt.Image.SCALE_SMOOTH);
             imgIcon = new ImageIcon(resize);
+            jLabel3.setText(price);
             imgDesclbl.setText(imgDesc);
 
             FlowerImage.setIcon(imgIcon);
@@ -635,7 +694,8 @@ public void initialize(){
     }//GEN-LAST:event_FlowerStyleddlActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+     new ConfirmOrder(orderList,prodList).setVisible(true);
+     
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -706,11 +766,12 @@ public void initialize(){
     private javax.swing.JLabel errorMsg2;
     private javax.swing.JLabel flowerStyleLabel;
     private javax.swing.JLabel imgDesclbl;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
