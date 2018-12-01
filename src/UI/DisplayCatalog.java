@@ -177,7 +177,7 @@ public void initialize(){
 
         jLabel2.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Order Catlog Product or Customize Product from here!");
+        jLabel2.setText("Order Catlog Product from here!");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -463,7 +463,7 @@ public void initialize(){
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("On-Hold Order", jPanel11);
+        jTabbedPane1.addTab("", jPanel11);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
