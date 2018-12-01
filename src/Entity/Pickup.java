@@ -18,12 +18,21 @@ public class Pickup {
     private String pickupTime;
     private String pickupPriority;
 
-    @Override
-    public String toString() {
-        return "Pickup{" + "order=" + order + ", orderID=" + orderID + ", pickupID=" + pickupID + ", pickupDate=" + pickupDate + ", pickupTime=" + pickupTime + ", pickupPriority=" + pickupPriority + '}';
-    }
+  
+    
 
     public Pickup() {
+    }
+
+    @Override
+    public String toString() {
+        return "Pickup{" + "orderID=" + orderID + ", pickupID=" + pickupID + ", pickupPriority=" + pickupPriority + '}';
+    }
+
+    public Pickup(String orderID, String pickupID, String pickupPriority) {
+        this.orderID = orderID;
+        this.pickupID = pickupID;
+        this.pickupPriority = pickupPriority;
     }
 
     public Pickup(Order order, String orderID, String pickupID, String pickupDate, String pickupTime, String pickupPriority) {

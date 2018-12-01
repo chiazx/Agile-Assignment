@@ -18,6 +18,14 @@ public class Delivery {
     private String roadName;
     private String address;
 
+    public Delivery(String orderID, String deliveryID, String deliveryManName, String deliveryDate, String address) {
+        this.orderID = orderID;
+        this.deliveryID = deliveryID;
+        this.deliveryManName = deliveryManName;
+        this.deliveryDate = deliveryDate;
+        this.address = address;
+    }
+
     public Delivery(Order order, String orderID, String deliveryID, String deliveryManName, String deliveryDate, String roadName, String address) {
         this.order = order;
         this.orderID = orderID;
@@ -38,8 +46,10 @@ public class Delivery {
 
     @Override
     public String toString() {
-        return "Delivery{" + "order=" + order + ", orderID=" + orderID + ", deliveryID=" + deliveryID + ", deliveryManName=" + deliveryManName + ", roadName=" + roadName + ", address=" + address + '}';
+        return "Delivery{" + "orderID=" + orderID + ", deliveryID=" + deliveryID + ", deliveryManName=" + deliveryManName + ", deliveryDate=" + deliveryDate + ", address=" + address + '}';
     }
+
+    
 
     public Delivery() {
     }
