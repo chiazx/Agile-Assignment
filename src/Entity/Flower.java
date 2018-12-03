@@ -5,30 +5,23 @@
  */
 package Entity;
 
+import javax.swing.Icon;
+
 /**
  *
  * @author User
  */
 public class Flower {
-    private int fID = 0001;
-    private String fImage;
+    private Icon fImage;
     private String fName;
     private String fType;
     private int quantity = 0;
     private double price;
     private String fDescription;
     private String fStatus;
-
-    public Flower(String fImage,String fName,String fType , int quantity, String fStatus){
+        
+    public Flower(Icon fImage, String fName, String fType, int quantity , double price, String fDescription) {
         this.fImage = fImage;
-        this.fName = fName;
-        this.fType = fType;
-        this.quantity = quantity;
-        this.fStatus = fStatus;
-    }
-    
-    
-    public Flower(String fName, String fType, int quantity , double price, String fDescription) {
         this.fName = fName;
         this.fType = fType;
         this.quantity=quantity;
@@ -84,26 +77,15 @@ public class Flower {
         this.fStatus = fStatus;
     }    
 
-    public String getfImage() {
+    public Icon getfImage() {
         return fImage;
     }
 
-    public void setfImage(String fImage) {
+    public void setfImage(Icon fImage) {
         this.fImage = fImage;
     }
-
-    public int getfID() {
-        return fID;
-    }
-
-    public void setfID(int fID) {
-        this.fID = fID;
-    }
-
-
-
     public String toString(){
-        return String.format(" Flower name :%s \n Flower type :%s \n Quantity :%d \n Price :RM%.2f \n Description :%s" ,fName , fType, quantity, price, fDescription);
+        return String.format("Flower name :%s \n Flower type :%s \n Quantity :%d \n Price :RM%.2f \n Description :%s \n",fName , fType, quantity, price, fDescription);
     }
     
 }
