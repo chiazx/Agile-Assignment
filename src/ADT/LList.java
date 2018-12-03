@@ -1,56 +1,64 @@
+
 package ADT;
 
-import Entity.Flower;
+import ADT.ListInterface;
 
 /**
  * LList.java A class that implements the ADT list by using a chain of nodes,
- * with the node implemented as an inner class with setters and getters.
- *
- * @author Frank M. Carrano
- * @version 2.0
+ * with the node implemented as an inner class.
  */
 public class LList<T> implements ListInterface<T> {
 
-  private Node<T> firstNode;
-  private int numberOfEntries;
-    
+  private Node firstNode; // reference to first node
+  private int numberOfEntries;  	// number of entries in list
+
   public LList() {
     clear();
   }
 
+  @Override
   public final void clear() {
     firstNode = null;
     numberOfEntries = 0;
   }
 
+  @Override
   public boolean add(T newEntry) {
-    Node<T> newNode = new Node<>(newEntry);
+    Node newNode = new Node(newEntry);	// create the new node
 
-    if (isEmpty()) {
+    if (isEmpty()) // if empty list
+    {
       firstNode = newNode;
-    } else {
-      Node<T> lastNode = getNodeAt(numberOfEntries);
-      lastNode.setNext(newNode);
+    } else {                        // add to end of nonempty list
+      Node currentNode = firstNode;					// traverse linked list with p pointing to the current node
+      while (currentNode.next != null) {		// while have not reached the last node
+        currentNode = currentNode.next;
+      }
+      currentNode.next = newNode; // make last node reference new node
     }
 
     numberOfEntries++;
     return true;
   }
 
-  public boolean add(int newPosition, T newEntry) {
+  @Override
+  public boolean add(int newPosition, T newEntry) { // OutOfMemoryError possible
     boolean isSuccessful = true;
 
     if ((newPosition >= 1) && (newPosition <= numberOfEntries + 1)) {
-      Node<T> newNode = new Node<T>(newEntry);
+      Node newNode = new Node(newEntry);
 
       if (isEmpty() || (newPosition == 1)) {     // case 1: add to beginning of list
-        newNode.setNext(firstNode);
+        newNode.next = firstNode;
         firstNode = newNode;
-      } else {								                      // case 2: list is not empty and newPosition > 1
-        Node nodeBefore = getNodeAt(newPosition - 1);
-        Node nodeAfter = nodeBefore.getNext();
-        newNode.setNext(nodeAfter);
-        nodeBefore.setNext(newNode);
+      } else {		                      // case 2: list is not empty and newPosition > 1
+        Node nodeBefore = firstNode;
+        for (int i = 1; i < newPosition - 1; ++i) {
+          nodeBefore = nodeBefore.next;		// advance nodeBefore to its next node
+        }
+
+        newNode.next = nodeBefore.next;	// make new node point to current node at newPosition
+        nodeBefore.next = newNode;		// make the node before point to the new node
       }
 
       numberOfEntries++;
@@ -61,33 +69,41 @@ public class LList<T> implements ListInterface<T> {
     return isSuccessful;
   }
 
+  @Override
   public T remove(int givenPosition) {
-    T result = null;
+    T result = null;                 // return value
 
     if ((givenPosition >= 1) && (givenPosition <= numberOfEntries)) {
       if (givenPosition == 1) {      // case 1: remove first entry
-        result = firstNode.getData();     // save entry to be removed 
-        firstNode = firstNode.getNext();
+        result = firstNode.data;     // save entry to be removed
+        firstNode = firstNode.next;
       } else {                         // case 2: givenPosition > 1
-        Node<T> nodeBefore = getNodeAt(givenPosition - 1);
-        Node<T> nodeToRemove = nodeBefore.getNext();
-        Node<T> nodeAfter = nodeToRemove.getNext();
-        nodeBefore.setNext(nodeAfter); // disconnect the node to be removed
-        result = nodeToRemove.getData();  // save entry to be removed
-      }
+        Node nodeBefore = firstNode;
+        for (int i = 1; i < givenPosition - 1; ++i) {
+          nodeBefore = nodeBefore.next;		// advance nodeBefore to its next node
+        }
+        result = nodeBefore.next.data;  // save entry to be removed
+        nodeBefore.next = nodeBefore.next.next;	// make node before point to node after the
+      } 																// one to be deleted (to disconnect node from chain)
 
       numberOfEntries--;
     }
 
-    return result;
+    return result;                   // return removed entry, or
+    // null if operation fails
   }
 
+  @Override
   public boolean replace(int givenPosition, T newEntry) {
     boolean isSuccessful = true;
 
     if ((givenPosition >= 1) && (givenPosition <= numberOfEntries)) {
-      Node<T> desiredNode = getNodeAt(givenPosition);
-      desiredNode.setData(newEntry);
+      Node currentNode = firstNode;
+      for (int i = 0; i < givenPosition - 1; ++i) {
+        // System.out.println("Trace| currentNode.data = " + currentNode.data + "\t, i = " + i);
+        currentNode = currentNode.next;		// advance currentNode to next node
+      }
+      currentNode.data = newEntry;	// currentNode is pointing to the node at givenPosition
     } else {
       isSuccessful = false;
     }
@@ -95,85 +111,82 @@ public class LList<T> implements ListInterface<T> {
     return isSuccessful;
   }
 
+  @Override
   public T getEntry(int givenPosition) {
     T result = null;
 
     if ((givenPosition >= 1) && (givenPosition <= numberOfEntries)) {
-      result = getNodeAt(givenPosition).getData();
+      Node currentNode = firstNode;
+      for (int i = 0; i < givenPosition - 1; ++i) {
+        currentNode = currentNode.next;		// advance currentNode to next node
+      }
+      result = currentNode.data;	// currentNode is pointing to the node at givenPosition
     }
 
     return result;
   }
 
+  @Override
   public boolean contains(T anEntry) {
     boolean found = false;
-    Node<T> currentNode = firstNode;
+    Node currentNode = firstNode;
 
     while (!found && (currentNode != null)) {
-      if (anEntry.equals(currentNode.getData())) {
+      if (anEntry.equals(currentNode.data)) {
         found = true;
       } else {
-        currentNode = currentNode.getNext();
+        currentNode = currentNode.next;
       }
     }
 
     return found;
   }
 
+  @Override
   public int getNumberOfEntries() {
     return numberOfEntries;
   }
 
+  @Override
   public boolean isEmpty() {
     boolean result;
 
-    if (numberOfEntries == 0) {
-      result = true;
-    } else {
-      result = false;
-    }
+    result = numberOfEntries == 0;
 
     return result;
   }
 
+  @Override
   public boolean isFull() {
     return false;
   }
 
+  @Override
   public String toString() {
     String outputStr = "";
-    Node<T> currentNode = firstNode;
+    Node currentNode = firstNode;
     while (currentNode != null) {
-      outputStr += currentNode.getData() + "\n";;
-      currentNode = currentNode.getNext();
+      outputStr += currentNode.data + "\n";
+      currentNode = currentNode.next;
     }
     return outputStr;
   }
 
-  private void displayChain(Node nodeOne) {
-    if (nodeOne != null) {
-      System.out.print(nodeOne.getData() + " ");
-      displayChain(nodeOne.getNext());
-    }
-  }
+  private class Node {
 
-  /**
-   * Task: Returns a reference to the node at a given position. Precondition:
-   * List is not empty; 1 <= givenPosition <= numberOfEntries.
-   */
-  private Node<T> getNodeAt(int givenPosition) {
-    Node<T> currentNode = firstNode;
+    private T data;
+    private Node next;
 
-    // traverse the list to locate the desired node
-    for (int counter = 1; counter < givenPosition; counter++) {
-      currentNode = currentNode.getNext();
+    private Node(T data) {
+      this.data = data;
+      this.next = null;
     }
 
-    return currentNode;
-  }
-
-    public void remove(ListInterface<Flower> flowerList) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private Node(T data, Node next) {
+      this.data = data;
+      this.next = next;
     }
+  } // end Node
 
-}
+} // end LList
+
