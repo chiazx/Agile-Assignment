@@ -10,7 +10,7 @@ package Entity;
  * @author boonk
  */
 public class CustomizeProduct {
-    private int custProdID;
+    private String custProdID;
     private String style;
     private String size;
     private String flower1;
@@ -22,7 +22,7 @@ public class CustomizeProduct {
     public CustomizeProduct() {
     }
 
-    public CustomizeProduct(int custProdID, String style, String size, String flower1, String flower2, String accessories1, String accessories2, String priority) {
+    public CustomizeProduct(String custProdID, String style, String size, String flower1, String flower2, String accessories1, String accessories2, String priority) {
         this.custProdID = custProdID;
         this.style = style;
         this.size = size;
@@ -56,11 +56,11 @@ public class CustomizeProduct {
 
     
 
-    public int getCustProdID() {
+    public String getCustProdID() {
         return custProdID;
     }
 
-    public void setCustProdID(int custProdID) {
+    public void setCustProdID(String custProdID) {
         this.custProdID = custProdID;
     }
 
