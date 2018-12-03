@@ -1,5 +1,6 @@
 package ADT;
 
+
 public interface ListInterface<T> {
 
   /**
