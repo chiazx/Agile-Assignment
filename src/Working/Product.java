@@ -715,7 +715,7 @@ public class Product extends javax.swing.JFrame {
         else if(sQuantity.getText().matches("")){
             JOptionPane.showMessageDialog(null,"Please do not leave blank","Information",JOptionPane.INFORMATION_MESSAGE);
         }
-        else if(Character.isDigit(Integer.parseInt(sQuantity.getText()))){
+        else if(!sQuantity.getText().matches("^[0-9]*$")){
             JOptionPane.showMessageDialog(null,"Only in digit format","Information", JOptionPane.INFORMATION_MESSAGE);
         }
         else{
@@ -746,9 +746,12 @@ public class Product extends javax.swing.JFrame {
         if(fName.getText().matches("") || Quantity.getText().matches("") || Price.getText().matches("")|| fDescription.getText().matches("") || Type.getText().matches("")){
             JOptionPane.showMessageDialog(null,"Please do not leave blank","Information",JOptionPane.INFORMATION_MESSAGE);
         }
-        else if(!Quantity.getText().matches("^[0-9]*$") && Price.getText().matches("^[0-9]*$")){
+        else if(!Quantity.getText().matches("^[0-9]*$")){
             JOptionPane.showMessageDialog(null,"Only in digit format","Information", JOptionPane.INFORMATION_MESSAGE);
-        }         
+        }
+        else if(!Price.getText().matches("^[0-9]*$")){
+            JOptionPane.showMessageDialog(null,"Only in digit format","Information", JOptionPane.INFORMATION_MESSAGE);
+        }
         else{
         String image = path.getText();
         String name = fName.getText();
@@ -780,7 +783,10 @@ public class Product extends javax.swing.JFrame {
         if(uType.getText().matches("") || uQuantity.getText().matches("") || uPrice.getText().matches("") || uDescription.getText().matches("")){
             JOptionPane.showMessageDialog(null,"Please do not leave blank","Information",JOptionPane.INFORMATION_MESSAGE);
         }
-        else if(!uQuantity.getText().matches("^[0-9]*$") || uPrice.getText().matches("^[0-9]*$")){
+        else if(!uQuantity.getText().matches("^[0-9]*$")){
+            JOptionPane.showMessageDialog(null,"Only in digit format","Information", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else if(!uPrice.getText().matches("^[0-9]*$")){
             JOptionPane.showMessageDialog(null,"Only in digit format","Information", JOptionPane.INFORMATION_MESSAGE);
         }
         else{
