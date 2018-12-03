@@ -24,6 +24,7 @@ public class CustomizedFloral extends javax.swing.JFrame {
 
    
         private ListInterface<CustomizeProduct> floralList = new LList<>();
+        String id;
         int cust_id=0;
     
     /**
@@ -140,6 +141,7 @@ public class CustomizedFloral extends javax.swing.JFrame {
         );
 
         jPanel2.setBackground(new java.awt.Color(122, 72, 221));
+        jPanel2.setRequestFocusEnabled(false);
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -214,28 +216,28 @@ public class CustomizedFloral extends javax.swing.JFrame {
         jLabel7.setText("Floral Size");
 
         style.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        style.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Elliptical", "Vertical", "Horizontal", "Triangle", "The \"S\" Shaped", "The Cascade" }));
+        style.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Elliptical (RM20)", "Vertical (RM15)", "Horizontal (RM25)", "Triangle (RM20)", "The \"S\" Shaped (RM10)", "The Cascade (RM25)" }));
 
         jLabel8.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel8.setText("Flower");
 
         size.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        size.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Small", "Medium", "Big" }));
+        size.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Small (RM10)", "Medium (Rm20)", "Big (Rm30)" }));
 
         flower1.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        flower1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Waxflower", "Lily (oriental)", "Kangaroo Paw", "Gerbera (miniature)", "Eremurus", "Curly Willow" }));
+        flower1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Waxflower (RM20)", "Lily (oriental) (RM15)", "Kangaroo Paw (RM25)", "Gerbera (miniature) (RM20)", "Eremurus (RM10)", "Curly Willow (RM10)" }));
 
         flower2.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        flower2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Alstroemeria (Peruvian Lilies)", "Baby's Breath (Gypsophila)", "Carnation", "Hypericum", "Limonium", "Orchid (japhet)" }));
+        flower2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Alstroemeria (Peruvian Lilies) (RM20)", "Baby's Breath (Gypsophila) (RM15)", "Carnation (RM25)", "Hypericum (RM20)", "Limonium (RM10)", "Orchid (japhet) (RM25)" }));
 
         jLabel10.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel10.setText("Accessories");
 
         ac1.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        ac1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Wire Gravestone Saddle", "Heart Wreaths", "Wire Wreath Easel", "Nylon Leaves" }));
+        ac1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Wire Gravestone Saddle (RM20)", "Heart Wreaths (RM15)", "Wire Wreath Easel (RM25)", "Nylon Leaves (RM20)" }));
 
         ac2.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        ac2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bulk Round Pearl Corsage Pins", "Medium Metal Alligator Clips", "Acrylic Corsage Boxes", "Aluminium Craft Wire" }));
+        ac2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bulk Round Pearl Corsage Pins (RM20)", "Medium Metal Alligator Clips (RM15)", "Acrylic Corsage Boxes (RM25)", "Aluminium Craft Wire (RM20)" }));
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -340,14 +342,92 @@ public class CustomizedFloral extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        int f1price=0;
+        int f2price=0;
+        int ac1price=0;
+        int ac2price=0;
+        int sizeprice=0;
+        int styleprice=0;
+        if(flower1.getSelectedIndex()==0){
+            f1price=20;
+        }else if(flower1.getSelectedIndex()==1){
+            f1price=15;
+        }else if(flower1.getSelectedIndex()==2){
+            f1price=25;
+        }else if(flower1.getSelectedIndex()==3){
+            f1price=20;
+        }else if(flower1.getSelectedIndex()==4){
+            f1price=10;
+        }else if(flower1.getSelectedIndex()==5){
+            f1price=10;
+        }
+        
+        if(flower2.getSelectedIndex()==0){
+            f2price=20;
+        }else if(flower2.getSelectedIndex()==1){
+            f2price=15;
+        }else if(flower2.getSelectedIndex()==2){
+            f2price=25;
+        }else if(flower2.getSelectedIndex()==3){
+            f2price=20;
+        }else if(flower2.getSelectedIndex()==4){
+            f2price=10;
+        }else if(flower2.getSelectedIndex()==5){
+            f2price=25;
+        }
+        
+        if(ac1.getSelectedIndex()==0){
+            ac1price=20;
+        }else if(ac1.getSelectedIndex()==1){
+            ac1price=15;
+        }else if(ac1.getSelectedIndex()==2){
+            ac1price=25;
+        }else if(ac1.getSelectedIndex()==3){
+            ac1price=20;
+        }
+        
+        if(ac2.getSelectedIndex()==0){
+            ac2price=20;
+        }else if(ac2.getSelectedIndex()==1){
+            ac2price=15;
+        }else if(ac2.getSelectedIndex()==2){
+            ac2price=25;
+        }else if(ac2.getSelectedIndex()==3){
+            ac2price=20;
+        }
+        
+        if(size.getSelectedIndex()==0){
+            sizeprice=10;
+        }else if(size.getSelectedIndex()==1){
+            sizeprice=20;
+        }else if(size.getSelectedIndex()==2){
+            sizeprice=30;
+        }
+        
+        if(style.getSelectedIndex()==0){
+            styleprice=20;
+        }else if(style.getSelectedIndex()==1){
+            styleprice=15;
+        }else if(style.getSelectedIndex()==2){
+            styleprice=25;
+        }else if(style.getSelectedIndex()==3){
+            styleprice=20;
+        }else if(style.getSelectedIndex()==4){
+            styleprice=10;
+        }else if(style.getSelectedIndex()==5){
+            styleprice=25;
+        }
+        
+        
         cust_id=cust_id+1;
+        String id="CF"+String.format("%04d", cust_id);
        //CustomizeProduct cf= new CustomizeProduct(cust_id,style.getSelectedItem().toString(),size.getSelectedItem().toString(),flower1.getSelectedItem().toString(),flower2.getSelectedItem().toString(),ac1.getSelectedItem().toString(),ac2.getSelectedItem().toString(),"abc");
        //floralList.add(cf);
        
       //System.out.println(floralList);
-      int a =JOptionPane.showConfirmDialog(null, "Are you sure want to add this customized product??","Yes Or No",JOptionPane.YES_NO_OPTION);
+      int a =JOptionPane.showConfirmDialog(null,"Style : "+style.getSelectedItem().toString()+"\nSize : "+size.getSelectedItem().toString()+"\nFlower : "+flower1.getSelectedItem().toString()+"  & "+flower2.getSelectedItem().toString()+"\nAccessories : "+ac1.getSelectedItem().toString()+" & "+ac2.getSelectedItem().toString(),"Yes Or No",JOptionPane.YES_NO_OPTION);
       if(a==JOptionPane.YES_OPTION){
-        new Priority(cust_id,style.getSelectedItem().toString(),size.getSelectedItem().toString(),flower1.getSelectedItem().toString(),flower2.getSelectedItem().toString(),ac1.getSelectedItem().toString(),ac2.getSelectedItem().toString()).setVisible(true);
+        new Priority(id,style.getSelectedItem().toString(),size.getSelectedItem().toString(),flower1.getSelectedItem().toString(),flower2.getSelectedItem().toString(),ac1.getSelectedItem().toString(),ac2.getSelectedItem().toString(),f1price,f2price,ac1price,ac2price,sizeprice,styleprice).setVisible(true);
       
         this.setVisible(false);
        }

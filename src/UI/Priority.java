@@ -23,19 +23,25 @@ public class Priority extends javax.swing.JFrame {
 
    
         private ListInterface<CustomizeProduct> floralList = new LList<>();
-        int cust_id=0;
+        String cust_id;
         String style;
         String size;
         String flower1;
         String flower2;
         String ac1;
         String ac2;
+        int f1price;
+        int f2price;
+        int ac1price;
+        int ac2price;
+        int sizeprice;
+        int styleprice;
         
     
     /**
      * Creates new form StaffMaintenance
      */
-    public Priority(int cust_id,String style,String size,String flower1,String flower2,String ac1,String ac2) {
+    public Priority(String cust_id,String style,String size,String flower1,String flower2,String ac1,String ac2,int f1price,int f2price,int ac1price,int ac2price,int sizeprice,int styleprice) {
         this.cust_id=cust_id;
         this.style=style;
         this.size=size;
@@ -43,6 +49,12 @@ public class Priority extends javax.swing.JFrame {
         this.flower2=flower2;
         this.ac1=ac1;
         this.ac2=ac2;
+        this.f1price=f1price;
+        this.f2price=f2price;
+        this.ac1price=ac1price;
+        this.ac2price=ac2price;
+        this.sizeprice=sizeprice;
+        this.styleprice=styleprice;
        initComponents();
        init();
         
@@ -53,7 +65,7 @@ public class Priority extends javax.swing.JFrame {
         
     }
         public void init(){
-            System.out.print(cust_id+style+size);
+            
         }
     
         
@@ -165,7 +177,7 @@ public class Priority extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 36)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("Customized Floral Arrangement");
+        jLabel9.setText("Select Pick Up Priority");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -218,7 +230,7 @@ public class Priority extends javax.swing.JFrame {
 
         jLabel5.setText("Pick Up Priority");
 
-        priority.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Express", "Normal", "Flexi" }));
+        priority.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Express (RM20)", "Normal (RM10)", "Flexi (RM0)" }));
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -284,10 +296,24 @@ public class Priority extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        int priorityprice=0;
+        double totalprice=0;
+        if(priority.getSelectedIndex()==0){
+            priorityprice=20;
+        }else if(priority.getSelectedIndex()==1){
+            priorityprice=10;
+        }else if(priority.getSelectedIndex()==2){
+            priorityprice=0;
+        }
+        totalprice=f1price+f2price+ac1price+ac2price+sizeprice+styleprice+priorityprice;
+        
+       JOptionPane.showMessageDialog(null, "Total Price = RM"+totalprice,"Successfully",JOptionPane.INFORMATION_MESSAGE);
         CustomizeProduct cf= new CustomizeProduct(cust_id,style,size,flower1,flower2,ac1,ac2,priority.getSelectedItem().toString());
         floralList.add(cf);
         
         System.out.println(floralList);
+        new CustomizedFloral().setVisible(true);
+        this.setVisible(false);
         
        
     }//GEN-LAST:event_jButton1ActionPerformed
