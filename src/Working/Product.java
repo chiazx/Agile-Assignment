@@ -32,7 +32,6 @@ public class Product extends javax.swing.JFrame {
      */ 
     public Product() {
         initComponents();
-        //initialize();
     }
    
     ListInterface<Flower> flowerList = new LList<>();     
@@ -190,6 +189,11 @@ public class Product extends javax.swing.JFrame {
         });
 
         jButton3.setText("Cancel");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jLabel22.setText("Photo");
 
@@ -659,8 +663,7 @@ public class Product extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 742, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
+                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 742, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -719,12 +722,23 @@ public class Product extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"Only in digit format","Information", JOptionPane.INFORMATION_MESSAGE);
         }
         else{
+            int a =JOptionPane.showConfirmDialog(null, "Do you want to update the status","Confirmation", JOptionPane.YES_OPTION);
+            if(a ==0){
             ImageIcon imgThisImg = new ImageIcon("\\Users\\User\\Desktop\\Agile-Assignment\\src\\UI\\Image\\white.png");
             jLabel17.setIcon(imgThisImg);
             sType.setText("");
             sQuantity.setText("");
             sStatus.setText("");
             JOptionPane.showMessageDialog(null, "Updated Successful");
+            }
+            else if(a == 1){
+            ImageIcon imgThisImg = new ImageIcon("\\Users\\User\\Desktop\\Agile-Assignment\\src\\UI\\Image\\white.png");
+            jLabel17.setIcon(imgThisImg);
+            sType.setText("");
+            sQuantity.setText("");
+            sStatus.setText("");
+            JOptionPane.showMessageDialog(null, "Update Cancel","Information", JOptionPane.INFORMATION_MESSAGE);
+            }
         }
     }//GEN-LAST:event_jButton9ActionPerformed
 
@@ -747,26 +761,33 @@ public class Product extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"Please do not leave blank","Information",JOptionPane.INFORMATION_MESSAGE);
         }
         else if(!Quantity.getText().matches("^[0-9]*$")){
-            JOptionPane.showMessageDialog(null,"Only in digit format","Information", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Must be numeric","Information", JOptionPane.INFORMATION_MESSAGE);
         }
-        else if(!Price.getText().matches("^[0-9]*$")){
-            JOptionPane.showMessageDialog(null,"Only in digit format","Information", JOptionPane.INFORMATION_MESSAGE);
+        else if(!Price.getText().matches("^[0-9]+(\\.[0-9]{2}?)$")){
+            JOptionPane.showMessageDialog(null,"Example format be like this 00.00 " ,"Information", JOptionPane.INFORMATION_MESSAGE);
         }
         else{
-        String image = path.getText();
+        int z = JOptionPane.showConfirmDialog(null, "Do you want to create", "Confirmation", JOptionPane.YES_OPTION);
+        if(z == 0){
+        //String image = path.getText();
+        JOptionPane.showMessageDialog(null, "Create Successful","Information",JOptionPane.INFORMATION_MESSAGE);
         String name = fName.getText();
         String type = Type.getText();
         int quantity = Integer.parseInt(Quantity.getText());
         double price = Double.parseDouble(Price.getText());
         String description = fDescription.getText();
-        Flower flower = new Flower(image,name,type,quantity,price,description);
+        Flower flower = new Flower(name,type,quantity,price,description);
         flowerList.add(flower);
         System.out.println(flowerList);
+            fName.setText("");
+            Type.setText("");
+            Quantity.setText("");
+            Price.setText("");
+            fDescription.setText("");
+        //srcFolder = new File(filename);
+        //destFolder = new File("\\Users\\User\\Desktop\\Agile-Assignment\\src\\UI\\Image" );
 
-        srcFolder = new File(filename);
-        destFolder = new File("\\Users\\User\\Desktop\\Agile-Assignment\\src\\UI\\Image" );
-
-        if(!srcFolder.exists()){
+        /*if(!srcFolder.exists()){
             System.out.println("Directory does not exist.");
         }
         else
@@ -775,7 +796,17 @@ public class Product extends javax.swing.JFrame {
                 copyFolder(srcFolder,destFolder);
             }catch(IOException e){
                 e.printStackTrace();
-            }}
+            }}*/
+        }
+        else if(z == 1){
+            JOptionPane.showMessageDialog(null, "Create cancel","Information", JOptionPane.INFORMATION_MESSAGE);
+            fName.setText("");
+            Type.setText("");
+            Quantity.setText("");
+            Price.setText("");
+            fDescription.setText("");
+        }
+
         }
     }//GEN-LAST:event_createActionPerformed
 
@@ -784,24 +815,24 @@ public class Product extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"Please do not leave blank","Information",JOptionPane.INFORMATION_MESSAGE);
         }
         else if(!uQuantity.getText().matches("^[0-9]*$")){
-            JOptionPane.showMessageDialog(null,"Only in digit format","Information", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null,"must in numeric","Information", JOptionPane.INFORMATION_MESSAGE);
         }
-        else if(!uPrice.getText().matches("^[0-9]*$")){
-            JOptionPane.showMessageDialog(null,"Only in digit format","Information", JOptionPane.INFORMATION_MESSAGE);
+        else if(!uPrice.getText().matches("^[0-9]+(\\.[0-9]{2}?)$")){
+            JOptionPane.showMessageDialog(null,"Example format be like this 00.00","Information", JOptionPane.INFORMATION_MESSAGE);
         }
         else{
-        for(int i=0; i<flowerList.getNumberOfEntries();i++){
-        String newImage = path.getText();
+        /*for(int i=0; i<flowerList.getNumberOfEntries();i++){
+        //String newImage = path.getText();
         String newName = (String) uName.getSelectedItem();
         String newType = uType.getText();
         int newQuantity = Integer.parseInt(uQuantity.getText());
         double newPrice = Double.parseDouble(uPrice.getText());
         String newDescription = uDescription.getText();
-        Flower nflower = new Flower(newImage,newName, newType, newQuantity,newPrice, newDescription);
+        Flower nflower = new Flower(newName, newType, newQuantity,newPrice, newDescription);
         flowerList.replace(i, nflower);
         
-        srcFolder = new File(filename);
-        destFolder = new File("\\Users\\User\\Desktop\\Agile-Assignment\\src\\UI\\Image");
+        //srcFolder = new File(filename);
+        //destFolder = new File("\\Users\\User\\Desktop\\Agile-Assignment\\src\\UI\\Image");
 
         if(!srcFolder.exists()){
             System.out.println("Directory does not exist.");
@@ -813,8 +844,10 @@ public class Product extends javax.swing.JFrame {
             }catch(IOException e){
                 e.printStackTrace();
             }}
-        }    
-  
+        }   */ 
+        
+        int s = JOptionPane.showConfirmDialog(null, "Do you want to update","Confirmation", JOptionPane.YES_NO_OPTION);
+        if(s==0){
         JOptionPane.showMessageDialog(null, "Updated successful","Information", JOptionPane.INFORMATION_MESSAGE);
         ImageIcon imgThisImg = new ImageIcon("\\Users\\User\\Desktop\\Agile-Assignment\\src\\UI\\Image\\white.png");
         uImage.setIcon(imgThisImg);
@@ -824,8 +857,16 @@ public class Product extends javax.swing.JFrame {
         uPrice.setText("");
         uDescription.setText("");
         }
-
-
+        else if(s==1){
+        JOptionPane.showMessageDialog(null,"Update cancel","Information",JOptionPane.INFORMATION_MESSAGE);}
+        ImageIcon imgThisImg = new ImageIcon("\\Users\\User\\Desktop\\Agile-Assignment\\src\\UI\\Image\\white.png");
+        uImage.setIcon(imgThisImg);
+        uName.setSelectedItem("");
+        uType.setText("");
+        uQuantity.setText("");
+        uPrice.setText("");
+        uDescription.setText("");
+        }
     }//GEN-LAST:event_updateActionPerformed
 
     private void MaintainBrowse1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MaintainBrowse1ActionPerformed
@@ -837,9 +878,9 @@ public class Product extends javax.swing.JFrame {
     }//GEN-LAST:event_MaintainBrowse1ActionPerformed
     
     private void uNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uNameActionPerformed
-        for(int i=0; i<flowerList.getNumberOfEntries(); i++){
+        /*for(int i=0; i<flowerList.getNumberOfEntries(); i++){
             flowerList.getEntry(i);
-        }
+        }*/
         
         
         if(uName.getSelectedItem() == "Rose"){
@@ -869,9 +910,9 @@ public class Product extends javax.swing.JFrame {
     }//GEN-LAST:event_uNameActionPerformed
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
-        for(int i=0; i< flowerList.getNumberOfEntries();i++){
+        /*for(int i=0; i< flowerList.getNumberOfEntries();i++){
             flowerList.remove(i);
-        }
+        }*/
         JOptionPane.showMessageDialog(null, "Delete successful","Information", JOptionPane.INFORMATION_MESSAGE);
         ImageIcon imgThisImg = new ImageIcon("\\Users\\User\\Desktop\\Agile-Assignment\\src\\UI\\Image\\white.png");
         uImage.setIcon(imgThisImg);
@@ -896,7 +937,15 @@ public class Product extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_uQuantityActionPerformed
 
-    public static void copyFolder(File src, File dest)throws IOException{  	
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        fName.setText("");
+        Type.setText("");
+        Quantity.setText("");
+        Price.setText("");
+        fDescription.setText("");
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    /*public static void copyFolder(File src, File dest)throws IOException{  	
     	if(src.isDirectory()){
     		
     		//if directory not exists, create it
@@ -934,7 +983,7 @@ public class Product extends javax.swing.JFrame {
     	        out.close();
     	        System.out.println("File copied from " + src + " to " + dest);
     	}
-    }
+    }*/
     
     /**
      * @param args the command line arguments

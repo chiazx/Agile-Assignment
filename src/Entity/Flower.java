@@ -20,8 +20,8 @@ public class Flower {
     private String fDescription;
     private String fStatus;
         
-    public Flower(String fImage,String fName, String fType, int quantity , double price, String fDescription) {
-        this.fImage = fImage;
+    public Flower(String fName, String fType, int quantity , double price, String fDescription) {
+       // this.fImage = fImage;
         this.fName = fName;
         this.fType = fType;
         this.quantity=quantity;
