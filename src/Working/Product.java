@@ -18,8 +18,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import javax.swing.Icon;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author User
@@ -33,54 +34,7 @@ public class Product extends javax.swing.JFrame {
         initComponents();
         //initialize();
     }
-    
-public void initialize(){
-    //initialize product details
    
-   // CatalogProduct catalogProduct = new CatalogProduct();
-   //fake order ID
-
-   path.setVisible(false);
-   //insert dummy flower data
-    prodList.add(new CatalogProduct("CP001","Just For You","Roses","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",120.00));
-     prodList.add(new CatalogProduct("CP002","True Romance","Roses","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",120.00));
-      prodList.add(new CatalogProduct("CP003","Teddy Red","Roses","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",120.00));
-       prodList.add(new CatalogProduct("CP004","Queen","Roses","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",120.00));
-        prodList.add(new CatalogProduct("CP005","Pink Delight","Lilies","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",100.00));
-         prodList.add(new CatalogProduct("CP006","Lily Love","Lilies","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",100.00));
-          prodList.add(new CatalogProduct("CP007","Princess","Lilies","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",100.00));
-           prodList.add(new CatalogProduct("CP008","Montrex Tulips","Tulips","Available","Include red tulips, yellow tulips, purple tulips.",100.00));
-            prodList.add(new CatalogProduct("CP009","Purple Tulips","Tulips","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",100.00));
-             prodList.add(new CatalogProduct("CP010","Over The Rainbow","Others","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",100.00));
-              prodList.add(new CatalogProduct("CP011","Sweet Admiration","Others","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",100.00));
-              //insert dummy order data
-              uName.removeAllItems();
-              uName.addItem(" ");
-              int containsDDL =0;
-              for(int i=0 ;i<prodList.getNumberOfEntries();i++){
-                  containsDDL=0;
-                  if(uName.getItemCount()>1){
-                      for(int j = 0; j<uName.getItemCount(); i++){
-                          containsDDL++;
-                      }
-                  }
-                  if(containsDDL ==0){
-                      uName.addItem(prodList.getEntry(i+1).getProdType());
-                  }
-                  else{
-                      System.out.print(prodList.getEntry(i+1).getProdName());
-                      uName.addItem(prodList.getEntry(i+1).getProdType().toString());
-                  }
-              }
-}
-    
-    
-    
-    
-    
-    
-    
-    ListInterface<CatalogProduct> prodList = new LList();
     ListInterface<Flower> flowerList = new LList<>();     
     File srcFolder;
     File destFolder;
@@ -127,7 +81,7 @@ public void initialize(){
         Type = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel8 = new javax.swing.JPanel();
-        jButton6 = new javax.swing.JButton();
+        reset = new javax.swing.JButton();
         delete = new javax.swing.JButton();
         jLabel28 = new javax.swing.JLabel();
         uName = new javax.swing.JComboBox<>();
@@ -387,10 +341,10 @@ public void initialize(){
 
         jPanel8.setBackground(new java.awt.Color(255, 255, 255));
 
-        jButton6.setText("Cancel");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        reset.setText("Cancel");
+        reset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                resetActionPerformed(evt);
             }
         });
 
@@ -503,7 +457,7 @@ public void initialize(){
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(delete)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jButton6))
+                                    .addComponent(reset))
                                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 462, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 908, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 237, Short.MAX_VALUE))
@@ -542,7 +496,7 @@ public void initialize(){
                     .addComponent(jLabel29))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton6)
+                    .addComponent(reset)
                     .addComponent(delete)
                     .addComponent(update))
                 .addContainerGap(322, Short.MAX_VALUE))
@@ -645,7 +599,7 @@ public void initialize(){
                                     .addComponent(sStatus))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(ChooseStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(101, Short.MAX_VALUE))
+                .addContainerGap(86, Short.MAX_VALUE))
             .addComponent(jSeparator2)
         );
         jPanel6Layout.setVerticalGroup(
@@ -695,7 +649,7 @@ public void initialize(){
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 875, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 860, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -796,7 +750,7 @@ public void initialize(){
             JOptionPane.showMessageDialog(null,"Only in digit format","Information", JOptionPane.INFORMATION_MESSAGE);
         }         
         else{
-        Icon image = Image.getIcon();
+        String image = path.getText();
         String name = fName.getText();
         String type = Type.getText();
         int quantity = Integer.parseInt(Quantity.getText());
@@ -807,7 +761,7 @@ public void initialize(){
         System.out.println(flowerList);
 
         srcFolder = new File(filename);
-        destFolder = new File("\\Users\\User\\Desktop\\Agile-Assignment\\src\\UI\\Image");
+        destFolder = new File("\\Users\\User\\Desktop\\Agile-Assignment\\src\\UI\\Image" );
 
         if(!srcFolder.exists()){
             System.out.println("Directory does not exist.");
@@ -826,10 +780,35 @@ public void initialize(){
         if(uType.getText().matches("") || uQuantity.getText().matches("") || uPrice.getText().matches("") || uDescription.getText().matches("")){
             JOptionPane.showMessageDialog(null,"Please do not leave blank","Information",JOptionPane.INFORMATION_MESSAGE);
         }
-        else if(uQuantity.getText().matches("^[0-9]*$") && uPrice.getText().matches("^[0-9]*$")){
+        else if(!uQuantity.getText().matches("^[0-9]*$") || uPrice.getText().matches("^[0-9]*$")){
             JOptionPane.showMessageDialog(null,"Only in digit format","Information", JOptionPane.INFORMATION_MESSAGE);
         }
         else{
+        for(int i=0; i<flowerList.getNumberOfEntries();i++){
+        String newImage = path.getText();
+        String newName = (String) uName.getSelectedItem();
+        String newType = uType.getText();
+        int newQuantity = Integer.parseInt(uQuantity.getText());
+        double newPrice = Double.parseDouble(uPrice.getText());
+        String newDescription = uDescription.getText();
+        Flower nflower = new Flower(newImage,newName, newType, newQuantity,newPrice, newDescription);
+        flowerList.replace(i, nflower);
+        
+        srcFolder = new File(filename);
+        destFolder = new File("\\Users\\User\\Desktop\\Agile-Assignment\\src\\UI\\Image");
+
+        if(!srcFolder.exists()){
+            System.out.println("Directory does not exist.");
+        }
+        else
+        {
+            try{
+                copyFolder(srcFolder,destFolder);
+            }catch(IOException e){
+                e.printStackTrace();
+            }}
+        }    
+  
         JOptionPane.showMessageDialog(null, "Updated successful","Information", JOptionPane.INFORMATION_MESSAGE);
         ImageIcon imgThisImg = new ImageIcon("\\Users\\User\\Desktop\\Agile-Assignment\\src\\UI\\Image\\white.png");
         uImage.setIcon(imgThisImg);
@@ -839,13 +818,7 @@ public void initialize(){
         uPrice.setText("");
         uDescription.setText("");
         }
-        //String newName = (String) uName.getSelectedItem();
-        //String newType = uType.getText();
-        //int newQuantity = Integer.parseInt(uQuantity.getText());
-        //double newPrice = Double.parseDouble(uPrice.getText());
-        //String newDescription = uDescription.getText();
-        //Flower nflower = new Flower(newName, newType, newQuantity,newPrice, newDescription);
-        //flowerList.replace(newQuantity  ,nflower);
+
 
     }//GEN-LAST:event_updateActionPerformed
 
@@ -858,6 +831,11 @@ public void initialize(){
     }//GEN-LAST:event_MaintainBrowse1ActionPerformed
     
     private void uNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uNameActionPerformed
+        for(int i=0; i<flowerList.getNumberOfEntries(); i++){
+            flowerList.getEntry(i);
+        }
+        
+        
         if(uName.getSelectedItem() == "Rose"){
             ImageIcon imgThisImg = new ImageIcon("\\Users\\User\\Desktop\\Agile-Assignment\\src\\UI\\Image\\Rose.jpeg");
             uImage.setIcon(imgThisImg);
@@ -885,6 +863,9 @@ public void initialize(){
     }//GEN-LAST:event_uNameActionPerformed
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
+        for(int i=0; i< flowerList.getNumberOfEntries();i++){
+            flowerList.remove(i);
+        }
         JOptionPane.showMessageDialog(null, "Delete successful","Information", JOptionPane.INFORMATION_MESSAGE);
         ImageIcon imgThisImg = new ImageIcon("\\Users\\User\\Desktop\\Agile-Assignment\\src\\UI\\Image\\white.png");
         uImage.setIcon(imgThisImg);
@@ -895,7 +876,7 @@ public void initialize(){
         uDescription.setText("");
     }//GEN-LAST:event_deleteActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
         ImageIcon imgThisImg = new ImageIcon("\\Users\\User\\Desktop\\Agile-Assignment\\src\\UI\\Image\\white.png");
         uImage.setIcon(imgThisImg);
         uName.setSelectedItem("");
@@ -903,7 +884,7 @@ public void initialize(){
         uQuantity.setText("");
         uPrice.setText("");
         uDescription.setText("");
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_resetActionPerformed
 
     private void uQuantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uQuantityActionPerformed
         // TODO add your handling code here:
@@ -949,11 +930,6 @@ public void initialize(){
     	}
     }
     
-    
-    
-    
-    
-    
     /**
      * @param args the command line arguments
      */
@@ -981,7 +957,6 @@ public void initialize(){
     private javax.swing.JTextField fName;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton9;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JDesktopPane jDesktopPane3;
@@ -1025,6 +1000,7 @@ public void initialize(){
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JLabel path;
+    private javax.swing.JButton reset;
     private javax.swing.JComboBox<String> sName;
     private javax.swing.JTextField sQuantity;
     private javax.swing.JTextField sStatus;

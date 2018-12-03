@@ -63,7 +63,7 @@
                   <Component id="jPanel4" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="jTabbedPane2" min="-2" pref="875" max="-2" attributes="0"/>
+                      <Component id="jTabbedPane2" min="-2" pref="860" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -508,7 +508,7 @@
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="delete" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="jButton6" min="-2" max="-2" attributes="0"/>
+                                              <Component id="reset" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <Component id="jScrollPane5" min="-2" pref="462" max="-2" attributes="0"/>
                                       </Group>
@@ -561,7 +561,7 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jButton6" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="reset" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="delete" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="update" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -571,12 +571,12 @@
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JButton" name="jButton6">
+                <Component class="javax.swing.JButton" name="reset">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Cancel"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton6ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="resetActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="delete">
@@ -778,7 +778,7 @@
                               <Component id="ChooseStatus" min="-2" pref="250" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="101" max="32767" attributes="0"/>
+                      <EmptySpace pref="86" max="32767" attributes="0"/>
                   </Group>
                   <Component id="jSeparator2" alignment="0" max="32767" attributes="0"/>
               </Group>

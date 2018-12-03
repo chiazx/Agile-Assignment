@@ -12,7 +12,7 @@ import javax.swing.Icon;
  * @author User
  */
 public class Flower {
-    private Icon fImage;
+    private String fImage;
     private String fName;
     private String fType;
     private int quantity = 0;
@@ -20,7 +20,7 @@ public class Flower {
     private String fDescription;
     private String fStatus;
         
-    public Flower(Icon fImage, String fName, String fType, int quantity , double price, String fDescription) {
+    public Flower(String fImage,String fName, String fType, int quantity , double price, String fDescription) {
         this.fImage = fImage;
         this.fName = fName;
         this.fType = fType;
@@ -77,13 +77,14 @@ public class Flower {
         this.fStatus = fStatus;
     }    
 
-    public Icon getfImage() {
+    public String getfImage() {
         return fImage;
     }
 
-    public void setfImage(Icon fImage) {
+    public void setfImage(String fImage) {
         this.fImage = fImage;
-    }
+    }    
+   
     public String toString(){
         return String.format("Flower name :%s \n Flower type :%s \n Quantity :%d \n Price :RM%.2f \n Description :%s \n",fName , fType, quantity, price, fDescription);
     }
