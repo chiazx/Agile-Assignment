@@ -11,28 +11,31 @@ package Entity;
  */
 public class Invoice {
     private Order order;
+    private String customerName;
+    private String customerID;
     private String invoiceNo;
     private String orderID;
     private String paymentStatus;
     private String invoiceAmount;
     private String invoiceDate;
 
+        public Invoice() {
+    }
+
     @Override
     public String toString() {
-        return "Invoice{" + "order=" + order + ", invoiceNo=" + invoiceNo + ", orderID=" + orderID + ", paymentStatus=" + paymentStatus + ", invoiceAmount=" + invoiceAmount + ", incoiceDate=" + invoiceDate + '}';
+        return "Invoice{" + "invoiceNo=" + invoiceNo + ", orderID=" + orderID + ", paymentStatus=" + paymentStatus + ", invoiceAmount=" + invoiceAmount + ", invoiceDate=" + invoiceDate + '}';
     }
 
-    public Invoice() {
-    }
-
-    public Invoice(Order order, String invoiceNo, String orderID, String paymentStatus, String invoiceAmount, String invoiceDate) {
-        this.order = order;
+    public Invoice(String invoiceNo, String orderID, String paymentStatus, String invoiceAmount, String invoiceDate) {
         this.invoiceNo = invoiceNo;
         this.orderID = orderID;
         this.paymentStatus = paymentStatus;
         this.invoiceAmount = invoiceAmount;
         this.invoiceDate = invoiceDate;
     }
+
+   
 
     public Order getOrder() {
         return order;
@@ -74,12 +77,29 @@ public class Invoice {
         this.invoiceAmount = invoiceAmount;
     }
 
-    public String getIncoiceDate() {
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getCustomerID() {
+        return customerID;
+    }
+
+    public void setCustomerID(String customerID) {
+        this.customerID = customerID;
+    }
+
+    public String getInvoiceDate() {
         return invoiceDate;
     }
 
-    public void setIncoiceDate(String incoiceDate) {
-        this.invoiceDate = incoiceDate;
+    public void setInvoiceDate(String invoiceDate) {
+        this.invoiceDate = invoiceDate;
     }
     
 }
