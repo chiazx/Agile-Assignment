@@ -145,6 +145,7 @@
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="dd" green="48" red="7a" type="rgb"/>
         </Property>
+        <Property name="requestFocusEnabled" type="boolean" value="false"/>
       </Properties>
 
       <Layout>
@@ -377,12 +378,12 @@
                 </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="6">
-                    <StringItem index="0" value="Elliptical"/>
-                    <StringItem index="1" value="Vertical"/>
-                    <StringItem index="2" value="Horizontal"/>
-                    <StringItem index="3" value="Triangle"/>
-                    <StringItem index="4" value="The &quot;S&quot; Shaped"/>
-                    <StringItem index="5" value="The Cascade"/>
+                    <StringItem index="0" value="Elliptical (RM20)"/>
+                    <StringItem index="1" value="Vertical (RM15)"/>
+                    <StringItem index="2" value="Horizontal (RM25)"/>
+                    <StringItem index="3" value="Triangle (RM20)"/>
+                    <StringItem index="4" value="The &quot;S&quot; Shaped (RM10)"/>
+                    <StringItem index="5" value="The Cascade (RM25)"/>
                   </StringArray>
                 </Property>
               </Properties>
@@ -405,9 +406,9 @@
                 </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="3">
-                    <StringItem index="0" value="Small"/>
-                    <StringItem index="1" value="Medium"/>
-                    <StringItem index="2" value="Big"/>
+                    <StringItem index="0" value="Small (RM10)"/>
+                    <StringItem index="1" value="Medium (Rm20)"/>
+                    <StringItem index="2" value="Big (Rm30)"/>
                   </StringArray>
                 </Property>
               </Properties>
@@ -422,12 +423,12 @@
                 </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="6">
-                    <StringItem index="0" value="Waxflower"/>
-                    <StringItem index="1" value="Lily (oriental)"/>
-                    <StringItem index="2" value="Kangaroo Paw"/>
-                    <StringItem index="3" value="Gerbera (miniature)"/>
-                    <StringItem index="4" value="Eremurus"/>
-                    <StringItem index="5" value="Curly Willow"/>
+                    <StringItem index="0" value="Waxflower (RM20)"/>
+                    <StringItem index="1" value="Lily (oriental) (RM15)"/>
+                    <StringItem index="2" value="Kangaroo Paw (RM25)"/>
+                    <StringItem index="3" value="Gerbera (miniature) (RM20)"/>
+                    <StringItem index="4" value="Eremurus (RM10)"/>
+                    <StringItem index="5" value="Curly Willow (RM10)"/>
                   </StringArray>
                 </Property>
               </Properties>
@@ -442,12 +443,12 @@
                 </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="6">
-                    <StringItem index="0" value="Alstroemeria (Peruvian Lilies)"/>
-                    <StringItem index="1" value="Baby&apos;s Breath (Gypsophila)"/>
-                    <StringItem index="2" value="Carnation"/>
-                    <StringItem index="3" value="Hypericum"/>
-                    <StringItem index="4" value="Limonium"/>
-                    <StringItem index="5" value="Orchid (japhet)"/>
+                    <StringItem index="0" value="Alstroemeria (Peruvian Lilies) (RM20)"/>
+                    <StringItem index="1" value="Baby&apos;s Breath (Gypsophila) (RM15)"/>
+                    <StringItem index="2" value="Carnation (RM25)"/>
+                    <StringItem index="3" value="Hypericum (RM20)"/>
+                    <StringItem index="4" value="Limonium (RM10)"/>
+                    <StringItem index="5" value="Orchid (japhet) (RM25)"/>
                   </StringArray>
                 </Property>
               </Properties>
@@ -470,10 +471,10 @@
                 </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="4">
-                    <StringItem index="0" value="Wire Gravestone Saddle"/>
-                    <StringItem index="1" value="Heart Wreaths"/>
-                    <StringItem index="2" value="Wire Wreath Easel"/>
-                    <StringItem index="3" value="Nylon Leaves"/>
+                    <StringItem index="0" value="Wire Gravestone Saddle (RM20)"/>
+                    <StringItem index="1" value="Heart Wreaths (RM15)"/>
+                    <StringItem index="2" value="Wire Wreath Easel (RM25)"/>
+                    <StringItem index="3" value="Nylon Leaves (RM20)"/>
                   </StringArray>
                 </Property>
               </Properties>
@@ -488,10 +489,10 @@
                 </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="4">
-                    <StringItem index="0" value="Bulk Round Pearl Corsage Pins"/>
-                    <StringItem index="1" value="Medium Metal Alligator Clips"/>
-                    <StringItem index="2" value="Acrylic Corsage Boxes"/>
-                    <StringItem index="3" value="Aluminium Craft Wire"/>
+                    <StringItem index="0" value="Bulk Round Pearl Corsage Pins (RM20)"/>
+                    <StringItem index="1" value="Medium Metal Alligator Clips (RM15)"/>
+                    <StringItem index="2" value="Acrylic Corsage Boxes (RM25)"/>
+                    <StringItem index="3" value="Aluminium Craft Wire (RM20)"/>
                   </StringArray>
                 </Property>
               </Properties>
