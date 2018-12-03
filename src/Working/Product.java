@@ -783,7 +783,7 @@ public class Product extends javax.swing.JFrame {
             Type.setText("");
             Quantity.setText("");
             Price.setText("");
-            fDescription.setText("");
+            fDescription.setText("");  
         //srcFolder = new File(filename);
         //destFolder = new File("\\Users\\User\\Desktop\\Agile-Assignment\\src\\UI\\Image" );
 
