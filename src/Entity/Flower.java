@@ -27,7 +27,19 @@ public class Flower {
         this.quantity=quantity;
         this.price = price;
         this.fDescription = fDescription;
+        
     }
+
+    public Flower(String fName, String fType,int quantity, double price, String fDescription, String fStatus) {
+        //this.fImage = fImage;
+        this.fName = fName;
+        this.fType = fType;
+        this.quantity=quantity;
+        this.price = price;
+        this.fDescription = fDescription;
+        this.fStatus = fStatus;
+    }
+    
 
     public String getfName() {
         return fName;

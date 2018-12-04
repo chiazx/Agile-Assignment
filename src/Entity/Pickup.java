@@ -17,13 +17,40 @@ public class Pickup {
     private String pickupDate;
     private String pickupTime;
     private String pickupPriority;
+    private String pickupStatus;
+
+    public String getPickupStatus() {
+        return pickupStatus;
+    }
+
+    public void setPickupStatus(String pickupStatus) {
+        this.pickupStatus = pickupStatus;
+    }
+
+  
+    
+
+    public Pickup() {
+    }
+
+    public Pickup(String orderID, String pickupID, String pickupDate,String pickupTime, String pickupPriority,String pickupStatus) {
+        this.orderID = orderID;
+        this.pickupID = pickupID;
+        this.pickupDate = pickupDate;
+        this.pickupTime = pickupTime;
+        this.pickupPriority = pickupPriority;
+        this.pickupStatus=pickupStatus;
+    }
 
     @Override
     public String toString() {
-        return "Pickup{" + "order=" + order + ", orderID=" + orderID + ", pickupID=" + pickupID + ", pickupDate=" + pickupDate + ", pickupTime=" + pickupTime + ", pickupPriority=" + pickupPriority + '}';
+        return "Pickup{" + "orderID=" + orderID + ", pickupID=" + pickupID + ", pickupPriority=" + pickupPriority + '}';
     }
 
-    public Pickup() {
+    public Pickup(String orderID, String pickupID, String pickupPriority) {
+        this.orderID = orderID;
+        this.pickupID = pickupID;
+        this.pickupPriority = pickupPriority;
     }
 
     public Pickup(Order order, String orderID, String pickupID, String pickupDate, String pickupTime, String pickupPriority) {

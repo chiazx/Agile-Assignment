@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Working;
+package UI;
 
 import Entity.Flower;
 import ADT.LList;
@@ -32,6 +32,7 @@ public class Product extends javax.swing.JFrame {
      */ 
     public Product() {
         initComponents();
+        initialize();
     }
    
     ListInterface<Flower> flowerList = new LList<>();     
@@ -668,9 +669,28 @@ public class Product extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    public void initialize(){
+        //add dummy flower data
+        flowerList.add(new Flower("Over the rainbow","Roses",20,120.00,"A good flower","Available"));
+         flowerList.add(new Flower("Sweer Admiration","Others",20,120.00,"A good flower","Available"));
+          flowerList.add(new Flower("Purples vase","Lilies",20,120.00,"A good flower","Available"));
+           flowerList.add(new Flower("Just For You","Roses",20,120.00,"A good flower","Available"));
+           
+           refreshFlowerDropDownList();
+           refreshsFlowerDropDownList();
+    }
     private void sNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sNameActionPerformed
-        if(sName.getSelectedItem() == "Rose"){
+
+for( int i=0;i<flowerList.getNumberOfEntries();i++){
+            if(sName.getSelectedItem() == flowerList.getEntry(i+1).getfName()){
+                ImageIcon imgThisImg = new ImageIcon("\\Users\\User\\Desktop\\Agile-Assignment\\src\\UI\\Image\\Rose.jpeg");
+            jLabel17.setIcon(imgThisImg);
+            sType.setText(flowerList.getEntry(i+1).getfType());
+            sQuantity.setText(flowerList.getEntry(i+1).getQuantity()+"");
+            sStatus.setText(flowerList.getEntry(i+1).getfStatus());
+            }
+        }        
+       /* if(sName.getSelectedItem() == "Rose"){
             ImageIcon imgThisImg = new ImageIcon("\\Users\\User\\Desktop\\Agile-Assignment\\src\\UI\\Image\\Rose.jpeg");
             jLabel17.setIcon(imgThisImg);
             sType.setText("bouquet");
@@ -691,7 +711,7 @@ public class Product extends javax.swing.JFrame {
             sType.setText("Floral Arrangement");
             sQuantity.setText("0");
             sStatus.setText("Out-Of-Stock");
-        }
+        }*/
 
     }//GEN-LAST:event_sNameActionPerformed
 
@@ -706,7 +726,20 @@ public class Product extends javax.swing.JFrame {
             sStatus.setText("Out-Of-Stock");
         }
     }//GEN-LAST:event_ChooseStatusActionPerformed
-
+    public void refreshFlowerDropDownList(){
+        uName.removeAllItems(); // make sure nothing in ddl
+              uName.addItem(" ");
+           for(int i =0 ; i<flowerList.getNumberOfEntries();i++){
+               uName.addItem(flowerList.getEntry(i+1).getfName());
+           }
+    }
+    public void refreshsFlowerDropDownList(){
+        sName.removeAllItems(); // make sure nothing in ddl
+              sName.addItem(" ");
+           for(int i =0 ; i<flowerList.getNumberOfEntries();i++){
+               sName.addItem(flowerList.getEntry(i+1).getfName());
+           }
+    }
     private void sQuantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sQuantityActionPerformed
 
     }//GEN-LAST:event_sQuantityActionPerformed
@@ -724,12 +757,21 @@ public class Product extends javax.swing.JFrame {
         else{
             int a =JOptionPane.showConfirmDialog(null, "Do you want to update the status","Confirmation", JOptionPane.YES_OPTION);
             if(a ==0){
+                for( int i=0;i<flowerList.getNumberOfEntries();i++){
+            if(sName.getSelectedItem() == flowerList.getEntry(i+1).getfName()){
+                JOptionPane.showMessageDialog(null, "Product record :"+flowerList.getEntry(i+1).getfName()+" has been successfully updated.","INFORMATION",JOptionPane.INFORMATION_MESSAGE);
+
+                 flowerList.getEntry(i+1).setQuantity(Integer.parseInt(sQuantity.getText()));
+                  flowerList.getEntry(i+1).setfStatus(sStatus.getText());
+                  refreshsFlowerDropDownList();
+            }
+        }
             ImageIcon imgThisImg = new ImageIcon("\\Users\\User\\Desktop\\Agile-Assignment\\src\\UI\\Image\\white.png");
             jLabel17.setIcon(imgThisImg);
             sType.setText("");
             sQuantity.setText("");
             sStatus.setText("");
-            JOptionPane.showMessageDialog(null, "Updated Successful");
+            
             }
             else if(a == 1){
             ImageIcon imgThisImg = new ImageIcon("\\Users\\User\\Desktop\\Agile-Assignment\\src\\UI\\Image\\white.png");
@@ -784,6 +826,8 @@ public class Product extends javax.swing.JFrame {
             Quantity.setText("");
             Price.setText("");
             fDescription.setText("");
+            refreshFlowerDropDownList();
+            refreshsFlowerDropDownList();
         //srcFolder = new File(filename);
         //destFolder = new File("\\Users\\User\\Desktop\\Agile-Assignment\\src\\UI\\Image" );
 
@@ -848,6 +892,16 @@ public class Product extends javax.swing.JFrame {
         
         int s = JOptionPane.showConfirmDialog(null, "Do you want to update","Confirmation", JOptionPane.YES_NO_OPTION);
         if(s==0){
+            // update the specific flower information
+            for( int i=0;i<flowerList.getNumberOfEntries();i++){
+            if(uName.getSelectedItem() == flowerList.getEntry(i+1).getfName()){
+                JOptionPane.showMessageDialog(null, "Product record :"+flowerList.getEntry(i+1).getfName()+" has been successfully updated.","INFORMATION",JOptionPane.INFORMATION_MESSAGE);
+                flowerList.getEntry(i+1).setfType(uType.getText());
+                flowerList.getEntry(i+1).setPrice(Double.parseDouble(uPrice.getText()));
+                 flowerList.getEntry(i+1).setQuantity(Integer.parseInt(uQuantity.getText()));
+                  flowerList.getEntry(i+1).setfDescription(uDescription.getText());
+            }
+        }
         JOptionPane.showMessageDialog(null, "Updated successful","Information", JOptionPane.INFORMATION_MESSAGE);
         ImageIcon imgThisImg = new ImageIcon("\\Users\\User\\Desktop\\Agile-Assignment\\src\\UI\\Image\\white.png");
         uImage.setIcon(imgThisImg);
@@ -856,6 +910,8 @@ public class Product extends javax.swing.JFrame {
         uQuantity.setText("");
         uPrice.setText("");
         uDescription.setText("");
+        refreshFlowerDropDownList();
+        refreshsFlowerDropDownList();
         }
         else if(s==1){
         JOptionPane.showMessageDialog(null,"Update cancel","Information",JOptionPane.INFORMATION_MESSAGE);}
@@ -881,9 +937,18 @@ public class Product extends javax.swing.JFrame {
         /*for(int i=0; i<flowerList.getNumberOfEntries(); i++){
             flowerList.getEntry(i);
         }*/
+        for( int i=0;i<flowerList.getNumberOfEntries();i++){
+            if(uName.getSelectedItem() == flowerList.getEntry(i+1).getfName()){
+                ImageIcon imgThisImg = new ImageIcon("\\Users\\User\\Desktop\\Agile-Assignment\\src\\UI\\Image\\Rose.jpeg");
+                 uImage.setIcon(imgThisImg);
+            uType.setText(flowerList.getEntry(i+1).getfType());
+            uQuantity.setText(flowerList.getEntry(i+1).getQuantity()+"");
+            uPrice.setText(flowerList.getEntry(i+1).getPrice()+"");
+            uDescription.setText(flowerList.getEntry(i+1).getfDescription());
+            }
+        }
         
-        
-        if(uName.getSelectedItem() == "Rose"){
+       /* if(uName.getSelectedItem() == "Rose"){
             ImageIcon imgThisImg = new ImageIcon("\\Users\\User\\Desktop\\Agile-Assignment\\src\\UI\\Image\\Rose.jpeg");
             uImage.setIcon(imgThisImg);
             uType.setText("Floral Arrangement");
@@ -906,21 +971,30 @@ public class Product extends javax.swing.JFrame {
             uQuantity.setText("10");
             uPrice.setText("15.00");
             uDescription.setText("Suitable gift for mother");
-        }
+        }*/
     }//GEN-LAST:event_uNameActionPerformed
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
         /*for(int i=0; i< flowerList.getNumberOfEntries();i++){
             flowerList.remove(i);
         }*/
-        JOptionPane.showMessageDialog(null, "Delete successful","Information", JOptionPane.INFORMATION_MESSAGE);
+        for( int i=0;i<flowerList.getNumberOfEntries();i++){
+            if(uName.getSelectedItem() == flowerList.getEntry(i+1).getfName()){
+                JOptionPane.showMessageDialog(null, "Product record :"+flowerList.getEntry(i+1).getfName()+" has been successfully deleted.","INFORMATION",JOptionPane.INFORMATION_MESSAGE);
+                flowerList.remove(i+1);
+                
+            }
+        }
+        refreshFlowerDropDownList();
+        refreshsFlowerDropDownList();
+       /* JOptionPane.showMessageDialog(null, "Delete successful","Information", JOptionPane.INFORMATION_MESSAGE);
         ImageIcon imgThisImg = new ImageIcon("\\Users\\User\\Desktop\\Agile-Assignment\\src\\UI\\Image\\white.png");
         uImage.setIcon(imgThisImg);
         uName.setSelectedItem("");
         uType.setText("");
         uQuantity.setText("");
         uPrice.setText("");
-        uDescription.setText("");
+        uDescription.setText("");*/
     }//GEN-LAST:event_deleteActionPerformed
 
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed

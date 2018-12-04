@@ -16,6 +16,23 @@ public class OrderList {
     private String OLID;
     private String prodID;
     private String quantity;
+    private String orderID;
+
+    public String getOrderID() {
+        return orderID;
+    }
+
+    public void setOrderID(String orderID) {
+        this.orderID = orderID;
+    }
+
+    public OrderList(String OLID, String prodID, String quantity, String orderID) {
+        this.OLID = OLID;
+        this.prodID = prodID;
+        this.quantity = quantity;
+        this.orderID = orderID;
+    }
+    
     public CustomizeProduct getCustomizeProduct() {
         return customizeProduct;
     }
@@ -97,5 +114,12 @@ public class OrderList {
     public void setQuantity(String quantity) {
         this.quantity = quantity;
     }
+
+    @Override
+    public String toString() {
+        return "OrderList{" + "OLID=" + OLID + ", prodID=" + prodID + ", quantity=" + quantity + ", orderID=" + orderID + '}';
+    }
+
+    
     
 }

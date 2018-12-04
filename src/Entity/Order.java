@@ -20,7 +20,7 @@ public class Order {
     public double getTotalAmount() {
         return totalAmount;
     }
-
+    
     public void setTotalAmount(double totalAmount) {
         this.totalAmount = totalAmount;
     }
@@ -35,9 +35,17 @@ public class Order {
         this.custID = custID;
     }
 
+    public Order(String orderID, String orderStatus, String orderType, double totalAmount, String custID) {
+        this.orderID = orderID;
+        this.orderStatus = orderStatus;
+        this.orderType = orderType;
+        this.totalAmount = totalAmount;
+        this.custID = custID;
+    }
+
     @Override
     public String toString() {
-        return "Order{" + "customer=" + customer + ", orderID=" + orderID + ", orderStatus=" + orderStatus + ", orderType=" + orderType + ", totalAmount=" + totalAmount + ", custID=" + custID + '}';
+        return "Order{"  + customer + ", orderID=" + orderID + ", orderStatus=" + orderStatus + ", orderType=" + orderType + ", totalAmount=" + totalAmount + ", custID=" + custID + '}';
     }
 
   

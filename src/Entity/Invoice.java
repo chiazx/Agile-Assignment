@@ -10,7 +10,8 @@ package Entity;
  * @author boonk
  */
 public class Invoice {
-    private Order order;
+    private static int nextNumber = 1000;
+    private int num;
     private String invoiceNo;
     private String orderID;
     private String paymentStatus;
@@ -19,14 +20,14 @@ public class Invoice {
 
     @Override
     public String toString() {
-        return "Invoice{" + "order=" + order + ", invoiceNo=" + invoiceNo + ", orderID=" + orderID + ", paymentStatus=" + paymentStatus + ", invoiceAmount=" + invoiceAmount + ", incoiceDate=" + invoiceDate + '}';
+        return "Invoice{ invoiceNo=" + invoiceNo + ", Company Name=" + orderID + ", paymentStatus=" + paymentStatus + ", invoiceAmount=" + invoiceAmount + ", incoiceDate=" + invoiceDate + '}';
     }
 
     public Invoice() {
     }
 
-    public Invoice(Order order, String invoiceNo, String orderID, String paymentStatus, String invoiceAmount, String invoiceDate) {
-        this.order = order;
+    public Invoice( String invoiceNo, String orderID, String paymentStatus, String invoiceAmount, String invoiceDate) {
+       
         this.invoiceNo = invoiceNo;
         this.orderID = orderID;
         this.paymentStatus = paymentStatus;
@@ -34,13 +35,6 @@ public class Invoice {
         this.invoiceDate = invoiceDate;
     }
 
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
 
     public String getInvoiceNo() {
         return invoiceNo;
@@ -81,5 +75,16 @@ public class Invoice {
     public void setIncoiceDate(String incoiceDate) {
         this.invoiceDate = incoiceDate;
     }
+    public void setNumber(int number) {
+    this.num = number;
+  }
+
+  public static int getNextNumber() {
+    return nextNumber;
+  }
+
+  public static void setNextNumber(int nextNumber) {
+     Invoice.nextNumber = nextNumber;
+  }
     
 }
