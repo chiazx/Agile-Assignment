@@ -17,6 +17,39 @@ public class Delivery {
     private String deliveryDate;
     private String roadName;
     private String address;
+    private String deliveredTime;
+
+    public String getDeliveredTime() {
+        return deliveredTime;
+    }
+
+    public void setDeliveredTime(String deliveredTime) {
+        this.deliveredTime = deliveredTime;
+    }
+
+    
+    public Delivery(String orderID, String deliveryID, String deliveryManName, String deliveryDate, String roadName, String address, String deliveredTime) {
+        this.orderID = orderID;
+        this.deliveryID = deliveryID;
+        this.deliveryManName = deliveryManName;
+        this.deliveryDate = deliveryDate;
+        this.roadName = roadName;
+        this.address = address;
+        this.deliveredTime = deliveredTime;
+    }
+
+    
+    
+    
+    
+
+    public Delivery(String orderID, String deliveryID, String deliveryManName, String deliveryDate, String address) {
+        this.orderID = orderID;
+        this.deliveryID = deliveryID;
+        this.deliveryManName = deliveryManName;
+        this.deliveryDate = deliveryDate;
+        this.address = address;
+    }
 
     public Delivery(String orderID, String deliveryID, String deliveryManName, String deliveryDate, String address) {
         this.orderID = orderID;

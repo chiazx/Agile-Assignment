@@ -79,7 +79,7 @@ public void initialize(){
             
             }
     }else{
-            System.out.print(prodList.getEntry(i+1).getProdName());
+            //System.out.print(prodList.getEntry(i+1).getProdName());
             Flowerddl.addItem(prodList.getEntry(i+1).getProdType().toString()); // if no item, add it
         }
     }

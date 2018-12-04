@@ -1,4 +1,7 @@
+
 package ADT;
+
+import ADT.ListInterface;
 
 /**
  * LList.java A class that implements the ADT list by using a chain of nodes,
@@ -186,3 +189,4 @@ public class LList<T> implements ListInterface<T> {
   } // end Node
 
 } // end LList
+
