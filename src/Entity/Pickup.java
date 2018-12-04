@@ -42,6 +42,12 @@ public class Pickup {
         this.pickupStatus=pickupStatus;
     }
 
+  
+    
+
+    public Pickup() {
+    }
+
     @Override
     public String toString() {
         return "Pickup{" + "orderID=" + orderID + ", pickupID=" + pickupID + ", pickupPriority=" + pickupPriority + '}';
