@@ -51,13 +51,7 @@ public class Delivery {
         this.address = address;
     }
 
-    public Delivery(String orderID, String deliveryID, String deliveryManName, String deliveryDate, String address) {
-        this.orderID = orderID;
-        this.deliveryID = deliveryID;
-        this.deliveryManName = deliveryManName;
-        this.deliveryDate = deliveryDate;
-        this.address = address;
-    }
+    
 
     public Delivery(Order order, String orderID, String deliveryID, String deliveryManName, String deliveryDate, String roadName, String address) {
         this.order = order;

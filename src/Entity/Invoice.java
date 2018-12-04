@@ -26,10 +26,7 @@ public class Invoice {
 
     }
 
-    @Override
-    public String toString() {
-        return "Invoice{" + "invoiceNo=" + invoiceNo + ", orderID=" + orderID + ", paymentStatus=" + paymentStatus + ", invoiceAmount=" + invoiceAmount + ", invoiceDate=" + invoiceDate + '}';
-    }
+    
 
 
     public Invoice( String invoiceNo, String orderID, String paymentStatus, String invoiceAmount, String invoiceDate) {
@@ -77,21 +74,7 @@ public class Invoice {
     }
 
 
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
-
-    public String getCustomerID() {
-        return customerID;
-    }
-
-    public void setCustomerID(String customerID) {
-        this.customerID = customerID;
-    }
+    
 
     public String getInvoiceDate() {
         return invoiceDate;

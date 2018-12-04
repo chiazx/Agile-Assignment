@@ -45,8 +45,7 @@ public class Pickup {
   
     
 
-    public Pickup() {
-    }
+   
 
     @Override
     public String toString() {
