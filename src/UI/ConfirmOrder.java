@@ -31,6 +31,7 @@ public class ConfirmOrder extends javax.swing.JFrame {
     
     
     public ConfirmOrder(ListInterface<OrderList> orderList,ListInterface<CatalogProduct> prodList) {
+        ////watever i very emo
         this.prodList = prodList;
         this.orderList = orderList;
         initComponents();
