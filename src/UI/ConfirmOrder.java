@@ -81,6 +81,7 @@ public class ConfirmOrder extends javax.swing.JFrame {
        refreshTable();
     }
     public String showDateInputDialog(){
+        System.out.print("I Have commit something");
          String dateValue="";
         do{
         dateValue= JOptionPane.showInputDialog("Please enter a Date \n Formate(MM\\DD\\YYYY)");
