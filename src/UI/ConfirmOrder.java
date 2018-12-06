@@ -438,7 +438,7 @@ public class ConfirmOrder extends javax.swing.JFrame {
     }//GEN-LAST:event_rbDeliveryActionPerformed
 
     private void CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelActionPerformed
-    System.out.print("cancel");
+    System.out.print("cancel1");
         this.setVisible(false);
     }//GEN-LAST:event_CancelActionPerformed
 
