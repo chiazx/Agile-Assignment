@@ -30,9 +30,9 @@ public class DisplayCatalog extends javax.swing.JFrame {
     public DisplayCatalog() {
         initComponents();
         initialize();
-        ImageIcon tenP = new ImageIcon("4.jpg");
-         System.out.println(tenP==null);
-        System.out.println(getClass().getResource("1.jpg")==null);
+        
+         System.out.println("print smth");
+        
        
     }
 public void initialize(){
