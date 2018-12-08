@@ -38,6 +38,7 @@ LocalDateTime now = LocalDateTime.now();
          initialize1();
          refreshPickupTable();
          jTable1.setAutoCreateRowSorter(true);
+         jTable3.setAutoCreateRowSorter(true);
          // try again
     }
 public void initialize(){
