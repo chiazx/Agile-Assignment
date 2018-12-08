@@ -37,12 +37,13 @@ LocalDateTime now = LocalDateTime.now();
          initialize();
          initialize1();
          refreshPickupTable();
+         
     }
 public void initialize(){
         pickupList.add(new Pickup("PU001","PU0001","12-12-2018","","Extreme","Not pickup"));
         pickupList.add(new Pickup("PU002","PU0002","12-12-2018","","Moderate","Not pickup"));
         pickupList.add(new Pickup("PU003","PU0003","12-12-2018","","Low","Not pickup"));
-       
+       //modify smth
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
       for(int i =0;i<pickupList.getNumberOfEntries();i++){
           model.addRow(new Object[]{pickupList.getEntry(i+1).getOrderID(),pickupList.getEntry(i+1).getPickupPriority(),pickupList.getEntry(i+1).getPickupTime(),pickupList.getEntry(i+1).getPickupStatus()});
