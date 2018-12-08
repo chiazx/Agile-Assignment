@@ -18,7 +18,7 @@ static ListInterface<Order> salesOrderList = new LList<>();
 static ListInterface<OrderList> orderList = new LList<>();
 static ListInterface<ConsumerE> consumerList = new LList<>();
 static ListInterface<CooperateE> cooperateList = new LList<>();
-static ListInterface<CatalogProduct> productList = new LList<>();
+static ListInterface<CatalogProduct> prodList = new LList<>();
     /**
      * Creates new form SalesOrder
      */
@@ -214,7 +214,14 @@ static ListInterface<CatalogProduct> productList = new LList<>();
     public void initialize(){
         ConsumerE consumer= new ConsumerE("CP1000","POPPY","017-99912345","Jalan Pokong \n 99999");
         CooperateE cooperate = new CooperateE("CO1000","MEOW Sdn Bhd","012-1231231",200.00,"Jalan Pokok \n 010100");
-        
+        salesOrderList.add(new Order(consumer,"OR0001","success","delivery",200.00));
+        salesOrderList.add(new Order(cooperate,"OR0002","success","pickup",200.00));
+        orderList.add(new OrderList("OL0001","CP001","2","OR0001"));
+      orderList.add(new OrderList("OL0002","CP002","1","OR0001"));
+         orderList.add(new OrderList("OL0003","CP010","3","OR0001"));
+         orderList.add(new OrderList("OL0001","CP001","2","OR0002"));
+      orderList.add(new OrderList("OL0002","CP002","1","OR0002"));
+         orderList.add(new OrderList("OL0003","CP010","3","OR0002"));
         String string =""; // string for generate sales details
         
     }
