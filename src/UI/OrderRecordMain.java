@@ -37,7 +37,7 @@ LocalDateTime now = LocalDateTime.now();
          initialize();
          initialize1();
          refreshPickupTable();
-         
+         // try again
     }
 public void initialize(){
         pickupList.add(new Pickup("PU001","PU0001","12-12-2018","","Extreme","Not pickup"));
