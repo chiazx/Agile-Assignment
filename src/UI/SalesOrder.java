@@ -19,6 +19,7 @@ static ListInterface<OrderList> orderList = new LList<>();
 static ListInterface<ConsumerE> consumerList = new LList<>();
 static ListInterface<CooperateE> cooperateList = new LList<>();
 static ListInterface<CatalogProduct> prodList = new LList<>();
+static Order order;
     /**
      * Creates new form SalesOrder
      */
@@ -26,7 +27,10 @@ static ListInterface<CatalogProduct> prodList = new LList<>();
         initComponents();
         initialize();
     }
-    public SalesOrder(ListInterface<Order> salesOrderList){
+    public SalesOrder(Order order,ListInterface<OrderList> orderList){
+        this.order=order;
+        this.orderList=orderList;
+        
         initComponents();
         initialize();
     }
@@ -212,18 +216,31 @@ static ListInterface<CatalogProduct> prodList = new LList<>();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public void initialize(){
-        ConsumerE consumer= new ConsumerE("CP1000","POPPY","017-99912345","Jalan Pokong \n 99999");
-        CooperateE cooperate = new CooperateE("CO1000","MEOW Sdn Bhd","012-1231231",200.00,"Jalan Pokok \n 010100");
-        salesOrderList.add(new Order(consumer,"OR0001","success","delivery",200.00));
-        salesOrderList.add(new Order(cooperate,"OR0002","success","pickup",200.00));
-        orderList.add(new OrderList("OL0001","CP001","2","OR0001"));
-      orderList.add(new OrderList("OL0002","CP002","1","OR0001"));
-         orderList.add(new OrderList("OL0003","CP010","3","OR0001"));
-         orderList.add(new OrderList("OL0001","CP001","2","OR0002"));
-      orderList.add(new OrderList("OL0002","CP002","1","OR0002"));
-         orderList.add(new OrderList("OL0003","CP010","3","OR0002"));
-        String string =""; // string for generate sales detailss
         
+       
+       
+      tfOrderID.setText(order.getOrderID());
+      if(order.getConsumer()!=null){
+          tfCustID.setText(order.getConsumer().getCustID());
+          tfCustName.setText(order.getConsumer().getCustName());
+          tfCustType.setText(("Individual Customer"));
+      }else if(order.getCooperate()!=null){
+           tfCustID.setText(order.getCooperate().getCustID());
+          tfCustName.setText(order.getCooperate().getCustName());
+          tfCustType.setText("Cooperate Customer");
+      }
+      tfOrderType.setText(order.getOrderType());
+      
+        String string =""; // string for generate sales detailss
+        System.out.print("hi"+orderList.getNumberOfEntries());
+        for(int i=0;i<orderList.getNumberOfEntries();i++){
+        string +="Product ID:\t"+orderList.getEntry(i+1).getCatalogProduct().getProdID()+"\tProduct name:\t"+orderList.getEntry(i+1).getCatalogProduct().getProdName()
+                +"\nUnit Price:\t"+String.format(".2f", orderList.getEntry(i+1).getCatalogProduct().getProdPrice())+"\tOrder Quantity:\t"+orderList.getEntry(i+1).getQuantity()
+                +"\n----------------------------------------------------------------------------------------------------------------------------------------\n"
+                +"Total Ammount:"+String.format(".2f", orderList.getEntry(i+1).getCatalogProduct().getProdPrice()*Integer.parseInt(orderList.getEntry(i+1).getQuantity()))
+                +"\n----------------------------------------------------------------------------------------------------------------------------------------\n\n";
+    }
+        taSales.setText(string);
     }
     /**
      * @param args the command line arguments
@@ -255,7 +272,7 @@ static ListInterface<CatalogProduct> prodList = new LList<>();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SalesOrder(salesOrderList).setVisible(true);
+                new SalesOrder(order,orderList).setVisible(true);
             }
         });
     }

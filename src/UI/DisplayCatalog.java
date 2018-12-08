@@ -7,8 +7,11 @@ package UI;
 
 import ADT.*;
 import Entity.CatalogProduct;
+import Entity.ConsumerE;
+import Entity.CooperateE;
 import Entity.Order;
 import Entity.OrderList;
+import static UI.SalesOrder.salesOrderList;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.net.URL;
@@ -25,6 +28,7 @@ public class DisplayCatalog extends javax.swing.JFrame {
  ListInterface<CatalogProduct> prodList = new LList();
  ListInterface<OrderList> orderList = new LList();
  ListInterface<Order> salesOrderList = new LList<>();
+ ListInterface<OrderList> selectOrderList = new LList<>();
  String orderID="";
     /**
      * Creates new form DisplayCatalog
@@ -43,6 +47,10 @@ public void initialize(){
    orderID="OL0001";
    jLabel3.setVisible(false);
    //insert dummy flower data
+   // for sales table use
+    
+  
+         
     prodList.add(new CatalogProduct("CP001","Just For You","Roses","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",120.00));
      prodList.add(new CatalogProduct("CP002","True Romance","Roses","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",120.00));
       prodList.add(new CatalogProduct("CP003","Teddy Red","Roses","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",120.00));
@@ -55,6 +63,17 @@ public void initialize(){
              prodList.add(new CatalogProduct("CP010","Over The Rainbow","Others","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",100.00));
               prodList.add(new CatalogProduct("CP011","Sweet Admiration","Others","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",100.00));
               //insert dummy order data
+              ConsumerE consumer= new ConsumerE("CP1000","POPPY","017-99912345","Jalan Pokong \n 99999");
+        CooperateE cooperate = new CooperateE("CO1000","MEOW Sdn Bhd","012-1231231",200.00,"Jalan Pokok \n 010100");
+        salesOrderList.add(new Order(consumer,"OR0001","confirm","delivery",200.00));
+        salesOrderList.add(new Order(cooperate,"OR0002","confirm","pickup",200.00));
+        salesOrderList.add(new Order(consumer,"OR0003","s","delivery",200.00));
+        
+         orderList.add(new OrderList(prodList.getEntry(2),salesOrderList.getEntry(1),"OL0001","2"));
+         orderList.add(new OrderList(prodList.getEntry(3),salesOrderList.getEntry(2),"OL0002","4"));
+         orderList.add(new OrderList(prodList.getEntry(5),salesOrderList.getEntry(1),"OL0003","2"));
+         orderList.add(new OrderList(prodList.getEntry(4),salesOrderList.getEntry(3),"OL0001","3"));
+          
    /*orderList.add(new OrderList("OL0001","CP001","2","OR0001"));
       orderList.add(new OrderList("OL0002","CP002","1","OR0001"));
          orderList.add(new OrderList("OL0003","CP010","3","OR0001"));
@@ -62,7 +81,7 @@ public void initialize(){
    
             //  System.out.print(prodList.getNumberOfEntries());
               //clear all the order item
-              orderList = new LList<>();
+              
               Flowerddl.removeAllItems(); // make sure nothing in ddl
               Flowerddl.addItem(" ");
     // initialize the flower type drop down list
@@ -110,7 +129,8 @@ public void initialize(){
        for(int i=0;i<orderList.getNumberOfEntries();i++){
            for(int j=0;j<prodList.getNumberOfEntries();j++){
             //   System.out.println(prodList.getEntry(j+1).getProdName());
-               if(orderList.getEntry(i+1).getProdID().equals(prodList.getEntry(j+1).getProdID())){
+            
+               if(orderList.getEntry(i+1).getCatalogProduct().getProdID().equals(prodList.getEntry(j+1).getProdID())){
                    model.addRow(new Object[]{prodList.getEntry(j+1).getProdName(),orderList.getEntry(i+1).getQuantity()});
            }
            
@@ -454,6 +474,11 @@ public void initialize(){
                 return canEdit [columnIndex];
             }
         });
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTable1);
 
         jLabel1.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 24)); // NOI18N
@@ -514,7 +539,7 @@ public void initialize(){
     }// </editor-fold>//GEN-END:initComponents
 
     public void refreshSalesOrderTable(){
-        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         int rowCount = model.getRowCount();
       //  System.out.print(rowCount+"222");
         for (int i = rowCount - 1; i >= 0; i--) {
@@ -522,13 +547,14 @@ public void initialize(){
 }
         
          for(int i=0;i<salesOrderList.getNumberOfEntries();i++){
-           
-            //   System.out.println(prodList.getEntry(j+1).getProdName                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
-               if(salesOrderList.getEntry(i+1).getOrderStatus().toLowerCase().equals("success")){
-                   model.addRow(new Object[]{salesOrderList.getEntry(i+1).getOrderID(),salesOrderList.getEntry(i+1).getCustID(),salesOrderList.getEntry(i+1).getTotalAmount()});
+               if(salesOrderList.getEntry(i+1).getOrderStatus().toLowerCase().equals("confirm")){
+                    if(salesOrderList.getEntry(i+1).getConsumer()!=null){
+                 model.addRow(new Object[]{salesOrderList.getEntry(i+1).getOrderID(),salesOrderList.getEntry(i+1).getConsumer().getCustName(),salesOrderList.getEntry(i+1).getTotalAmount()});
+           }else if(salesOrderList.getEntry(i+1).getCooperate()!=null){
+               model.addRow(new Object[]{salesOrderList.getEntry(i+1).getOrderID(),salesOrderList.getEntry(i+1).getCooperate().getCustName(),salesOrderList.getEntry(i+1).getTotalAmount()});
            }
-           
-       
+                 
+           }
        }
     }
     public void refreshOrderTable(){
@@ -544,11 +570,11 @@ public void initialize(){
        for(int i=0;i<orderList.getNumberOfEntries();i++){
            for(int j=0;j<prodList.getNumberOfEntries();j++){
             //   System.out.println(prodList.getEntry(j+1).getProdName                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
-               if(orderList.getEntry(i+1).getProdID().equals(prodList.getEntry(j+1).getProdID())){
+               if(orderList.getEntry(i+1).getCatalogProduct().getProdID().equals(prodList.getEntry(j+1).getProdID())){
                    model.addRow(new Object[]{prodList.getEntry(j+1).getProdName(),orderList.getEntry(i+1).getQuantity()});
            }
            
-       }
+        }
        }
     }
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -761,6 +787,26 @@ public void initialize(){
         
         //String updatedQuantity =JOptionPane.showInputDialog(null,selectedItem+"\n Change Quantity: ","Edit Product Quantity",JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jTable2MouseClicked
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+      int rowSelected = jTable1.getSelectedRow();
+      Order order = new Order();//to get selected order order
+     
+      for(int i=0;i<orderList.getNumberOfEntries();i++){
+          
+         if(orderList.getEntry(i+1).getOrder().getOrderID().equals(jTable1.getModel().getValueAt(rowSelected, 0))) {
+             selectOrderList.add(orderList.getEntry(i+1));
+            
+         }
+      }
+      for(int i=0;i<salesOrderList.getNumberOfEntries();i++){
+          if(salesOrderList.getEntry(i+1).getOrderID().equals(jTable1.getModel().getValueAt(rowSelected, 0))){
+              order = salesOrderList.getEntry(i+1);
+          }
+      }
+      System.out.print(selectOrderList.getNumberOfEntries()+"NO");
+      new SalesOrder(order,selectOrderList).setVisible(true);
+    }//GEN-LAST:event_jTable1MouseClicked
 
     /**
      * @param args the command line arguments
