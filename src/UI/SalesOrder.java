@@ -222,7 +222,7 @@ static ListInterface<CatalogProduct> prodList = new LList<>();
          orderList.add(new OrderList("OL0001","CP001","2","OR0002"));
       orderList.add(new OrderList("OL0002","CP002","1","OR0002"));
          orderList.add(new OrderList("OL0003","CP010","3","OR0002"));
-        String string =""; // string for generate sales details
+        String string =""; // string for generate sales detailss
         
     }
     /**
