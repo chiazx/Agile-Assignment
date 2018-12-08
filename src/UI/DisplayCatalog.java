@@ -31,7 +31,7 @@ public class DisplayCatalog extends javax.swing.JFrame {
         initComponents();
         initialize();
         
-         System.out.println("print smth");
+         System.out.println("commit a bit");
         
        
     }
