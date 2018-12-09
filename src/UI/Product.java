@@ -729,7 +729,6 @@ public class Product extends javax.swing.JFrame {
             Price.setText("");
             fDescription.setText("");
         }
-
         }
     }//GEN-LAST:event_createActionPerformed
 
