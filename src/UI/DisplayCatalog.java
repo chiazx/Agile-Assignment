@@ -29,6 +29,8 @@ public class DisplayCatalog extends javax.swing.JFrame {
  ListInterface<OrderList> orderList = new LList();
  ListInterface<Order> salesOrderList = new LList<>();
  ListInterface<OrderList> selectOrderList = new LList<>();
+ double totalAmt=0.00;
+ Order order = new Order();
  String orderID="";
     /**
      * Creates new form DisplayCatalog
@@ -36,21 +38,35 @@ public class DisplayCatalog extends javax.swing.JFrame {
     public DisplayCatalog() {
         initComponents();
         initialize();
-        
-       
+    }
+    public DisplayCatalog(Order order1, ListInterface<OrderList> confirmOrderList){
+     //class for receive from catalog order.
+    
+      salesOrderList.add(order1);
+        for(int i =0;i<confirmOrderList.getNumberOfEntries();i++){
+
+            orderList.add(confirmOrderList.getEntry(i+1));
+        }
+        initComponents();
+        initialize();
+         
+    }
+    public void getConfirmSales(Order order, ListInterface<OrderList> confirmOrderList){
+        salesOrderList.add(order);
+        for(int i =0;i<confirmOrderList.getNumberOfEntries();i++){
+            orderList.add(confirmOrderList.getEntry(i+1));
+        }
     }
 public void initialize(){
     //initialize product details
    
    // CatalogProduct catalogProduct = new CatalogProduct();
    //fake order ID
-   orderID="OL0001";
+   
    jLabel3.setVisible(false);
    //insert dummy flower data
    // for sales table use
-    
-  
-         
+   
     prodList.add(new CatalogProduct("CP001","Just For You","Roses","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",120.00));
      prodList.add(new CatalogProduct("CP002","True Romance","Roses","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",120.00));
       prodList.add(new CatalogProduct("CP003","Teddy Red","Roses","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",120.00));
@@ -67,13 +83,14 @@ public void initialize(){
         CooperateE cooperate = new CooperateE("CO1000","MEOW Sdn Bhd","012-1231231",200.00,"Jalan Pokok \n 010100");
         salesOrderList.add(new Order(consumer,"OR0001","confirm","delivery",200.00));
         salesOrderList.add(new Order(cooperate,"OR0002","confirm","pickup",200.00));
-        salesOrderList.add(new Order(consumer,"OR0003","s","delivery",200.00));
+        salesOrderList.add(new Order(consumer,"OR0003","confirm","delivery",200.00));
         
          orderList.add(new OrderList(prodList.getEntry(2),salesOrderList.getEntry(1),"OL0001","2"));
          orderList.add(new OrderList(prodList.getEntry(3),salesOrderList.getEntry(2),"OL0002","4"));
          orderList.add(new OrderList(prodList.getEntry(5),salesOrderList.getEntry(1),"OL0003","2"));
          orderList.add(new OrderList(prodList.getEntry(4),salesOrderList.getEntry(3),"OL0001","3"));
-          
+          order.setOrderID(GenerateNextORID());//everytime the class is called add new one.
+   order.setOrderStatus("processing");
    /*orderList.add(new OrderList("OL0001","CP001","2","OR0001"));
       orderList.add(new OrderList("OL0002","CP002","1","OR0001"));
          orderList.add(new OrderList("OL0003","CP010","3","OR0001"));
@@ -558,29 +575,25 @@ public void initialize(){
        }
     }
     public void refreshOrderTable(){
-        
+        totalAmt=0.00;
         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
         int rowCount = model.getRowCount();
       //  System.out.print(rowCount+"222");
         for (int i = rowCount - 1; i >= 0; i--) {
     model.removeRow(i);
 }
-        
-        
+
        for(int i=0;i<orderList.getNumberOfEntries();i++){
-           for(int j=0;j<prodList.getNumberOfEntries();j++){
-            //   System.out.println(prodList.getEntry(j+1).getProdName                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
-               if(orderList.getEntry(i+1).getCatalogProduct().getProdID().equals(prodList.getEntry(j+1).getProdID())){
-                   model.addRow(new Object[]{prodList.getEntry(j+1).getProdName(),orderList.getEntry(i+1).getQuantity()});
+           if(!orderList.getEntry(i+1).getOrder().getOrderStatus().toLowerCase().equals("confirm")){
+        model.addRow(new Object[]{orderList.getEntry(i+1).getCatalogProduct().getProdName(),orderList.getEntry(i+1).getQuantity()});
+               totalAmt+=orderList.getEntry(i+1).getCatalogProduct().getProdPrice()*(Integer.parseInt(orderList.getEntry(i+1).getQuantity()));
            }
-           
-        }
        }
     }
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
       // check whether item is slected
       //System.out.print(FlowerStyleddl.getItemCount()<3);
-      
+      CatalogProduct selectedProd = new CatalogProduct();
       if(Flowerddl.getSelectedIndex()==0){
           JOptionPane.showMessageDialog(null,"Please select product type!","Warning", JOptionPane.WARNING_MESSAGE);
       }else if(tfQuantity.getText().equals("")){
@@ -598,17 +611,38 @@ public void initialize(){
               for(int j=0;j<prodList.getNumberOfEntries();j++){
             if(prodList.getEntry(j+1).getProdName().equals(FlowerStyleddl.getSelectedItem().toString())){
                 prodID =prodList.getEntry(j+1).getProdID();
+                selectedProd=prodList.getEntry(j+1);
             }
            }
            
-       
-              orderList.add(new OrderList(GenerateNextOLID(),prodID,tfQuantity.getText(),"OR0001"));
+               if(jTable2.getRowCount()==0){
+                   order.setOrderStatus("processing");
+                   salesOrderList.add(order);
+               }
+               
+              orderList.add(new OrderList(selectedProd,order,GenerateNextOLID(),tfQuantity.getText()));
               refreshOrderTable();
           JOptionPane.showMessageDialog(null,"Item is successfully addedd to cart","Confirmation message", JOptionPane.INFORMATION_MESSAGE);
       }  
       }
         
     }//GEN-LAST:event_jButton2ActionPerformed
+    public String GenerateNextORID(){
+        String newID ="";
+         if(!salesOrderList.isEmpty()){
+          int lastOrderItemIndex = salesOrderList.getNumberOfEntries();
+          //update the last orderListID
+          String lastOrderListID = salesOrderList.getEntry(lastOrderItemIndex).getOrderID();
+          String prefix =lastOrderListID.substring(0, 2);
+          int integer = Integer.parseInt(lastOrderListID.substring(2,6));
+          integer +=1;
+          
+          newID=prefix+String.format("%04d", integer);
+        }else{
+            newID="OR0001";
+        }
+        return newID;
+    }
     public String GenerateNextOLID(){
         // read the last item and add to next
         String newID="";
@@ -755,8 +789,9 @@ public void initialize(){
     }//GEN-LAST:event_FlowerStyleddlActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-     if(!orderList.isEmpty()){
-           new ConfirmOrder(orderList,prodList).setVisible(true);
+        System.out.print(order.getOrderID());
+        if(jTable2.getRowCount()!=0){
+           new ConfirmOrder(order,orderList,prodList).setVisible(true);
      }else{
          JOptionPane.showMessageDialog(null, "Please choose at least one item or product! ","INFORMATION",JOptionPane.INFORMATION_MESSAGE);
      }
