@@ -24,7 +24,17 @@ public class CatalogProduct {
         
     }
 
-    public CatalogProduct(String prodName, String prodType, String prodDescription, double prodPrice, int prodQuantity) {
+    public CatalogProduct(String prodID, String prodName, String prodType, double prodPrice, int prodQuantity) {
+        this.prodID = prodID;
+        this.prodName = prodName;
+        this.prodType = prodType;
+        this.prodPrice = prodPrice;
+        this.prodQuantity = prodQuantity;
+    }
+
+    
+    public CatalogProduct(String prodID,String prodName, String prodType, String prodDescription, double prodPrice, int prodQuantity) {
+        this.prodID = prodID;
         this.prodName = prodName;
         this.prodType = prodType;
         this.prodDescription = prodDescription;
@@ -40,6 +50,7 @@ public class CatalogProduct {
         this.prodDescription = prodDescription;
         this.prodPrice = prodPrice;
     }
+    
     
     public CatalogProduct(String prodID, String prodName, String prodType, String prodStatus, String prodDescription, double prodPrice, int prodQuantity) {
         this.prodID = prodID;
@@ -119,7 +130,7 @@ public class CatalogProduct {
     
     @Override
     public String toString() {
-        return String.format("Flower name :%s \n Flower type :%s \n Quantity :%d \n Price :RM%.2f \n Description :%s \n",prodName , prodType, prodQuantity, prodPrice, prodDescription);
+        return String.format(" ID: %s\n Flower name :%s \n Flower type :%s \n Quantity :%d \n Price :RM%.2f \n Description :%s \n",prodID ,prodName , prodType, prodQuantity, prodPrice, prodDescription);
     }
    
 

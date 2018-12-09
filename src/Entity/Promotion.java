@@ -78,6 +78,6 @@ public class Promotion {
 
     @Override
     public String toString(){
-        return String.format("Start Date: %s\n End Date: %s\n Title: %s\n Discount Rate: %d\n", StartDate,EndDate,promotionTitle,discountRate);
+        return String.format(" ID: %s\n Start Date: %s\n End Date: %s\n Title: %s\n Discount Rate: %d\n",promotionID ,StartDate,EndDate,promotionTitle,discountRate);
     }
 }

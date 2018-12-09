@@ -604,10 +604,10 @@ public class Product extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     public void initialize(){
         //add dummy flower data
-        productList.add(new CatalogProduct("F001","Lily","Bouquet","Available","Funny",120.00,120));
-        productList.add(new CatalogProduct("F002","Rose","Floral arrangement","Remaining Stock Rarely","Funny",120.00,30));
-        productList.add(new CatalogProduct("F003","Carnation","Bouquet","Out-of-Stock","Funny",120.00,0));
-        productList.add(new CatalogProduct("F004","Tuplis","Bouquet","Available","Funny",120.00,120));
+        productList.add(new CatalogProduct("FL001","Lily","Bouquet","Available","Funny",120.00,120));
+        productList.add(new CatalogProduct("FL002","Rose","Floral arrangement","Remaining Stock Rarely","Funny",120.00,30));
+        productList.add(new CatalogProduct("FL003","Carnation","Bouquet","Out-of-Stock","Funny",120.00,0));
+        productList.add(new CatalogProduct("FL004","Tuplis","Bouquet","Available","Funny",120.00,120));
            refreshFlowerDropDownList();
 
         DefaultTableModel model = (DefaultTableModel) ProductDetails.getModel();
@@ -621,8 +621,7 @@ public class Product extends javax.swing.JFrame {
               productList.getEntry(i+1).getProdPrice(),
               productList.getEntry(i+1).getProdDescription(),  
               });
-          }
-           
+          }      
     }    
     public void refreshFlowerDropDownList(){
         uName.removeAllItems(); // make sure nothing in ddl
@@ -662,6 +661,20 @@ public class Product extends javax.swing.JFrame {
         path.setText(filename);
     }//GEN-LAST:event_browseActionPerformed
 
+    public String GenerateNextFLID(){
+        String newID ="";
+            int lastFlowerIndex = productList.getNumberOfEntries();
+            String lastFlowerID = productList.getEntry(lastFlowerIndex).getProdID();
+            String prefix = lastFlowerID.substring(0,2);
+            int integer = Integer.parseInt(lastFlowerID.substring(2,5));
+            integer +=1;
+            
+            newID =prefix+ String.format("%03d", integer);
+            System.out.println(newID);
+            System.out.println(lastFlowerIndex);
+        return newID;
+    }
+    
     private void createActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createActionPerformed
         if(fName.getText().matches("") || Quantity.getText().matches("") || Price.getText().matches("")|| fDescription.getText().matches("") || Type.getText().matches("")){
             JOptionPane.showMessageDialog(null,"Please do not leave blank","Information",JOptionPane.INFORMATION_MESSAGE);
@@ -682,7 +695,7 @@ public class Product extends javax.swing.JFrame {
         int quantity = Integer.parseInt(Quantity.getText());
         double price = Double.parseDouble(Price.getText());
         String description = fDescription.getText();
-        CatalogProduct flower = new CatalogProduct(name,type,description,price,quantity);
+        CatalogProduct flower = new CatalogProduct(GenerateNextFLID(),name,type,description,price,quantity);
         productList.add(flower);
         
         System.out.println(productList);
