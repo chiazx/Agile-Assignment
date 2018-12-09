@@ -13,19 +13,19 @@ import java.util.Date;
  */
 public class Promotion {
     private String promotionID;
-    private Date StartDate;
-    private Date EndDate;
+    private String StartDate;
+    private String EndDate;
     private String promotionTitle;
     private int discountRate;
-    private String promotionProduct;
-        
-    public Promotion(String promotionID, Date StartDate, Date EndDate, String promotionTitle, int discountRate, String promotionProduct) {
+    private CatalogProduct CP;
+    
+    public Promotion(String promotionID, String StartDate, String EndDate, String promotionTitle, int discountRate) {
         this.promotionID = promotionID;
         this.StartDate = StartDate;
         this.EndDate = EndDate;
         this.promotionTitle = promotionTitle;
         this.discountRate = discountRate;
-        this.promotionProduct = promotionProduct;
+        //this.CP = CP;
     }
 
     public String getPromotionID() {
@@ -36,19 +36,19 @@ public class Promotion {
         this.promotionID = promotionID;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return StartDate;
     }
 
-    public void setStartDate(Date StartDate) {
+    public void setStartDate(String StartDate) {
         this.StartDate = StartDate;
     }
 
-    public Date getEndDate() {
+    public String getEndDate() {
         return EndDate;
     }
 
-    public void setEndDate(Date EndDate) {
+    public void setEndDate(String EndDate) {
         this.EndDate = EndDate;
     }
 
@@ -68,19 +68,16 @@ public class Promotion {
         this.discountRate = discountRate;
     }
 
-    public String getPromotionProduct() {
-        return promotionProduct;
+    public CatalogProduct getCP() {
+        return CP;
     }
 
-    public void setPromotionProduct(String promotionProduct) {
-        this.promotionProduct = promotionProduct;
+    public void setCP(CatalogProduct CP) {
+        this.CP = CP;
     }
-
 
     @Override
-    public String toString() {
-        return String.format("Promotion ID : %s\n" + promotionID,StartDate,EndDate,discountRate,promotionTitle,promotionProduct);
+    public String toString(){
+        return String.format("Start Date: %s\n End Date: %s\n Title: %s\n Discount Rate: %d\n", StartDate,EndDate,promotionTitle,discountRate);
     }
-
-    
 }

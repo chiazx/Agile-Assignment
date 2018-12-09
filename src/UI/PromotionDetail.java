@@ -8,24 +8,29 @@ package UI;
 import ADT.LList;
 import ADT.ListInterface;
 import Entity.*;
+import java.awt.Component;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Calendar;
 
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.RowFilter;
+import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 /**
  *
  * @author User
  */
 public class PromotionDetail extends javax.swing.JFrame {
 
+    
     /**
      * Creates new form PromotionDetail
      */
@@ -35,15 +40,22 @@ public class PromotionDetail extends javax.swing.JFrame {
     }
 
     public void initialize(){
-       productList.add(new CatalogProduct("PR0001","Lily","Bouquet","Available","Funny",130.00,120));
-       productList.add(new CatalogProduct("PR0002","Rose","Floral Arrangement","Available","Beautiful",130.00,120));
-       productList.add(new CatalogProduct("PR0003","Carnation","Fresh Flower","Out-of-Stock","Cantik",130.00,120));
-       productList.add(new CatalogProduct("PR0004","Tuplis","Bouquet","Available","Awesome",130.00,120));  
-      
-       //promotionList.add(new Promotion("PR001",Date.from(),"","Summer Sales",30,"asd"));
+        CatalogProduct cp = new CatalogProduct("F001","Lily","Bouquet","Available","Funny",120.00,120);
+        CatalogProduct cp1 = new CatalogProduct("F002","Rose","Floral arrangement","Remaining Stock Rarely","Funny",120.00,30);
+        CatalogProduct cp2 = new CatalogProduct("F003","Carnation","Bouquet","Out-of-Stock","Funny",120.00,0);
+        CatalogProduct cp3 = new CatalogProduct("F004","Tuplis","Fresh Flower","Available","Funny",120.00,120); 
+        productList.add(cp);
+        productList.add(cp1);
+        productList.add(cp2);
+        productList.add(cp3); 
+        refreshFlowerDDL();
+        refreshsFlowerDDL();
        
-       
-       
+       //promotionList.add(new Promotion("PR002","2018-10-01","2018-10-31","Winter Sales",20));
+       //promotionList.add(new Promotion("PR003","2018-11-01","2018-12-1","Clear Stock Sales",30));
+       //promotionList.add(new Promotion("PR004","2018-12-01","2018-12-31","No money",40));
+       Promotion p = new Promotion("PR001","2018-09-01","2018-10-1","Summer Sales",10);
+       promotionList.add(p);       
        
        DefaultTableModel model = (DefaultTableModel) Product.getModel();
         for(int i=0; i<productList.getNumberOfEntries(); i++){
@@ -51,11 +63,12 @@ public class PromotionDetail extends javax.swing.JFrame {
                                       productList.getEntry(i+1).getProdName(),
                                       productList.getEntry(i+1).getProdType(),
                                       productList.getEntry(i+1).getProdPrice(),
-                                      productList.getEntry(i+1).getProdQuantity()});
+                                      productList.getEntry(i+1).getProdQuantity(),
+            });
         }
         
         DefaultTableModel model2 = (DefaultTableModel) PromotionDetails.getModel();
-        /*for(int a=0; a<promotionList.getNumberOfEntries(); a++){
+        for(int a=0; a<promotionList.getNumberOfEntries(); a++){
             for(int i=0; i<productList.getNumberOfEntries(); i++){
                 model2.addRow(new Object[]{promotionList.getEntry(a+1).getPromotionID(),
                                            promotionList.getEntry(a+1).getPromotionTitle(),
@@ -67,8 +80,7 @@ public class PromotionDetail extends javax.swing.JFrame {
                                            promotionList.getEntry(a+1).getEndDate()
                 });
             }
-        
-        }*/
+        }
     }
     
     public void refreshFlowerDDL(){
@@ -79,25 +91,55 @@ public class PromotionDetail extends javax.swing.JFrame {
                 }
     }
     
-    
-   /* public String GenerateNextPromoID(){
-        String newID ="";
-        int lastPromotion = promotionList.getNumberOfEntries();
-        String promotionID = promotionList.getEntry(lastPromotion).getPromotionID();
-        String prefix = promotionID.substring(0,1);
-        int integer = Integer.parseInt(promotionID.substring(2,6));
-        integer +=1;
+    public void refreshsFlowerDDL(){
+        pType2.removeAllItems();
+            pType2.addItem(" ");
+                for(int i=0; i<productList.getNumberOfEntries(); i++){
+                    pType2.addItem(productList.getEntry(i+1).getProdType());
+                }
+    }
         
-        newID = prefix+String.format("%04d", integer);
-        System.out.println(newID);
-        System.out.println(lastPromotion);
-        return newID;
-    }*/
-            
+    public void refreshPromotionTable(){
+            DefaultTableModel model =(DefaultTableModel) PromotionDetails.getModel();
+                int rowCount = model.getRowCount();
+                    for(int i=rowCount-1 ; i>=0;i--){
+                        model.removeRow(i);
+                    }
+        
+        for(int a=0; a<promotionList.getNumberOfEntries(); a++){
+            for(int i=0; i<productList.getNumberOfEntries(); i++){
+                model.addRow(new Object[]{promotionList.getEntry(a+1).getPromotionID(),
+                                           promotionList.getEntry(a+1).getPromotionTitle(),
+                                           productList.getEntry(i+1).getProdName(),
+                                           productList.getEntry(i+1).getProdType(),
+                                           promotionList.getEntry(a+1).getDiscountRate(),
+                                           productList.getEntry(i+1).getProdPrice(),
+                                           promotionList.getEntry(a+1).getStartDate(),
+                                           promotionList.getEntry(a+1).getEndDate()
+                });
+            }
+        }
+        PromotionDetails.setRowSelectionAllowed(true);
+        PromotionDetails.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        }
     
+    public void refreshProductTable(){
+        DefaultTableModel model = (DefaultTableModel) Product.getModel();
+        Object[] rowData = new Object[5];
+        for(int i=0; i< productList.getNumberOfEntries(); i++){
+            rowData[0] = productList.getEntry(i+1).getProdID();
+            rowData[1] = productList.getEntry(i+1).getProdName();
+            rowData[2] = productList.getEntry(i+1).getProdType();
+            rowData[3] = productList.getEntry(i+1).getProdPrice();
+            rowData[4] = productList.getEntry(i+1).getProdQuantity();
+            model.addRow(rowData);
+        }
+        Product.setRowSelectionAllowed(true);
+        Product.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+    }
     ListInterface<Promotion> promotionList = new LList<>();
     ListInterface<CatalogProduct> productList = new LList<>();
-    
+    ListInterface<PromotionList> promoList = new LList<>(); 
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -107,6 +149,7 @@ public class PromotionDetail extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollBar1 = new javax.swing.JScrollBar();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
@@ -117,22 +160,20 @@ public class PromotionDetail extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         pType = new javax.swing.JComboBox<>();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        Product = new javax.swing.JTable();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        PromotionProduct = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        Create = new javax.swing.JButton();
         PromotionTitle = new javax.swing.JTextField();
         DiscountRate = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         StartDate = new com.toedter.calendar.JDateChooser();
         PromotionID = new javax.swing.JTextField();
         EndDate = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        Show = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        Product = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
         PromotionDetails = new javax.swing.JTable();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        pType2 = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -179,72 +220,50 @@ public class PromotionDetail extends javax.swing.JFrame {
             }
         });
 
-        Product.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Flower ID", "Name", "Type", "Price", "Quantity"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        Product.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                ProductMousePressed(evt);
-            }
-        });
-        jScrollPane3.setViewportView(Product);
-
-        PromotionProduct.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Flower ID", "Name", "Type", "Price", "Quantity"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jScrollPane6.setViewportView(PromotionProduct);
-
-        jButton1.setText("Create");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        Create.setText("Create");
+        Create.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                CreateActionPerformed(evt);
             }
         });
 
         jLabel11.setText("Promotion ID :");
 
-        StartDate.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                StartDateMouseClicked(evt);
-            }
-        });
-
         PromotionID.setEditable(false);
 
         EndDate.setEditable(false);
 
-        jButton2.setText("Show");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        Show.setText("Show");
+        Show.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                ShowActionPerformed(evt);
             }
         });
+
+        Product.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Flower ID", "Name", "Type", "Price(RM)", "Quantity"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane4.setViewportView(Product);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -266,28 +285,23 @@ public class PromotionDetail extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(EndDate, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(Show)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addGap(18, 18, 18)
+                        .addComponent(pType, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(PromotionID, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel10)
-                                .addGap(18, 18, 18)
-                                .addComponent(pType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 462, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(PromotionID)))))
+                        .addComponent(Create))
+                    .addComponent(jScrollPane4))
                 .addGap(24, 24, 24))
         );
         jPanel3Layout.setVerticalGroup(
@@ -295,33 +309,33 @@ public class PromotionDetail extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel3)
-                        .addComponent(jLabel5)
-                        .addComponent(EndDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton2))
-                    .addComponent(StartDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(PromotionTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(DiscountRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(57, 57, 57)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(pType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11)
-                    .addComponent(PromotionID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addContainerGap(131, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel5)
+                                .addComponent(EndDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(Show))
+                            .addComponent(StartDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9)
+                            .addComponent(PromotionTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(DiscountRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(57, 57, 57)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel10)
+                            .addComponent(pType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel11)
+                            .addComponent(PromotionID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(331, 331, 331))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(2, 2, 2)
+                .addComponent(Create)
+                .addContainerGap(73, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Create Promotion", jPanel3);
@@ -333,22 +347,29 @@ public class PromotionDetail extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Promotion ID", "Title", "Flower Name", "Product Type", "Discount Rate", "Price", "Start Date", "End Date"
+                "Promotion ID", "Title", "Flower Name", "Product Type", "Discount Rate(%)", "Price(Rm)", "Start Date", "End Date"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
         jScrollPane7.setViewportView(PromotionDetails);
 
-        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+        pType2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox2ActionPerformed(evt);
+                pType2ActionPerformed(evt);
             }
         });
 
@@ -359,16 +380,14 @@ public class PromotionDetail extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(85, 85, 85)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 895, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addGap(35, 35, 35)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pType2, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(564, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane7))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -376,7 +395,7 @@ public class PromotionDetail extends javax.swing.JFrame {
                 .addContainerGap(35, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pType2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(128, 128, 128))
@@ -396,89 +415,121 @@ public class PromotionDetail extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 678, Short.MAX_VALUE))
+                .addComponent(jTabbedPane1))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void ProductMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProductMousePressed
-        TableModel firstProduct = Product.getModel();
-        int index[] = Product.getSelectedRows();
-
-        Object[] row = new Object[5];
-
-        DefaultTableModel secondProduct =(DefaultTableModel)PromotionProduct.getModel();
-
-        for(int i=0; i < index.length; i++){
-            row[0] = firstProduct.getValueAt(index[i], 0);
-            row[1] = firstProduct.getValueAt(index[i], 1);
-            row[2] = firstProduct.getValueAt(index[i], 2);
-            row[3] = firstProduct.getValueAt(index[i], 3);
-            row[4] = firstProduct.getValueAt(index[i], 4);
-
-            secondProduct.addRow(row);
-        }
-    }//GEN-LAST:event_ProductMousePressed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(DiscountRate.getText().matches("") || PromotionTitle.getText().matches("") || StartDate.getDate() == null ){
+ 
+    private void CreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateActionPerformed
+    SimpleDateFormat as = new SimpleDateFormat("dd-MM-yyyy");
+        if(DiscountRate.getText().matches("") || PromotionTitle.getText().matches("") ){
             JOptionPane.showMessageDialog(null, "Cannot leave blane", "Information", JOptionPane.INFORMATION_MESSAGE);
-        }        
+        }
+        else if(StartDate.getDate() == null){
+            JOptionPane.showMessageDialog(null, "Please choose a date","Information",JOptionPane.INFORMATION_MESSAGE);
+        }
+        else if(EndDate.getText().matches("")){
+            JOptionPane.showMessageDialog(null, "Please click the 'show' button to show the end date","Information",JOptionPane.INFORMATION_MESSAGE);
+        }
+        else if(Product.getSelectedRowCount() == 0){
+            JOptionPane.showMessageDialog(null,"Please choose the product to promotion","Information",JOptionPane.INFORMATION_MESSAGE);
+        }
         else if(!DiscountRate.getText().matches("^[0-9]*$")){
             JOptionPane.showMessageDialog(null, "Discount Rate must be numeric", "Information", JOptionPane.INFORMATION_MESSAGE);
         }
+        else if(!DiscountRate.getText().matches("(?:\\b|-)([1-9]{1,2}|100)\\b")){
+            JOptionPane.showMessageDialog(null, "Number range is between 1-100 ","Information",JOptionPane.INFORMATION_MESSAGE);
+        }
         else{
             int a = JOptionPane.showConfirmDialog(null,"Do you want to create promotion?", "Question", JOptionPane.YES_OPTION);
-            if(a == 0){       
-
-               // String title = PromotionTitle.getText();
-                //int disRate = Integer.parseInt(DiscountRate.getText());
-               // Date sDate = StartDate.getDate();
-               // Date eDate = EndDate.getText();
-               //String promoProduct = PromotionProduct.getSelectedRow();
-                //String prID = PromotionID.getText();
-
-                //Promotion promotion = new Promotion(prID,sDate,eDate,title,disRate,promoProduct);
-                //promotionList.add(promotion);
+            if(a == 0){     
                 
                 JOptionPane.showMessageDialog(null,"Promotion create successful","Information", JOptionPane.INFORMATION_MESSAGE);
+                //Promotion
+                String Id = PromotionID.getText();
+                String title = PromotionTitle.getText();
+                int disRate = Integer.parseInt(DiscountRate.getText());
+                String sDate = as.format(StartDate.getDate());
+                String eDate = EndDate.getText();   
+                Promotion promotion = new Promotion(Id,sDate,eDate,title,disRate);
+                promotionList.add(promotion);
+                //Flower 
+                for(int i=0; i<Product.getSelectedRowCount();i++){               
+                    String ID = Product.getValueAt(i, 0).toString();
+                    String Name = Product.getValueAt(i, 1).toString();
+                    String Type = Product.getValueAt(i, 2).toString();
+                    Double price = Double.parseDouble(Product.getValueAt(i, 3).toString());
+                    int quantity = Integer.parseInt(Product.getValueAt(i,4).toString());
+                    CatalogProduct p = new CatalogProduct(Name,Type,ID,price,quantity);
+                    productList.add(p);
+                }    
+                //Promotion List
+                CatalogProduct cp = new CatalogProduct();
+                PromotionList promo = new PromotionList(cp,promotion,"");
+                promoList.add(promo);
+                System.out.println(promoList);
+                //-------------------------------------------------- refresh
                 StartDate.setCalendar(null);
-                EndDate.setVisible(false);
+                EndDate.setText("");
                 PromotionTitle.setText("");
                 DiscountRate.setText("");
-            }
+                refreshPromotionTable();
+                 }
             else if(a ==1){
                 JOptionPane.showMessageDialog(null,"Create promotion cancels","Information",JOptionPane.INFORMATION_MESSAGE);
-                EndDate.setVisible(false);
+                StartDate.setCalendar(null);
+                EndDate.setText("");
                 PromotionTitle.setText("");
                 DiscountRate.setText("");
             }
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_CreateActionPerformed
 
-    private void pTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pTypeActionPerformed
-      for(int i=0; i<productList.getNumberOfEntries(); i++){
-            if(pType.getSelectedItem() == productList.getEntry(i+1).getProdType()){
+    public String GenerateNextPromoID(){
+    String newID = "";
+        int lastPromoIndex = promotionList.getNumberOfEntries();
+        //update last prmotion ID
+        String lastPromoID = promotionList.getEntry(lastPromoIndex).getPromotionID();
+        String prefix =lastPromoID.substring(0,2);
+        int integer = Integer.parseInt(lastPromoID.substring(2,6));
+        integer +=1;
                 
+        newID = prefix +String.format("%04d", integer);
+        System.out.println(newID);
+        System.out.println(lastPromoIndex);
+    return newID;
+    }
+    
+    private void pTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pTypeActionPerformed
+        DefaultTableModel dm = (DefaultTableModel) Product.getModel();
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<DefaultTableModel>(dm);
+        for(int i=0; i < productList.getNumberOfEntries(); i++){
+            if(pType.getSelectedItem() == productList.getEntry(i+1).getProdType()){
+                Product.setRowSorter(sorter);
+                String text = pType.getSelectedItem().toString();
+                sorter.setRowFilter(RowFilter.regexFilter(text));
             }
         }
-      refreshFlowerDDL();
     }//GEN-LAST:event_pTypeActionPerformed
 
-    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+    private void pType2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pType2ActionPerformed
       for(int i=0; i<productList.getNumberOfEntries(); i++){
-            if(pType.getSelectedItem() == productList.getEntry(i+1).getProdType()){
-                
+            if(pType2.getSelectedItem() == productList.getEntry(i+1).getProdType()){
+                DefaultTableModel dm = (DefaultTableModel) PromotionDetails.getModel();
+                TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<DefaultTableModel>(dm);
+                PromotionDetails.setRowSorter(sorter);
+                String text = pType2.getSelectedItem().toString();
+                sorter.setRowFilter(RowFilter.regexFilter(text));
             }
         }
-    }//GEN-LAST:event_jComboBox2ActionPerformed
+    }//GEN-LAST:event_pType2ActionPerformed
 
-    private void StartDateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_StartDateMouseClicked
-
-    }//GEN-LAST:event_StartDateMouseClicked
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void ShowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ShowActionPerformed
+        if(StartDate.getDate() == null){
+        JOptionPane.showMessageDialog(null, "Please choose a date before you click this button","Information",JOptionPane.INFORMATION_MESSAGE);
+        }
+        else{ 
         try {
             SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
             String Adate = df.format(StartDate.getDate());
@@ -491,7 +542,8 @@ public class PromotionDetail extends javax.swing.JFrame {
         } catch (ParseException ex) {
             Logger.getLogger(PromotionDetail.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+        }
+    }//GEN-LAST:event_ShowActionPerformed
 
     /**
      * @param args the command line arguments
@@ -529,17 +581,15 @@ public class PromotionDetail extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Create;
     private javax.swing.JTextField DiscountRate;
     private javax.swing.JTextField EndDate;
     private javax.swing.JTable Product;
     private javax.swing.JTable PromotionDetails;
     private javax.swing.JTextField PromotionID;
-    private javax.swing.JTable PromotionProduct;
     private javax.swing.JTextField PromotionTitle;
+    private javax.swing.JButton Show;
     private com.toedter.calendar.JDateChooser StartDate;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -551,10 +601,11 @@ public class PromotionDetail extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollBar jScrollBar1;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JComboBox<String> pType;
+    private javax.swing.JComboBox<String> pType2;
     // End of variables declaration//GEN-END:variables
 }

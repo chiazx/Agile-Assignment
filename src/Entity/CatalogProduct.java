@@ -24,6 +24,14 @@ public class CatalogProduct {
         
     }
 
+    public CatalogProduct(String prodName, String prodType, String prodDescription, double prodPrice, int prodQuantity) {
+        this.prodName = prodName;
+        this.prodType = prodType;
+        this.prodDescription = prodDescription;
+        this.prodPrice = prodPrice;
+        this.prodQuantity = prodQuantity;
+    }
+
     public CatalogProduct(String prodID, String prodName, String prodType, String prodStatus, String prodDescription, double prodPrice) {
         this.prodID = prodID;
         this.prodName = prodName;
@@ -32,7 +40,7 @@ public class CatalogProduct {
         this.prodDescription = prodDescription;
         this.prodPrice = prodPrice;
     }
-
+    
     public CatalogProduct(String prodID, String prodName, String prodType, String prodStatus, String prodDescription, double prodPrice, int prodQuantity) {
         this.prodID = prodID;
         this.prodName = prodName;
@@ -107,9 +115,11 @@ public class CatalogProduct {
         this.prodQuantity = prodQuantity;
     }
 
+    
+    
     @Override
     public String toString() {
-        return String.format("Product ID: %s",prodID,prodName,prodType,prodStatus,prodDescription,prodPrice,prodQuantity);
+        return String.format("Flower name :%s \n Flower type :%s \n Quantity :%d \n Price :RM%.2f \n Description :%s \n",prodName , prodType, prodQuantity, prodPrice, prodDescription);
     }
    
 
