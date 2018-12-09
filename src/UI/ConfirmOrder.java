@@ -63,7 +63,7 @@ public class ConfirmOrder extends javax.swing.JFrame {
            System.out.println("yes");
            System.out.println(order1.getOrderID());
            if(orderList.getEntry(i+1).getOrder().getOrderID().equals(order1.getOrderID())){
-                   totalAmount+=orderList.getEntry(i+1).getCatalogProduct().getProdPrice();
+                   totalAmount+=orderList.getEntry(i+1).getCatalogProduct().getProdPrice()*Integer.parseInt(orderList.getEntry(i+1).getQuantity());
                    model.addRow(new Object[]{orderList.getEntry(i+1).getCatalogProduct().getProdName(),orderList.getEntry(i+1).getQuantity(),orderList.getEntry(i+1).getCatalogProduct().getProdPrice()});
       
            }
