@@ -51,9 +51,9 @@ public class PromotionDetail extends javax.swing.JFrame {
         refreshFlowerDDL();
         refreshsFlowerDDL();
        
-       //promotionList.add(new Promotion("PR002","2018-10-01","2018-10-31","Winter Sales",20));
-       //promotionList.add(new Promotion("PR003","2018-11-01","2018-12-1","Clear Stock Sales",30));
-       //promotionList.add(new Promotion("PR004","2018-12-01","2018-12-31","No money",40));
+       promotionList.add(new Promotion("PR002","2018-10-01","2018-10-31","Winter Sales",20));
+       promotionList.add(new Promotion("PR003","2018-11-01","2018-12-1","Clear Stock Sales",30));
+       promotionList.add(new Promotion("PR004","2018-12-01","2018-12-31","No money",40));
        Promotion p = new Promotion("PR001","2018-09-01","2018-10-1","Summer Sales",10);
        promotionList.add(p);       
        
