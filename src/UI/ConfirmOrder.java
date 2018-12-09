@@ -562,7 +562,7 @@ return validate;
                   
                }
                if(DorP.getSelection().getActionCommand().equals("delivery")){
-                   deliveryList.add(new Delivery(order1,"D0001","Not assigned yet","",DateorPriority,taAddress.getText(),""));
+                   deliveryList.add(new Delivery(order1,"D0001","Not assigned yet","","",DateorPriority,taAddress.getText()));
                    System.out.println(deliveryList);
                }else if(DorP.getSelection().getActionCommand().toLowerCase().equals("pickup")){
                    pickupList.add(new Pickup(order1,"P0001","","",DateorPriority.toLowerCase(),"Not yet pickup"));
