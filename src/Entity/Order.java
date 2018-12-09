@@ -16,6 +16,7 @@ public class Order {
     private String orderType; // delivery or pickup
     private double totalAmount;
     private String custID;
+    private CustomizeProduct cp;
 
     public double getTotalAmount() {
         return totalAmount;
@@ -42,6 +43,28 @@ public class Order {
         this.totalAmount = totalAmount;
         this.custID = custID;
     }
+
+    public Order(String orderID) {
+        this.orderID = orderID;
+    }
+
+    public Order(String orderID, String orderStatus, CustomizeProduct cp) {
+        this.orderID = orderID;
+        this.orderStatus = orderStatus;
+        this.cp = cp;
+    }
+    
+    
+
+    public CustomizeProduct getCp() {
+        return cp;
+    }
+
+    public void setCp(CustomizeProduct cp) {
+        this.cp = cp;
+    }
+
+    
 
     @Override
     public String toString() {

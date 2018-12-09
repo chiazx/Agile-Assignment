@@ -7,8 +7,8 @@ package UI;
 
 
 import Entity.*;
-import ADT.LList;
-import ADT.ListInterface;
+
+import ADT.*;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -29,21 +29,26 @@ public class CustomizedFloral extends javax.swing.JFrame {
         private ListInterface<CatalogProduct> productList = new LList<>();
         private ListInterface<CustomizeFlowerList> flowerList = new LList<>();
         private ListInterface<CustomizeAccessoriesList> acList = new LList<>();
+        private ListInterface<Order> orderList = new LList<>(); 
+        private static int MAX_CUSTOMERS = 100;
+        private QueueInterface<String> line=new LinkedQueue<String>();
+        private QueueInterface<String> normalLine=new LinkedQueue<String>();
+       private QueueInterface<String> flexiLine=new LinkedQueue<String>();
        
         String id;
         int cust_id=0;
         int sizeprice=0;
         int styleprice=0;
         int cfaCode=0;
-    /**
-     * Creates new form StaffMaintenance
-     */
+        int acCode=0;
+        int flCode=0;
+     
     public CustomizedFloral() {
         
-        
+        initComponents();
        init();
        
-       initComponents();
+       
        jPanel4.setVisible(false);
        jButton2.setVisible(false);
        jPanel5.setVisible(false);
@@ -64,7 +69,69 @@ public class CustomizedFloral extends javax.swing.JFrame {
         productList.add(f1);
         productList.add(f2);
         productList.add(f3);
+        
+        CustomizeProduct cp = new CustomizeProduct("CFA0001","abc","abd","Express");
+        CustomizeProduct cp1 = new CustomizeProduct("CFA0001","abc","abd","Normal");
+        
+        Order order1=new Order("OR0001","Confirm",cp);
+        Order order2=new Order("OR0002","Confirm",cp1);
+        Order order3=new Order("OR0003","Confirm",cp);
+        orderList.add(order1);
+        orderList.add(order2);
+        orderList.add(order3);
+        
+        
+        
+        DefaultTableModel jobListTable = (DefaultTableModel) jTable3.getModel();
+        Object[] rowData = new Object[1];
+        
+        
+        for(int i=0;i<orderList.getNumberOfEntries();i++){
+            String pr=orderList.getEntry(i+1).getCp().getPriority();
+            if(pr.equals("Express")){
+                line.enqueue(orderList.getEntry(i+1).getOrderID());
+                
+             
+                
+            }
+            
+            if(pr.equals("Normal")){
+                normalLine.enqueue(orderList.getEntry(i+1).getOrderID());
+  
+            }
+            
+            if(pr.equals("Flexi")){
+                flexiLine.enqueue(orderList.getEntry(i+1).getOrderID());
+            }
+            
+            
+        }
+        
+        
+        refreshJobTable();
     }
+   public void refreshJobTable(){
+    DefaultTableModel model = (DefaultTableModel) jTable3.getModel();
+        int rowCount = model.getRowCount();
+      //  System.out.print(rowCount+"222");
+        for (int i = rowCount - 1; i >= 0; i--) {
+    model.removeRow(i);
+}
+        
+        System.out.print(orderList.getNumberOfEntries());
+       while(!line.isEmpty()){
+           model.addRow(new Object[]{line.dequeue(),"Express"});
+           
+       }
+        while(!normalLine.isEmpty()){
+           model.addRow(new Object[]{normalLine.dequeue(),"Normal"});
+       }
+        
+        while(!flexiLine.isEmpty()){
+           model.addRow(new Object[]{flexiLine.dequeue(),"Flexi"});
+       }
+    
+}
     public void addRowToFlowerTable(){
         DefaultTableModel flowerListTable = (DefaultTableModel) jTable1.getModel();
         Object[] rowData = new Object[2];
@@ -139,6 +206,10 @@ public class CustomizedFloral extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jTextArea7 = new javax.swing.JTextArea();
         jButton5 = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel10 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTable3 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -249,6 +320,9 @@ public class CustomizedFloral extends javax.swing.JFrame {
             }
         ));
         jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(1).setHeaderValue("Price");
+        }
 
         jLabel6.setText("*Ctrl+Select to select multiple item");
 
@@ -350,7 +424,7 @@ public class CustomizedFloral extends javax.swing.JFrame {
 
         jLabel5.setText("Pick-Up Priority");
 
-        priority.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Express (RM30)", "Normal (RM15)", "Flexi (RM0)" }));
+        priority.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Express", "Normal", "Flexi" }));
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -361,7 +435,7 @@ public class CustomizedFloral extends javax.swing.JFrame {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(priority, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(194, Short.MAX_VALUE))
+                .addContainerGap(224, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -404,8 +478,8 @@ public class CustomizedFloral extends javax.swing.JFrame {
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(224, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(250, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -480,8 +554,8 @@ public class CustomizedFloral extends javax.swing.JFrame {
             .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel8Layout.createSequentialGroup()
                     .addGap(60, 60, 60)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(310, Short.MAX_VALUE)))
+                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(98, Short.MAX_VALUE)))
             .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
                     .addContainerGap(488, Short.MAX_VALUE)
@@ -546,6 +620,58 @@ public class CustomizedFloral extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Customize", jPanel8);
 
+        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "OrderID", "Priority"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Object.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane4.setViewportView(jTable3);
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGap(44, 44, 44)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(70, Short.MAX_VALUE))
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGap(70, 70, 70)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(54, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 178, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 85, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("tab2", jPanel3);
+
         jTabbedPane1.setSelectedComponent(jPanel8);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -560,7 +686,7 @@ public class CustomizedFloral extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 477, Short.MAX_VALUE))
         );
 
         jTabbedPane1.getAccessibleContext().setAccessibleName("Customize");
@@ -623,6 +749,7 @@ public class CustomizedFloral extends javax.swing.JFrame {
             jButton3.setVisible(true);
             addRowToAccessoriesTable();
             error.setText(" ");
+            
             title.setText("Step 3 : Choose your accessories");
         }
         
@@ -655,7 +782,8 @@ public class CustomizedFloral extends javax.swing.JFrame {
         cfaCode++;
         String custProdID = "CFA"+String.format("%04d", cfaCode);
         CustomizeProduct cf = new CustomizeProduct(custProdID,style.getSelectedItem().toString(),size.getSelectedItem().toString(),priority.getSelectedItem().toString());
-        int flCode=0;
+        floralList.add(cf);
+        
         double totalFlowerPrice=0;
         for(int i=0;i<jTable1.getSelectedRowCount();i++){
             flCode++;
@@ -668,8 +796,8 @@ public class CustomizedFloral extends javax.swing.JFrame {
             totalFlowerPrice+=price;
             
             
-        }System.out.print(flowerList);
-        int acCode=0;
+        }System.out.print(floralList);
+        
         double totalAcPrice=0;
         for(int i=0;i<jTable2.getSelectedRowCount();i++){
             acCode++;
@@ -736,6 +864,9 @@ public class CustomizedFloral extends javax.swing.JFrame {
             error.setForeground(Color.BLACK);
             jTextArea7.setText(fList);
             error.setText("Total Price :"+totalPrice);
+            title.setText("Itemized Bill");
+            Order o3=new Order("OR0003","Confirm",cf);
+            orderList.add(o3);
         }
         
     }//GEN-LAST:event_jButton4MouseClicked
@@ -752,7 +883,14 @@ public class CustomizedFloral extends javax.swing.JFrame {
         // TODO add your handling code here:
         jPanel9.setVisible(false);
         jButton5.setVisible(false);
-        
+        error.setText(" ");
+        title.setText("Step 1 : Choose your floral style and size");
+        jPanel1.setVisible(true);
+        jButton1.setVisible(true);
+        DefaultTableModel flowerListTable = (DefaultTableModel) jTable1.getModel();
+        flowerListTable.getDataVector().removeAllElements();
+        DefaultTableModel acListTable = (DefaultTableModel) jTable2.getModel();
+        acListTable.getDataVector().removeAllElements();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
@@ -933,7 +1071,9 @@ public class CustomizedFloral extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
@@ -943,9 +1083,11 @@ public class CustomizedFloral extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTable3;
     private javax.swing.JTextArea jTextArea7;
     private javax.swing.JComboBox<String> priority;
     private javax.swing.JComboBox<String> size;
