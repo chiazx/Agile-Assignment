@@ -23,6 +23,16 @@ public class Delivery {
         return deliveredTime;
     }
 
+    public Delivery(String orderID) {
+        this.orderID = orderID;
+    }
+
+    public Delivery(String deliveryID, String deliveryManName, String address) {
+        this.deliveryID = deliveryID;
+        this.deliveryManName = deliveryManName;
+        this.address = address;
+    }
+
     public void setDeliveredTime(String deliveredTime) {
         this.deliveredTime = deliveredTime;
     }
