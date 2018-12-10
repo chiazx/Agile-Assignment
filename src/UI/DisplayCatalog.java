@@ -6,11 +6,7 @@
 package UI;
 
 import ADT.*;
-import Entity.CatalogProduct;
-import Entity.ConsumerE;
-import Entity.CooperateE;
-import Entity.Order;
-import Entity.OrderList;
+import Entity.*;
 import UI.ConfirmOrder;
 import UI.SalesOrder;
 import static UI.SalesOrder.salesOrderList;
@@ -27,6 +23,17 @@ import javax.swing.table.DefaultTableModel;
  * @author boonk
  */
 public class DisplayCatalog extends javax.swing.JFrame {
+    static ListInterface<CatalogProduct> allCatProdList = new LList<>();
+    static ListInterface<CustomizedFloral> allCustProdList = new LList<>();
+    static ListInterface<Order> allSalesOrderList = new LList<>();
+    static ListInterface<OrderList> allOrderList = new LList<>();
+    static ListInterface<ConsumerE> allConsumerList = new LList<>();
+    static ListInterface<CooperateE> allCoopList = new LList<>();
+    static ListInterface<Delivery> allDeliveryList = new LList<>();
+    static ListInterface<Pickup> allPickupList = new LList<>();
+    static ListInterface<Invoice> allInvoiceList = new LList<>();
+         
+    
  ListInterface<CatalogProduct> prodList = new LList();
  ListInterface<OrderList> orderList = new LList();
  ListInterface<Order> salesOrderList = new LList<>();
@@ -41,9 +48,34 @@ public class DisplayCatalog extends javax.swing.JFrame {
         initComponents();
         initialize();
     }
-    public DisplayCatalog(Order order1, ListInterface<OrderList> confirmOrderList){
+    public DisplayCatalog(ListInterface<CatalogProduct> allCatProdList ,ListInterface<CustomizedFloral> allCustProdList ,ListInterface<Order> allSalesOrderList ,
+         ListInterface<OrderList> allOrderList ,ListInterface<ConsumerE> allConsumerList ,ListInterface<CooperateE> allCoopList ,
+         ListInterface<Delivery> allDeliveryList ,ListInterface<Pickup> allPickupList,ListInterface<Invoice> allInvoiceList){
+         this.allCatProdList=allCatProdList;
+             this.allConsumerList=allConsumerList;
+             this.allCoopList=allCoopList;
+             this.allCustProdList =allCustProdList;
+             this.allDeliveryList = allDeliveryList;
+             this.allInvoiceList=allInvoiceList;
+             this.allOrderList=allOrderList;
+             this.allPickupList=allPickupList;
+             this.allSalesOrderList=allSalesOrderList;
+             initComponents();
+            initialize();
+    }
+    public DisplayCatalog(Order order1, ListInterface<OrderList> confirmOrderList,ListInterface<CatalogProduct> allCatProdList ,ListInterface<CustomizedFloral> allCustProdList ,ListInterface<Order> allSalesOrderList ,
+         ListInterface<OrderList> allOrderList ,ListInterface<ConsumerE> allConsumerList ,ListInterface<CooperateE> allCoopList ,
+         ListInterface<Delivery> allDeliveryList ,ListInterface<Pickup> allPickupList,ListInterface<Invoice> allInvoiceList){
      //class for receive from catalog order.
-    
+    this.allCatProdList=allCatProdList;
+             this.allConsumerList=allConsumerList;
+             this.allCoopList=allCoopList;
+             this.allCustProdList =allCustProdList;
+             this.allDeliveryList = allDeliveryList;
+             this.allInvoiceList=allInvoiceList;
+             this.allOrderList=allOrderList;
+             this.allPickupList=allPickupList;
+             this.allSalesOrderList=allSalesOrderList;
       salesOrderList.add(order1);
         for(int i =0;i<confirmOrderList.getNumberOfEntries();i++){
 
@@ -793,7 +825,7 @@ public void initialize(){
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         System.out.print(order.getOrderID());
         if(jTable2.getRowCount()!=0){
-           new ConfirmOrder(order,orderList,prodList).setVisible(true);
+           new ConfirmOrder(order,orderList,prodList,allCatProdList,allCustProdList,allSalesOrderList,allOrderList,allConsumerList,allCoopList,allDeliveryList,allPickupList,allInvoiceList).setVisible(true);
      }else{
          JOptionPane.showMessageDialog(null, "Please choose at least one item or product! ","INFORMATION",JOptionPane.INFORMATION_MESSAGE);
      }

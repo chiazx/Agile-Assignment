@@ -34,6 +34,16 @@ public class CustomizedFloral extends javax.swing.JFrame {
         private QueueInterface<String> line=new LinkedQueue<String>();
         private QueueInterface<String> normalLine=new LinkedQueue<String>();
        private QueueInterface<String> flexiLine=new LinkedQueue<String>();
+       
+       static ListInterface<CatalogProduct> allCatProdList = new LList<>();
+    static ListInterface<CustomizedFloral> allCustProdList = new LList<>();
+    static ListInterface<Order> allSalesOrderList = new LList<>();
+    static ListInterface<OrderList> allOrderList = new LList<>();
+    static ListInterface<ConsumerE> allConsumerList = new LList<>();
+    static ListInterface<CooperateE> allCoopList = new LList<>();
+    static ListInterface<Delivery> allDeliveryList = new LList<>();
+    static ListInterface<Pickup> allPickupList = new LList<>();
+    static ListInterface<Invoice> allInvoiceList = new LList<>();
         
         
        
@@ -64,6 +74,33 @@ public class CustomizedFloral extends javax.swing.JFrame {
         
         //jButton1.addActionListener(new AddListener());
     }
+     public CustomizedFloral(ListInterface<CatalogProduct> allCatProdList ,ListInterface<CustomizedFloral> allCustProdList ,ListInterface<Order> allSalesOrderList ,
+         ListInterface<OrderList> allOrderList ,ListInterface<ConsumerE> allConsumerList ,ListInterface<CooperateE> allCoopList ,
+         ListInterface<Delivery> allDeliveryList ,ListInterface<Pickup> allPickupList,ListInterface<Invoice> allInvoiceList){
+             this.allCatProdList=allCatProdList;
+             this.allConsumerList=allConsumerList;
+             this.allCoopList=allCoopList;
+             this.allCustProdList =allCustProdList;
+             this.allDeliveryList = allDeliveryList;
+             this.allInvoiceList=allInvoiceList;
+             this.allOrderList=allOrderList;
+             this.allPickupList=allPickupList;
+             this.allSalesOrderList=allSalesOrderList;
+             
+              initComponents();
+       init();
+       
+       
+       jPanel4.setVisible(false);
+       jButton2.setVisible(false);
+       jPanel5.setVisible(false);
+       jButton3.setVisible(false);
+       jPanel6.setVisible(false);
+       jButton4.setVisible(false);
+       jPanel9.setVisible(false);
+       jButton5.setVisible(false);
+       title.setText("Step 1 : Choose your floral style and size");
+         }
     public void init(){
         CatalogProduct f1=new CatalogProduct("CP0001","Roses","flower","Available","hehe",12);
         CatalogProduct f2=new CatalogProduct("CP0002","Sunflower","flower","Out of stock","haha",14);
@@ -677,7 +714,7 @@ public class CustomizedFloral extends javax.swing.JFrame {
                 .addGap(0, 85, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("tab2", jPanel3);
+        jTabbedPane1.addTab("Job Queue", jPanel3);
 
         jTabbedPane1.setSelectedComponent(jPanel8);
 
@@ -788,8 +825,8 @@ public class CustomizedFloral extends javax.swing.JFrame {
         // TODO add your handling code here:
         cfaCode++;
         String custProdID = "CFA"+String.format("%04d", cfaCode);
-        Order order1=new Order("OR0001","Confirm");
-        orderList.add(order1);
+        Order order1=new Order("OR0006","Confirm");
+        allSalesOrderList.add(order1);
         CustomizeProduct cf = new CustomizeProduct(custProdID,style.getSelectedItem().toString(),size.getSelectedItem().toString(),priority.getSelectedItem().toString(),order1);
         floralList.add(cf);
         

@@ -18,8 +18,13 @@ public class Delivery {
     private String deliveredTime;
     private String roadName;
     private String address;
+
+    public Delivery(String orderID) {
+        this.orderID = orderID;
+    }
     
 
+    
     public String getDeliveredTime() {
         return deliveredTime;
     }

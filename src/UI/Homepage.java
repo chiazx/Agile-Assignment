@@ -25,15 +25,54 @@ import javax.swing.table.DefaultTableModel;
 public class Homepage extends javax.swing.JFrame {
 
    
-       
+       static ListInterface<CatalogProduct> allCatProdList = new LList<>();
+    static ListInterface<CustomizedFloral> allCustProdList = new LList<>();
+    static ListInterface<Order> allSalesOrderList = new LList<>();
+    static ListInterface<OrderList> allOrderList = new LList<>();
+    static ListInterface<ConsumerE> allConsumerList = new LList<>();
+    static ListInterface<CooperateE> allCoopList = new LList<>();
+    static ListInterface<Delivery> allDeliveryList = new LList<>();
+    static ListInterface<Pickup> allPickupList = new LList<>();
+    static ListInterface<Invoice> allInvoiceList = new LList<>();
      
     public Homepage() {
         
-        
+        initialize();
        
         
         //jButton1.addActionListener(new AddListener());
     }
+    public Homepage(ListInterface<CatalogProduct> allCatProdList ,ListInterface<CustomizedFloral> allCustProdList ,ListInterface<Order> allSalesOrderList ,
+         ListInterface<OrderList> allOrderList ,ListInterface<ConsumerE> allConsumerList ,ListInterface<CooperateE> allCoopList ,
+         ListInterface<Delivery> allDeliveryList ,ListInterface<Pickup> allPickupList,ListInterface<Invoice> allInvoiceList){
+             this.allCatProdList=allCatProdList;
+             this.allConsumerList=allConsumerList;
+             this.allCoopList=allCoopList;
+             this.allCustProdList =allCustProdList;
+             this.allDeliveryList = allDeliveryList;
+             this.allInvoiceList=allInvoiceList;
+             this.allOrderList=allOrderList;
+             this.allPickupList=allPickupList;
+             this.allSalesOrderList=allSalesOrderList;
+             
+             
+         }
+    public void initialize(){
+             //init catalog product list
+         allCatProdList.add(new CatalogProduct("FL001","Lily","Bouquet","Available","Funny",120.00,120));
+        allCatProdList.add(new CatalogProduct("FL002","Rose","Floral arrangement","Remaining Stock Rarely","Funny",120.00,30));
+        allCatProdList.add(new CatalogProduct("FL003","Carnation","Bouquet","Out-of-Stock","Funny",120.00,0));
+        allCatProdList.add(new CatalogProduct("FL004","Tuplis","Fresh Flower","Available","Funny",120.00,120));
+        
+        //initialize invoice list
+        
+        //initialize delivery list
+        
+        //initiazize pickup list
+        
+        //initialize cooperate list
+        
+         }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -44,9 +83,11 @@ public class Homepage extends javax.swing.JFrame {
         jPanel7 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        catalogMaintenance = new javax.swing.JButton();
+        customize = new javax.swing.JButton();
+        OrderPickup = new javax.swing.JButton();
+        catalogOrders = new javax.swing.JButton();
+        customer = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -93,21 +134,40 @@ public class Homepage extends javax.swing.JFrame {
 
         jPanel11.setBackground(new java.awt.Color(255, 255, 255));
 
-        jButton1.setText("Catalog Maintenance");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        catalogMaintenance.setText("Catalog Maintenance");
+        catalogMaintenance.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                catalogMaintenanceActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Customized Floral Arrangement");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        customize.setText("Customized Floral Arrangement");
+        customize.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                customizeActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Order");
+        OrderPickup.setText("Order Pickup/Delivery and Consumer Payment Management.");
+        OrderPickup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OrderPickupActionPerformed(evt);
+            }
+        });
+
+        catalogOrders.setText("Catalog Orders.");
+        catalogOrders.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                catalogOrdersActionPerformed(evt);
+            }
+        });
+
+        customer.setText("Customer Maintenance and Invoice Payment.");
+        customer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                customerActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -116,23 +176,27 @@ public class Homepage extends javax.swing.JFrame {
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton3)
-                    .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(167, 167, 167)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(customize, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(OrderPickup)
+                    .addComponent(customer)
+                    .addComponent(catalogMaintenance)
+                    .addComponent(catalogOrders))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
-                .addGap(87, 87, 87)
-                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addGap(42, 42, 42)
-                .addComponent(jButton3)
-                .addContainerGap(239, Short.MAX_VALUE))
+                .addGap(115, 115, 115)
+                .addComponent(catalogMaintenance)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(customer)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(catalogOrders)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(OrderPickup)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(customize)
+                .addContainerGap(150, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -154,17 +218,34 @@ public class Homepage extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void catalogMaintenanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_catalogMaintenanceActionPerformed
         // TODO add your handling code here:
-        new Product().setVisible(true);
+        new Product(allCatProdList,allCustProdList,allSalesOrderList,allOrderList,allConsumerList,allCoopList,allDeliveryList,allPickupList,allInvoiceList).setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_catalogMaintenanceActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void customizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customizeActionPerformed
         // TODO add your handling code here:
-        new CustomizedFloral().setVisible(true);
+        new CustomizedFloral(allCatProdList,allCustProdList,allSalesOrderList,allOrderList,allConsumerList,allCoopList,allDeliveryList,allPickupList,allInvoiceList).setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_customizeActionPerformed
+
+    private void catalogOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_catalogOrdersActionPerformed
+        // TODO add your handling code here:
+        new DisplayCatalog(allCatProdList,allCustProdList,allSalesOrderList,allOrderList,allConsumerList,allCoopList,allDeliveryList,allPickupList,allInvoiceList).setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_catalogOrdersActionPerformed
+
+    private void customerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customerActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_customerActionPerformed
+
+    private void OrderPickupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OrderPickupActionPerformed
+        // TODO add your handling code here:
+        new OrderRecordMain(allCatProdList,allCustProdList,allSalesOrderList,allOrderList,allConsumerList,allCoopList,allDeliveryList,allPickupList,allInvoiceList).setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_OrderPickupActionPerformed
 
     /**
      * @param args the command line arguments
@@ -457,10 +538,12 @@ public class Homepage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton OrderPickup;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton catalogMaintenance;
+    private javax.swing.JButton catalogOrders;
+    private javax.swing.JButton customer;
+    private javax.swing.JButton customize;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;

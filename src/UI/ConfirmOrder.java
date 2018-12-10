@@ -28,6 +28,15 @@ import javax.swing.table.DefaultTableModel;
 public class ConfirmOrder extends javax.swing.JFrame {
     static ListInterface<OrderList> orderList = new LList<>();
     static ListInterface<CatalogProduct> prodList = new LList<>();
+    static ListInterface<CatalogProduct> allCatProdList = new LList<>();
+    static ListInterface<CustomizedFloral> allCustProdList = new LList<>();
+    static ListInterface<Order> allSalesOrderList = new LList<>();
+    static ListInterface<OrderList> allOrderList = new LList<>();
+    static ListInterface<ConsumerE> allConsumerList = new LList<>();
+    static ListInterface<CooperateE> allCoopList = new LList<>();
+    static ListInterface<Delivery> allDeliveryList = new LList<>();
+    static ListInterface<Pickup> allPickupList = new LList<>();
+    static ListInterface<Invoice> allInvoiceList = new LList<>();
     static Order order1=new Order();
     ListInterface<CooperateE> coopCustList = new LList<>();
     Order order = new Order();
@@ -44,7 +53,18 @@ public class ConfirmOrder extends javax.swing.JFrame {
      */
     
     
-    public ConfirmOrder(Order order1,ListInterface<OrderList> orderList,ListInterface<CatalogProduct> prodList) {
+    public ConfirmOrder(Order order1,ListInterface<OrderList> orderList,ListInterface<CatalogProduct> prodList,ListInterface<CatalogProduct> allCatProdList ,ListInterface<CustomizedFloral> allCustProdList ,ListInterface<Order> allSalesOrderList ,
+         ListInterface<OrderList> allOrderList ,ListInterface<ConsumerE> allConsumerList ,ListInterface<CooperateE> allCoopList ,
+         ListInterface<Delivery> allDeliveryList ,ListInterface<Pickup> allPickupList,ListInterface<Invoice> allInvoiceList) {
+         this.allCatProdList=allCatProdList;
+             this.allConsumerList=allConsumerList;
+             this.allCoopList=allCoopList;
+             this.allCustProdList =allCustProdList;
+             this.allDeliveryList = allDeliveryList;
+             this.allInvoiceList=allInvoiceList;
+             this.allOrderList=allOrderList;
+             this.allPickupList=allPickupList;
+             this.allSalesOrderList=allSalesOrderList;
         this.order1=order1;
         this.prodList = prodList;
         this.orderList = orderList;
@@ -547,7 +567,7 @@ return validate;
                System.out.print(order);
               
                //pass back param
-               new DisplayCatalog(order1,orderList).setVisible(true);
+               new DisplayCatalog(order1,orderList,allCatProdList,allCustProdList,allSalesOrderList,allOrderList,allConsumerList,allCoopList,allDeliveryList,allPickupList,allInvoiceList).setVisible(true);
                
            this.setVisible(false);
            
@@ -659,7 +679,7 @@ return validate;
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ConfirmOrder(order1,orderList,prodList).setVisible(true);
+                new ConfirmOrder(order1,orderList,prodList,allCatProdList,allCustProdList,allSalesOrderList,allOrderList,allConsumerList,allCoopList,allDeliveryList,allPickupList,allInvoiceList).setVisible(true);
             }
         });
     }
