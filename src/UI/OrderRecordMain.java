@@ -48,14 +48,14 @@ public class OrderRecordMain extends javax.swing.JFrame {
     }
 
     public void initialize1() {
-        deliveryList.add(new Delivery("DL001", "DM001", "", "12-12-2018", "", "", ""));
-        deliveryList.add(new Delivery("DL002", "DM002", "", "12-12-2018", " ", "", ""));
-        deliveryList.add(new Delivery("DL003", "DM003", "", "12-12-2018", "", "", ""));
-        deliveryList.add(new Delivery("DL004", "DM004", "", "12-12-2018", "", "", ""));
+        deliveryList.add(new Delivery("OR001", "DL001", "", "12-12-2018", "", "", ""));
+        deliveryList.add(new Delivery("OR002", "DL002", "", "12-12-2018", " ", "", ""));
+        deliveryList.add(new Delivery("OR003", "DL003", "", "12-12-2018", "", "", ""));
+        deliveryList.add(new Delivery("OR004", "DL004", "", "12-12-2018", "", "", ""));
 
         DefaultTableModel model = (DefaultTableModel) jTable3.getModel();
         for (int i = 0; i < deliveryList.getNumberOfEntries(); i++) {
-            model.addRow(new Object[]{deliveryList.getEntry(i + 1).getOrderID(), deliveryList.getEntry(i + 1).getAddress(), deliveryList.getEntry(i + 1).getDeliveryManName()});
+            model.addRow(new Object[]{deliveryList.getEntry(i + 1).getDeliveryID(), deliveryList.getEntry(i + 1).getAddress(), deliveryList.getEntry(i + 1).getDeliveryManName()});
         }
 
         jTable3.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -76,28 +76,9 @@ public class OrderRecordMain extends javax.swing.JFrame {
         AddLabel.setVisible(false);
         confirm.setVisible(false);
 
-        int containsInDDL = 0;
+        
         for (int i = 0; i < deliveryList.getNumberOfEntries(); i++) {
-            containsInDDL = 0;
-            if (Didddl.getItemCount() > 1) {
-
-                for (int j = 0; j < Didddl.getItemCount(); j++) {
-
-                    if (deliveryList.getEntry(i + 1).getOrderID().equals(Didddl.getItemAt(j + 1))) {
-                        //   System.out.println(prodList.getEntry(i+1).getProdType());
-                        containsInDDL++;
-                    }
-                }
-                if (containsInDDL == 0) {
-
-                    Didddl.addItem(deliveryList.getEntry(i + 1).getOrderID());
-                    //check if no such item contain in drop down
-
-                }
-            } else {
-                //System.out.print(prodList.getEntry(i+1).getProdName());
-                Didddl.addItem(deliveryList.getEntry(i + 1).getOrderID().toString()); // if no item, add it
-            }
+            Didddl.addItem(deliveryList.getEntry(i+1).getDeliveryID().toString());
         }
     }
 
@@ -148,11 +129,11 @@ public class OrderRecordMain extends javax.swing.JFrame {
         jButton16 = new javax.swing.JButton();
         DeliLabel = new javax.swing.JLabel();
         AddLabel = new javax.swing.JLabel();
-        Didddl = new javax.swing.JComboBox<String>();
+        Didddl = new javax.swing.JComboBox<>();
         jLabel29 = new javax.swing.JLabel();
         DMLabel = new javax.swing.JLabel();
-        addddl = new javax.swing.JComboBox<String>();
-        DMddl = new javax.swing.JComboBox<String>();
+        addddl = new javax.swing.JComboBox<>();
+        DMddl = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
@@ -367,12 +348,12 @@ public class OrderRecordMain extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(Didddl, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel15Layout.createSequentialGroup()
-                                        .addGap(6, 6, 6)
+                                        .addGap(4, 4, 4)
                                         .addComponent(addddl, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
             .addGroup(jPanel15Layout.createSequentialGroup()
                 .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 575, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(177, Short.MAX_VALUE))
+                .addContainerGap(174, Short.MAX_VALUE))
             .addGroup(jPanel15Layout.createSequentialGroup()
                 .addGap(135, 135, 135)
                 .addComponent(confirm, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -544,22 +525,31 @@ public class OrderRecordMain extends javax.swing.JFrame {
     private void confirmjButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmjButton1ActionPerformed
         if (Didddl.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Please select Delivery ID !");
-            if (DMddl.getSelectedIndex() == 0) {
+        }
+           else if (DMddl.getSelectedIndex() == 0) {
                 JOptionPane.showMessageDialog(null, "Please select Delivery Man !");
-                if (addddl.getSelectedIndex() == 0) {
+           }
+              else if (addddl.getSelectedIndex() == 0) {
                     JOptionPane.showMessageDialog(null, "Please select Destination Area !");
                 } else {
+                    for(int i=0;i<deliveryList.getNumberOfEntries();i++){
+                        System.out.println(deliveryList.getEntry(i+1).getDeliveryID().equals(Didddl.getSelectedItem().toString()));
+                      
+                        if(deliveryList.getEntry(i+1).getDeliveryID().equals(Didddl.getSelectedItem().toString())){
+                            deliveryList.getEntry(i+1).setDeliveryManName(DMddl.getSelectedItem().toString());
+                            deliveryList.getEntry(i+1).setAddress(addddl.getSelectedItem().toString());
+                            System.out.print(deliveryList.getEntry(i+1).getAddress());
+                            
+                        }
+                    }
+                    System.out.print("ok");
                     JOptionPane.showMessageDialog(null, "Delivery Man Assigned !");
                 }
-            } else {
-                JOptionPane.showMessageDialog(null, "Delivery Man Assigned !");
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Delivery Man Assigned !");
+            
 
-            refreshDeliveryTable();
-        }
-
+            
+        
+        refreshDeliveryTable();
         //deliveryList.add(new Delivery(DeliveryID.getSelectedItem().toString(),DeliveryManName.getSelectedItem(),address.getSelectedItem()));
     }//GEN-LAST:event_confirmjButton1ActionPerformed
 
