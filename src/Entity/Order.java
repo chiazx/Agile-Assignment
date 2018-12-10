@@ -11,11 +11,46 @@ package Entity;
  */
 public class Order {
     private Customer customer;
+    private ConsumerE consumer;
+    private CooperateE cooperate;
     private String orderID;
     private String orderStatus;
     private String orderType; // delivery or pickup
     private double totalAmount;
     private String custID;
+
+    public Order(ConsumerE consumer, String orderID, String orderStatus, String orderType, double totalAmount) {
+        this.consumer = consumer;
+        this.orderID = orderID;
+        this.orderStatus = orderStatus;
+        this.orderType = orderType;
+        this.totalAmount = totalAmount;
+    }
+
+    public Order(CooperateE cooperate, String orderID, String orderStatus, String orderType, double totalAmount) {
+        this.cooperate = cooperate;
+        this.orderID = orderID;
+        this.orderStatus = orderStatus;
+        this.orderType = orderType;
+        this.totalAmount = totalAmount;
+    }
+
+    
+    public ConsumerE getConsumer() {
+        return consumer;
+    }
+
+    public void setConsumer(ConsumerE consumer) {
+        this.consumer = consumer;
+    }
+
+    public CooperateE getCooperate() {
+        return cooperate;
+    }
+
+    public void setCooperate(CooperateE cooperate) {
+        this.cooperate = cooperate;
+    }
 
     public double getTotalAmount() {
         return totalAmount;
