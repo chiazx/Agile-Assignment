@@ -1,5 +1,4 @@
 language : java
 sudo : required
 before_script:
-  - cd Agile-Assignment
   - rm -rf test
