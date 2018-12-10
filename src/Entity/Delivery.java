@@ -15,9 +15,10 @@ public class Delivery {
     private String deliveryID;
     private String deliveryManName;
     private String deliveryDate;
+    private String deliveredTime;
     private String roadName;
     private String address;
-    private String deliveredTime;
+    
 
     public String getDeliveredTime() {
         return deliveredTime;
@@ -48,6 +49,16 @@ public class Delivery {
         this.deliveredTime = deliveredTime;
     }
 
+    public Delivery(Order order, String deliveryID, String deliveryManName, String deliveryDate, String deliveredTime, String roadName, String address) {
+        this.order = order;
+        this.deliveryID = deliveryID;
+        this.deliveryManName = deliveryManName;
+        this.deliveryDate = deliveryDate;
+        this.deliveredTime = deliveredTime;
+        this.roadName = roadName;
+        this.address = address;
+    }
+
     
     
     
@@ -63,16 +74,7 @@ public class Delivery {
 
     
 
-    public Delivery(Order order, String orderID, String deliveryID, String deliveryManName, String deliveryDate, String roadName, String address) {
-        this.order = order;
-        this.orderID = orderID;
-        this.deliveryID = deliveryID;
-        this.deliveryManName = deliveryManName;
-        this.deliveryDate = deliveryDate;
-        this.roadName = roadName;
-        this.address = address;
-    }
-
+   
     public String getDeliveryDate() {
         return deliveryDate;
     }

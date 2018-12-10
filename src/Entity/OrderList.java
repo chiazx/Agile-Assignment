@@ -15,6 +15,7 @@ public class OrderList {
     private Order order;
     private String OLID;
     private String prodID;
+   
     private String quantity;
     private String orderID;
 
@@ -26,6 +27,14 @@ public class OrderList {
         this.orderID = orderID;
     }
 
+    public OrderList(CatalogProduct catalogProduct, Order order, String OLID, String quantity) {
+        this.catalogProduct = catalogProduct;
+        this.order = order;
+        this.OLID = OLID;
+        this.quantity = quantity;
+        
+    }
+    
     public OrderList(String OLID, String prodID, String quantity, String orderID) {
         this.OLID = OLID;
         this.prodID = prodID;
