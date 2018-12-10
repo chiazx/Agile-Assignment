@@ -13,7 +13,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -50,17 +49,21 @@ public class PromotionDetail extends javax.swing.JFrame {
         productList.add(cp3); 
         refreshFlowerDDL();
         refreshsFlowerDDL();
+        //promotionList.add(new Promotion("PR002","2018-10-01","2018-10-31","Winter Sales",20));
+        //promotionList.add(new Promotion("PR003","2018-11-01","2018-12-1","Clear Stock Sales",30));
+        //promotionList.add(new Promotion("PR004","2018-12-01","2018-12-31","No money",40));
+        Promotion p = new Promotion("PR001","2018-09-01","2018-10-1","Summer Sales",10);
+        promotionList.add(p);  
        
-       //promotionList.add(new Promotion("PR002","2018-10-01","2018-10-31","Winter Sales",20));
-       //promotionList.add(new Promotion("PR003","2018-11-01","2018-12-1","Clear Stock Sales",30));
-       //promotionList.add(new Promotion("PR004","2018-12-01","2018-12-31","No money",40));
-       Promotion p = new Promotion("PR001","2018-09-01","2018-10-1","Summer Sales",10);
-       promotionList.add(p);       
-       
-       PromotionList Pl = new PromotionList(cp,p,"PL001");
-       promoList.add(Pl);
-       
-       DefaultTableModel model = (DefaultTableModel) Product.getModel();
+        PromotionList Pl = new PromotionList(cp,p,"PL001");
+        promoList.add(Pl);
+        
+        
+        promoList.add(new PromotionList(cp1,p,"PL002"));
+        promoList.add(new PromotionList(cp2,p,"PL003"));
+        promoList.add(new PromotionList(cp3,p,"PL004"));
+        
+        DefaultTableModel model = (DefaultTableModel) Product.getModel();
         for(int i=0; i<productList.getNumberOfEntries(); i++){
             model.addRow(new Object[]{productList.getEntry(i+1).getProdID(),
                                       productList.getEntry(i+1).getProdName(),
@@ -82,7 +85,7 @@ public class PromotionDetail extends javax.swing.JFrame {
                     promoList.getEntry(b+1).getPromotion().getStartDate(),
                     promoList.getEntry(b+1).getPromotion().getEndDate(),
             });
-        }   
+        }    
     }
     
     public void refreshFlowerDDL(){
@@ -100,14 +103,13 @@ public class PromotionDetail extends javax.swing.JFrame {
                     pType2.addItem(productList.getEntry(i+1).getProdType());
                 }
     }
-        
+    
     public void refreshPromotionTable(){
-            DefaultTableModel model =(DefaultTableModel) PromotionDetails.getModel();
-                int rowCount = model.getRowCount();
-                    for(int i=rowCount-1 ; i>=0;i--){
-                        model.removeRow(i);
-                    }
-        
+        DefaultTableModel model =(DefaultTableModel) PromotionDetails.getModel();
+            int rowCount = model.getRowCount();
+                for(int i=rowCount-1 ; i>=0;i--){
+                    model.removeRow(i);
+                }
         for(int b=0; b<promoList.getNumberOfEntries(); b++){  
             model.addRow(new Object[]{
                     promoList.getEntry(b+1).getPromotion().getPromotionID(),
@@ -120,26 +122,40 @@ public class PromotionDetail extends javax.swing.JFrame {
                     promoList.getEntry(b+1).getPromotion().getEndDate(),
             });
         }
-        Product.setRowSelectionAllowed(true);
-        Product.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        PromotionDetails.setRowSelectionAllowed(true);
+        PromotionDetails.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         }
     
     public void refreshProductTable(){
         DefaultTableModel model = (DefaultTableModel) Product.getModel();
-        Object[] rowData = new Object[5];
-        for(int i=0; i< productList.getNumberOfEntries(); i++){
-            rowData[0] = productList.getEntry(i+1).getProdID();
-            rowData[1] = productList.getEntry(i+1).getProdName();
-            rowData[2] = productList.getEntry(i+1).getProdType();
-            rowData[3] = productList.getEntry(i+1).getProdPrice();
-            rowData[4] = productList.getEntry(i+1).getProdQuantity();
-            model.addRow(rowData);
+        for(int i=0; i< productList.getNumberOfEntries(); i++){ 
+            model.addRow(new Object[]{
+                productList.getEntry(i+1).getProdID(),
+                productList.getEntry(i+1).getProdName(),
+                productList.getEntry(i+1).getProdType(),
+                productList.getEntry(i+1).getProdPrice(),
+                productList.getEntry(i+1).getProdQuantity() 
+            }
+            );
         }
         Product.setRowSelectionAllowed(true);
         Product.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
     }
     
-    public void table(){
+    public void tablerow(){
+    DefaultTableModel model = (DefaultTableModel)PromotionDetails.getModel();
+        Object[] rowData = new Object[8];
+        for(int i=0; i< productList.getNumberOfEntries();i++){
+            rowData[0] =  promotionList.getEntry(i+1).getPromotionID();
+            rowData[1] =  promotionList.getEntry(i+1).getPromotionTitle();
+            rowData[2] =  productList.getEntry(i+1).getProdName();
+            rowData[3] =  productList.getEntry(i+1).getProdType();
+            rowData[4] =  promotionList.getEntry(i+1).getDiscountRate();
+            rowData[5] =  productList.getEntry(i+1).getProdPrice();
+            rowData[6] =  promotionList.getEntry(i+1).getStartDate();
+            rowData[7] =  promotionList.getEntry(i+1).getEndDate();
+            model.addRow(rowData);
+        }
         Product.setRowSelectionAllowed(true);
         Product.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
     }
@@ -438,10 +454,8 @@ public class PromotionDetail extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Number range is between 1-100 ","Information",JOptionPane.INFORMATION_MESSAGE);
         }
         else{
-
             int a = JOptionPane.showConfirmDialog(null,"Do you want to create promotion?", "Question", JOptionPane.YES_OPTION);
             if(a == 0){  
-
                 JOptionPane.showMessageDialog(null,"Promotion create successful","Information", JOptionPane.INFORMATION_MESSAGE);
                 //Promotion
                 String title = PromotionTitle.getText();
@@ -450,15 +464,17 @@ public class PromotionDetail extends javax.swing.JFrame {
                 String eDate = EndDate.getText();   
                 Promotion promotion = new Promotion(GenerateNextPromoID(),sDate,eDate,title,disRate);
                 promotionList.add(promotion);
-                //Flower  
-                    int i = Product.getSelectedRow();
-                    String ID = Product.getValueAt(i, 0).toString();
-                    String Name = Product.getValueAt(i, 1).toString();
-                    String Type = Product.getValueAt(i, 2).toString();
-                    Double price = Double.parseDouble(Product.getValueAt(i, 3).toString());
-                    int quantity = Integer.parseInt(Product.getValueAt(i, 4).toString());
-                    CatalogProduct p = new CatalogProduct(ID,Name,Type,price,quantity);
-                    productList.add(p);   
+                //Flower
+                    /*int i = Product.getSelectedRow();   
+                        String ID = Product.getValueAt(i, 0).toString();
+                        String Name = Product.getValueAt(i, 1).toString();
+                        String Type = Product.getValueAt(i, 2).toString();
+                        Double price = Double.parseDouble(Product.getValueAt(i, 3).toString());
+                        int quantity = Integer.parseInt(Product.getValueAt(i, 4).toString());*/
+                    
+                       //CatalogProduct p = new CatalogProduct(ID,Name,Type,price,quantity);
+                       CatalogProduct p = new CatalogProduct();
+                       productList.add(p);
                 //Promotion List
                 PromotionList promo = new PromotionList(p,promotion,GenerateNextPLID());
                 promoList.add(promo);
@@ -482,31 +498,35 @@ public class PromotionDetail extends javax.swing.JFrame {
 
     public String GenerateNextPromoID(){
     String newID = "";
+    if(!promotionList.isEmpty()){
         int lastPromoIndex = promotionList.getNumberOfEntries();
         //update last prmotion ID
         String lastPromoID = promotionList.getEntry(lastPromoIndex).getPromotionID();
         String prefix =lastPromoID.substring(0,2);
         int integer = Integer.parseInt(lastPromoID.substring(2,5));
-        integer +=1;
-                
-        newID = prefix +String.format("%03d", integer);
-        System.out.println(newID);
-        System.out.println(lastPromoIndex);
-    return newID;
+        integer +=1;              
+        newID = prefix +String.format("%03d", integer);}
+    else{
+        newID = "PR003";
+    }
+    return  newID;
     }
     
     public String GenerateNextPLID(){
     String newID = "";
+    if(!promoList.isEmpty()){
         int lastPromoIndex = promoList.getNumberOfEntries();
         //update last prmotion ID
         String lastPromoID = promoList.getEntry(lastPromoIndex).getPromoListID();
         String prefix =lastPromoID.substring(0,2);
         int integer = Integer.parseInt(lastPromoID.substring(2,5));
-        integer +=1;
-                
+        integer += 1;
         newID = prefix +String.format("%03d", integer);
-        System.out.println(newID);
-        System.out.println(lastPromoIndex);
+    
+    }
+    else{
+        newID = "PL001";
+    }
     return newID;
     }
     
@@ -523,11 +543,11 @@ public class PromotionDetail extends javax.swing.JFrame {
     }//GEN-LAST:event_pTypeActionPerformed
 
     private void pType2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pType2ActionPerformed
-      for(int i=0; i<productList.getNumberOfEntries(); i++){
-            if(pType2.getSelectedItem() == productList.getEntry(i+1).getProdType()){
-                DefaultTableModel dm = (DefaultTableModel) PromotionDetails.getModel();
-                TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<DefaultTableModel>(dm);
-                PromotionDetails.setRowSorter(sorter);
+        DefaultTableModel dm = (DefaultTableModel) PromotionDetails.getModel();
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<DefaultTableModel>(dm);
+        for(int i=0; i<promoList.getNumberOfEntries(); i++){
+          if(pType2.getSelectedItem() == promoList.getEntry(i+1).getCatalogProduct().getProdType()){
+              PromotionDetails.setRowSorter(sorter);
                 String text = pType2.getSelectedItem().toString();
                 sorter.setRowFilter(RowFilter.regexFilter(text));
             }

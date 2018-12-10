@@ -663,15 +663,17 @@ public class Product extends javax.swing.JFrame {
 
     public String GenerateNextFLID(){
         String newID ="";
+        if(!productList.isEmpty()){
             int lastFlowerIndex = productList.getNumberOfEntries();
             String lastFlowerID = productList.getEntry(lastFlowerIndex).getProdID();
             String prefix = lastFlowerID.substring(0,2);
             int integer = Integer.parseInt(lastFlowerID.substring(2,5));
             integer +=1;
-            
             newID =prefix+ String.format("%03d", integer);
-            System.out.println(newID);
-            System.out.println(lastFlowerIndex);
+        }
+        else{
+                newID ="FL001";
+        }
         return newID;
     }
     

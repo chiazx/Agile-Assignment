@@ -49,6 +49,6 @@ public class PromotionList {
     
     @Override
     public String toString(){
-        return String.format("Product : \n%s\n Promotion :\n%s\nPromotion List ID :%s\n", catalogProduct,promotion,promoListID);
+        return String.format("-------------------\nProduct : \n%s\n Promotion :\n%s\nPromotion List ID :%s\n-----------------------\n", catalogProduct,promotion,promoListID);
     }
 }

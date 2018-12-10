@@ -23,7 +23,6 @@ public class CatalogProduct {
     public CatalogProduct(){
         
     }
-
     public CatalogProduct(String prodID, String prodName, String prodType, double prodPrice, int prodQuantity) {
         this.prodID = prodID;
         this.prodName = prodName;
