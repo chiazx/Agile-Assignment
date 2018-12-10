@@ -14,89 +14,101 @@ import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import java.time.format.DateTimeFormatter;  
+import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
-
-
-
 
 /**
  *
  * @author Si Wei
  */
 public class OrderRecordMain extends javax.swing.JFrame {
-private ListInterface<Pickup> pickupList =new LList<Pickup>();
-private ListInterface<Delivery> deliveryList =new LList<Delivery>();
-DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"); 
-LocalDateTime now = LocalDateTime.now(); 
+
+    private ListInterface<Pickup> pickupList = new LList<Pickup>();
+    private ListInterface<Delivery> deliveryList = new LList<Delivery>();
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+    LocalDateTime now = LocalDateTime.now();
 
     public OrderRecordMain() {
         initComponents();
-         initialize();
-         initialize1();
-         refreshPickupTable();
+        initialize();
+        initialize1();
+        refreshPickupTable();
+        jTable1.setAutoCreateRowSorter(true);
+        jTable3.setAutoCreateRowSorter(true);
     }
-public void initialize(){
-        pickupList.add(new Pickup("PU001","PU0001","12-12-2018","","Extreme","Not pickup"));
-        pickupList.add(new Pickup("PU002","PU0002","12-12-2018","","Moderate","Not pickup"));
-        pickupList.add(new Pickup("PU003","PU0003","12-12-2018","","Low","Not pickup"));
-       
+
+    public void initialize() {
+        pickupList.add(new Pickup("PU001", "PU0001", "12-12-2018", "", "High", "Not pickup"));
+        pickupList.add(new Pickup("PU002", "PU0002", "12-12-2018", "", "Low", "Not pickup"));
+        pickupList.add(new Pickup("PU003", "PU0003", "12-12-2018", "", "Low", "Not pickup"));
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-      for(int i =0;i<pickupList.getNumberOfEntries();i++){
-          model.addRow(new Object[]{pickupList.getEntry(i+1).getOrderID(),pickupList.getEntry(i+1).getPickupPriority(),pickupList.getEntry(i+1).getPickupTime(),pickupList.getEntry(i+1).getPickupStatus()});
-        }
-      
-    /*jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-    jTable1.getSize();
-    jTable1.getColumnModel().getColumn(0).setPreferredWidth((jTable1.getSize().width)/50*20);
-    jTable1.getColumnModel().getColumn(1).setPreferredWidth((jTable1.getSize().width)/30*20);
-    jTable1.getColumnModel().getColumn(2).setPreferredWidth((jTable1.getSize().width)/30*20);
-    jTable1.getColumnModel().getColumn(3).setPreferredWidth((jTable1.getSize().width)/30*20);*/
+
     }
-public void initialize1(){
-        deliveryList.add(new Delivery("DL001","DM001","Muhamad","12-12-2018","Jalan Tunku Abdul Rahman","Royal Palace Hotel",""));
-        deliveryList.add(new Delivery("DL002","DM002","Kong","12-12-2018","Subang SS15","SnowFlake",""));
-        deliveryList.add(new Delivery("DL003","DM003","Low","12-12-2018","Jalan SS13","Rakuzan",""));
-       
+
+    public void initialize1() {
+        deliveryList.add(new Delivery("OR001", "DL001", "", "12-12-2018", "", "", ""));
+        deliveryList.add(new Delivery("OR002", "DL002", "", "12-12-2018", " ", "", ""));
+        deliveryList.add(new Delivery("OR003", "DL003", "", "12-12-2018", "", "", ""));
+        deliveryList.add(new Delivery("OR004", "DL004", "", "12-12-2018", "", "", ""));
+
         DefaultTableModel model = (DefaultTableModel) jTable3.getModel();
-      for(int i =0;i<deliveryList.getNumberOfEntries();i++){
-          model.addRow(new Object[]{deliveryList.getEntry(i+1).getOrderID(),deliveryList.getEntry(i+1).getAddress(),deliveryList.getEntry(i+1).getDeliveryManName()});
+        for (int i = 0; i < deliveryList.getNumberOfEntries(); i++) {
+            model.addRow(new Object[]{deliveryList.getEntry(i + 1).getDeliveryID(), deliveryList.getEntry(i + 1).getAddress(), deliveryList.getEntry(i + 1).getDeliveryManName()});
         }
-      
-    jTable3.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-    jTable3.getSize();
-    jTable3.getColumnModel().getColumn(0).setPreferredWidth((jTable3.getSize().width)/120*20);
-    jTable3.getColumnModel().getColumn(1).setPreferredWidth((jTable3.getSize().width)/70*20);
-    jTable3.getColumnModel().getColumn(2).setPreferredWidth((jTable3.getSize().width)/70*20);
-    jTable3.getColumnModel().getColumn(3).setPreferredWidth((jTable3.getSize().width)/60*20);
-    }
-    public void refreshPickupTable(){
+
+        jTable3.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        jTable3.getSize();
+        jTable3.getColumnModel().getColumn(0).setPreferredWidth((jTable3.getSize().width) / 120 * 20);
+        jTable3.getColumnModel().getColumn(1).setPreferredWidth((jTable3.getSize().width) / 70 * 20);
+        jTable3.getColumnModel().getColumn(2).setPreferredWidth((jTable3.getSize().width) / 70 * 20);
+        jTable3.getColumnModel().getColumn(3).setPreferredWidth((jTable3.getSize().width) / 60 * 20);
+
+        Didddl.removeAllItems();
+        Didddl.addItem("");
+
+        //Hide all except DeliveryID
+        DMddl.setVisible(false);
+        DMLabel.setVisible(false);
+        DMddl.addItem("");
+        addddl.setVisible(false);
+        AddLabel.setVisible(false);
+        confirm.setVisible(false);
+
         
+        for (int i = 0; i < deliveryList.getNumberOfEntries(); i++) {
+            Didddl.addItem(deliveryList.getEntry(i+1).getDeliveryID().toString());
+        }
+    }
+
+    public void refreshPickupTable() {
+
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         int rowCount = model.getRowCount();
-      //  System.out.print(rowCount+"222");
+        //  System.out.print(rowCount+"222");
         for (int i = rowCount - 1; i >= 0; i--) {
-    model.removeRow(i);
-}
-      for(int i =0;i<pickupList.getNumberOfEntries();i++){
-          model.addRow(new Object[]{pickupList.getEntry(i+1).getOrderID(),pickupList.getEntry(i+1).getPickupPriority(),pickupList.getEntry(i+1).getPickupTime(),pickupList.getEntry(i+1).getPickupStatus()});
+            model.removeRow(i);
+        }
+        for (int i = 0; i < pickupList.getNumberOfEntries(); i++) {
+            model.addRow(new Object[]{pickupList.getEntry(i + 1).getOrderID(), pickupList.getEntry(i + 1).getPickupPriority(), pickupList.getEntry(i + 1).getPickupTime(), pickupList.getEntry(i + 1).getPickupStatus()});
         }
     }
-public void refreshDeliveryTabe(){
-        
+
+    public void refreshDeliveryTable() {
+
         DefaultTableModel model = (DefaultTableModel) jTable3.getModel();
         int rowCount = model.getRowCount();
-      //  System.out.print(rowCount+"222");
+        //  System.out.print(rowCount+"222");
         for (int i = rowCount - 1; i >= 0; i--) {
-    model.removeRow(i);
-}
-    
-      for(int i =0;i<deliveryList.getNumberOfEntries();i++){
-          model.addRow(new Object[]{deliveryList.getEntry(i+1).getOrderID(),deliveryList.getEntry(i+1).getAddress(),deliveryList.getEntry(i+1).getDeliveryManName(),deliveryList.getEntry(i+1).getDeliveredTime()});
+            model.removeRow(i);
+        }
+
+        for (int i = 0; i < deliveryList.getNumberOfEntries(); i++) {
+            model.addRow(new Object[]{deliveryList.getEntry(i + 1).getOrderID(), deliveryList.getEntry(i + 1).getAddress(), deliveryList.getEntry(i + 1).getDeliveryManName(), deliveryList.getEntry(i + 1).getDeliveredTime()});
         }
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -113,15 +125,15 @@ public void refreshDeliveryTabe(){
         jLabel3 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jPanel15 = new javax.swing.JPanel();
-        jButton15 = new javax.swing.JButton();
+        confirm = new javax.swing.JButton();
         jButton16 = new javax.swing.JButton();
-        jLabel27 = new javax.swing.JLabel();
-        R_ID6 = new javax.swing.JTextField();
-        jLabel28 = new javax.swing.JLabel();
-        Ctype10 = new javax.swing.JComboBox<>();
+        DeliLabel = new javax.swing.JLabel();
+        AddLabel = new javax.swing.JLabel();
+        Didddl = new javax.swing.JComboBox<>();
         jLabel29 = new javax.swing.JLabel();
-        jLabel30 = new javax.swing.JLabel();
-        Ctype11 = new javax.swing.JComboBox<>();
+        DMLabel = new javax.swing.JLabel();
+        addddl = new javax.swing.JComboBox<>();
+        DMddl = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
@@ -216,6 +228,9 @@ public void refreshDeliveryTabe(){
             }
         });
         jScrollPane3.setViewportView(jTable3);
+        if (jTable3.getColumnModel().getColumnCount() > 0) {
+            jTable3.getColumnModel().getColumn(2).setHeaderValue("Delivery Man Name");
+        }
 
         jLabel3.setText("*Please select the record to complete the order.");
 
@@ -248,18 +263,18 @@ public void refreshDeliveryTabe(){
         jPanel15.setBackground(new java.awt.Color(255, 255, 255));
         jPanel15.setVerifyInputWhenFocusTarget(false);
 
-        jButton15.setFont(new java.awt.Font("Microsoft Himalaya", 1, 24)); // NOI18N
-        jButton15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ui/images/icons8_Checked_26px.png"))); // NOI18N
-        jButton15.setText("Confirm");
-        jButton15.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton15.addMouseListener(new java.awt.event.MouseAdapter() {
+        confirm.setFont(new java.awt.Font("Microsoft Himalaya", 1, 24)); // NOI18N
+        confirm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ui/images/icons8_Checked_26px.png"))); // NOI18N
+        confirm.setText("Confirm");
+        confirm.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        confirm.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton15jButton1MouseClicked(evt);
+                confirmjButton1MouseClicked(evt);
             }
         });
-        jButton15.addActionListener(new java.awt.event.ActionListener() {
+        confirm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton15jButton1ActionPerformed(evt);
+                confirmjButton1ActionPerformed(evt);
             }
         });
 
@@ -273,38 +288,36 @@ public void refreshDeliveryTabe(){
             }
         });
 
-        jLabel27.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel27.setText("Order ID :");
+        DeliLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        DeliLabel.setText("Delivery ID :");
 
-        R_ID6.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        R_ID6.addActionListener(new java.awt.event.ActionListener() {
+        AddLabel.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        AddLabel.setText("Destination Area :");
+
+        Didddl.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        Didddl.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                R_ID6R_IDActionPerformed(evt);
-            }
-        });
-
-        jLabel28.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jLabel28.setText("Destination Area :");
-
-        Ctype10.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        Ctype10.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Kong", "Muhd", "Low", "Kit", "Jason" }));
-        Ctype10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Ctype10CtypeActionPerformed(evt);
+                DidddlCtypeActionPerformed(evt);
             }
         });
 
         jLabel29.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel29.setText("Delivery man & route selection");
 
-        jLabel30.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jLabel30.setText("Delivery Man ID :");
+        DMLabel.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        DMLabel.setText("Delivery Man Name :");
 
-        Ctype11.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        Ctype11.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Setapak", "Chow Kit", "KLCC", "Bangsar" }));
-        Ctype11.addActionListener(new java.awt.event.ActionListener() {
+        addddl.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        addddl.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Ctype11CtypeActionPerformed(evt);
+                addddlCtypeActionPerformed(evt);
+            }
+        });
+
+        DMddl.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        DMddl.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DMddlCtypeActionPerformed(evt);
             }
         });
 
@@ -313,60 +326,61 @@ public void refreshDeliveryTabe(){
         jPanel15Layout.setHorizontalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel15Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel15Layout.createSequentialGroup()
-                        .addGap(110, 110, 110)
-                        .addComponent(jButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(78, 78, 78)
-                        .addComponent(jButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(DMLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(DMddl, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
                     .addGroup(jPanel15Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
                         .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel15Layout.createSequentialGroup()
-                                .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(Ctype10, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(DeliLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(AddLabel))
+                        .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel15Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(210, 210, 210))
                             .addGroup(jPanel15Layout.createSequentialGroup()
                                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel28))
-                                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel15Layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(R_ID6, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(Didddl, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel15Layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(Ctype11, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGap(4, 4, 4)
+                                        .addComponent(addddl, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
             .addGroup(jPanel15Layout.createSequentialGroup()
                 .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 575, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(174, Short.MAX_VALUE))
+            .addGroup(jPanel15Layout.createSequentialGroup()
+                .addGap(135, 135, 135)
+                .addComponent(confirm, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel15Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49)
+                .addGap(48, 48, 48)
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(R_ID6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Ctype10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel15Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel15Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(Ctype11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(DeliLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Didddl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(DMLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(DMddl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(23, 23, 23)
+                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(AddLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addddl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(confirm, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(130, 130, 130))
+                .addGap(64, 64, 64))
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -458,99 +472,165 @@ public void refreshDeliveryTabe(){
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void addddlCtypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addddlCtypeActionPerformed
+
+        confirm.setVisible(true);
+    }//GEN-LAST:event_addddlCtypeActionPerformed
+
+    private void DidddlCtypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DidddlCtypeActionPerformed
+
+        String D_ID = Didddl.getSelectedItem().toString();
+
+        if (D_ID == "DL001") {
+            DMddl.removeAllItems();
+            DMddl.addItem("Kong");
+            DMddl.addItem("Muhd");
+            DMddl.addItem("Low");
+            DMddl.addItem("Abu");
+            DMLabel.setVisible(true);
+            DMddl.setVisible(true);
+        } else if (D_ID == "DL002") {
+            DMddl.removeAllItems();
+            DMddl.addItem("Kong");
+            DMddl.addItem("Muhd");
+            DMddl.addItem("Low");
+            DMddl.addItem("Abu");
+            DMLabel.setVisible(true);
+            DMddl.setVisible(true);
+        } else if (D_ID == "DL003") {
+            DMddl.removeAllItems();
+            DMddl.addItem("Kong");
+            DMddl.addItem("Muhd");
+            DMddl.addItem("Low");
+            DMddl.addItem("Abu");
+            DMLabel.setVisible(true);
+            DMddl.setVisible(true);
+        } else if (D_ID == "DL004") {
+            DMddl.removeAllItems();
+            DMddl.addItem("Kong");
+            DMddl.addItem("Muhd");
+            DMddl.addItem("Low");
+            DMddl.addItem("Abu");
+            DMLabel.setVisible(true);
+            DMddl.setVisible(true);
+        }
+    }//GEN-LAST:event_DidddlCtypeActionPerformed
+
+    private void jButton16jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16jButton2ActionPerformed
+        //what will change?
+        // the table there add the sleected item
+        // imean the value? which value ? ini ?
+    }//GEN-LAST:event_jButton16jButton2ActionPerformed
+
+    private void confirmjButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmjButton1ActionPerformed
+        if (Didddl.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Please select Delivery ID !");
+        }
+           else if (DMddl.getSelectedIndex() == 0) {
+                JOptionPane.showMessageDialog(null, "Please select Delivery Man !");
+           }
+              else if (addddl.getSelectedIndex() == 0) {
+                    JOptionPane.showMessageDialog(null, "Please select Destination Area !");
+                } else {
+                    for(int i=0;i<deliveryList.getNumberOfEntries();i++){
+                        System.out.println(deliveryList.getEntry(i+1).getDeliveryID().equals(Didddl.getSelectedItem().toString()));
+                      
+                        if(deliveryList.getEntry(i+1).getDeliveryID().equals(Didddl.getSelectedItem().toString())){
+                            deliveryList.getEntry(i+1).setDeliveryManName(DMddl.getSelectedItem().toString());
+                            deliveryList.getEntry(i+1).setAddress(addddl.getSelectedItem().toString());
+                            System.out.print(deliveryList.getEntry(i+1).getAddress());
+                            
+                        }
+                    }
+                    System.out.print("ok");
+                    JOptionPane.showMessageDialog(null, "Delivery Man Assigned !");
+                }
+            
+
+            
+        
+        refreshDeliveryTable();
+        //deliveryList.add(new Delivery(DeliveryID.getSelectedItem().toString(),DeliveryManName.getSelectedItem(),address.getSelectedItem()));
+    }//GEN-LAST:event_confirmjButton1ActionPerformed
+
+    private void confirmjButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_confirmjButton1MouseClicked
+        /* */
+        String DID = "";
+        for (int j = 0; j < deliveryList.getNumberOfEntries(); j++) {
+            if (deliveryList.getEntry(j + 1).getDeliveryManName().equals(DMddl.getSelectedItem().toString())) {
+                DID = deliveryList.getEntry(j+1).getDeliveryID();
+            }
+
+        }
+        deliveryList.add(new Delivery(DID));
+        refreshDeliveryTable();
+    }//GEN-LAST:event_confirmjButton1MouseClicked
+
+    private void jTable3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable3MouseClicked
+        int rowSelected = jTable3.getSelectedRow();
+
+        int yesno = JOptionPane.showConfirmDialog(null, "Confirm delivered?", "INFORMATION", JOptionPane.YES_NO_OPTION);
+
+        if (yesno == 0) {
+            deliveryList.getEntry(rowSelected + 1).setDeliveredTime(dtf.format(now));
+
+            refreshDeliveryTable();
+        }
+    }//GEN-LAST:event_jTable3MouseClicked
+
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        int rowSelected=jTable1.getSelectedRow();
+        int rowSelected = jTable1.getSelectedRow();
 
-        int yesno = JOptionPane.showConfirmDialog(null,"Confirm picked up?", "INFORMATION",JOptionPane.YES_NO_OPTION);
+        int yesno = JOptionPane.showConfirmDialog(null, "Confirm picked up?", "INFORMATION", JOptionPane.YES_NO_OPTION);
 
-        if(yesno==0){
-            pickupList.getEntry(rowSelected+1).setPickupTime(dtf.format(now));
-            pickupList.getEntry(rowSelected+1).setPickupStatus("Picked up");
+        if (yesno == 0) {
+            pickupList.getEntry(rowSelected + 1).setPickupTime(dtf.format(now));
+            pickupList.getEntry(rowSelected + 1).setPickupStatus("Picked up");
             refreshPickupTable();
         }
     }//GEN-LAST:event_jTable1MouseClicked
 
-    private void jTable3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable3MouseClicked
-        int rowSelected=jTable3.getSelectedRow();
+    private void DMddlCtypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DMddlCtypeActionPerformed
+        DMddl.addItem("");
+        String Dmname = DMddl.getSelectedItem().toString();
 
-        int yesno = JOptionPane.showConfirmDialog(null,"Confirm delivered?", "INFORMATION",JOptionPane.YES_NO_OPTION);
-
-        if(yesno==0){
-            deliveryList.getEntry(rowSelected+1).setDeliveredTime(dtf.format(now));
-            
-            refreshDeliveryTabe();
+        if (Dmname == "Kong") {
+            addddl.removeAllItems();
+            addddl.addItem("Setapak");
+            addddl.addItem("Subang");
+            addddl.addItem("Genting Kelang");
+            addddl.addItem("Kepong");
+            addddl.setVisible(true);
+            AddLabel.setVisible(true);
+        } else if (Dmname == "Muhd") {
+            addddl.removeAllItems();
+            addddl.addItem("Setapak");
+            addddl.addItem("Subang");
+            addddl.addItem("Genting Kelang");
+            addddl.addItem("Kepong");
+            addddl.setVisible(true);
+            AddLabel.setVisible(true);
+        } else if (Dmname == "Low") {
+            addddl.removeAllItems();
+            addddl.addItem("Setapak");
+            addddl.addItem("Subang");
+            addddl.addItem("Genting Kelang");
+            addddl.addItem("Kepong");
+            addddl.setVisible(true);
+            AddLabel.setVisible(true);
+        } else if (Dmname == "Abu") {
+            addddl.removeAllItems();
+            addddl.addItem("Setapak");
+            addddl.addItem("Subang");
+            addddl.addItem("Genting Kelang");
+            addddl.addItem("Kepong");
+            addddl.setVisible(true);
+            AddLabel.setVisible(true);
+            /*jsnshshshsh*/
         }
-    }//GEN-LAST:event_jTable3MouseClicked
 
-    private void jButton15jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton15jButton1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton15jButton1MouseClicked
 
-    private void jButton15jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15jButton1ActionPerformed
-        if(!R_ID6.getText().isEmpty() && R_ID6.getText().length() == 5){
-            if(R_ID6.getText().equals("DL001")||R_ID6.getText().equals("DL002")||R_ID6.getText().equals("DL003")){
-                if(Ctype11.getSelectedIndex() == 0){
-                    JOptionPane.showMessageDialog(null, "Delivery man & route selected !"
-                        +"\nDestination Area : " + Ctype11.getSelectedItem().toString()
-                        +"\nPlease proceed to Jalan Langkawi !"
-                        +"\nOrder ID : " +R_ID6.getText()
-                        +"\nDelivery man ID : " +Ctype10.getSelectedItem().toString()
-                        +"\nCurrent Time : " +dtf.format(now)
-                        +"\nETA arrived in : 45mins ");
-                }
-                else if( Ctype11.getSelectedIndex() == 1 ){
-                    JOptionPane.showMessageDialog(null, "Delivery man & route selected !"
-                        +"\nDestination Area : " + Ctype11.getSelectedItem().toString()
-                        +"\nPlease proceed to Jalan Putra !"
-                        +"\nOrder ID : " +R_ID6.getText()
-                        +"\nDelivery man ID : "  +Ctype10.getSelectedItem().toString()
-                        +"\nCurrent Time : " +dtf.format(now)
-                        +"\nETA arrived in : 25mins ");
-                }
-                else if(Ctype11.getSelectedIndex() == 2){
-                    JOptionPane.showMessageDialog(null, "Delivery man & route selected !"
-                        +"\nDestination Area:" + Ctype11.getSelectedItem().toString()
-                        +"\nPlease proceed to Jalan Tun Razak !"
-                        +"\nOrder ID : " +R_ID6.getText()
-                        +"\nDelivery man ID  : "  +Ctype10.getSelectedItem().toString()
-                        +"\nCurrent Time  :" +dtf.format(now)
-                        +"\nETA arrived in : 55mins ");
-                }
-                else if(Ctype11.getSelectedIndex() == 3){
-                    JOptionPane.showMessageDialog(null, "Delivery man & route selected !"
-                        +"\nDestination Area : " + Ctype11.getSelectedItem().toString()
-                        +"\nPlease proceed to Jalan Bangsar !"
-                        +"\nOrder ID : " +R_ID6.getText()
-                        +"\nDelivery man ID  : "  +Ctype10.getSelectedItem().toString()
-                        +"\nCurrent Time : " +dtf.format(now)
-                        +"\nETA arrived in : 20mins ");
-                }
-                else{
-                    JOptionPane.showMessageDialog(null, "Error occured !"
-                        +"\nDlivery Man ID must be entered with 5 characters !");
-                }
-            }else{
-                JOptionPane.showMessageDialog(null, "Order ID does not exist !");
-            }
-        }else
-        JOptionPane.showMessageDialog(null, "Order ID or Delivery man ID must not leave empty !");
-    }//GEN-LAST:event_jButton15jButton1ActionPerformed
-
-    private void jButton16jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton16jButton2ActionPerformed
-
-    private void R_ID6R_IDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_R_ID6R_IDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_R_ID6R_IDActionPerformed
-
-    private void Ctype10CtypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Ctype10CtypeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Ctype10CtypeActionPerformed
-
-    private void Ctype11CtypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Ctype11CtypeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Ctype11CtypeActionPerformed
+    }//GEN-LAST:event_DMddlCtypeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -566,16 +646,21 @@ public void refreshDeliveryTabe(){
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(OrderRecordMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(OrderRecordMain.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(OrderRecordMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(OrderRecordMain.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(OrderRecordMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(OrderRecordMain.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(OrderRecordMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(OrderRecordMain.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -589,17 +674,17 @@ public void refreshDeliveryTabe(){
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> Ctype10;
-    private javax.swing.JComboBox<String> Ctype11;
-    private javax.swing.JTextField R_ID6;
-    private javax.swing.JButton jButton15;
+    private javax.swing.JLabel AddLabel;
+    private javax.swing.JLabel DMLabel;
+    private javax.swing.JComboBox<String> DMddl;
+    private javax.swing.JLabel DeliLabel;
+    private javax.swing.JComboBox<String> Didddl;
+    private javax.swing.JComboBox<String> addddl;
+    private javax.swing.JButton confirm;
     private javax.swing.JButton jButton16;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel15;

@@ -25,6 +25,7 @@ import javax.swing.table.DefaultTableModel;
  * @author boonk
  */
 public class DisplayCatalog extends javax.swing.JFrame {
+
  ListInterface<CatalogProduct> prodList = new LList();
  ListInterface<OrderList> orderList = new LList();
  ListInterface<Order> salesOrderList = new LList<>();
@@ -32,12 +33,14 @@ public class DisplayCatalog extends javax.swing.JFrame {
  double totalAmt=0.00;
  Order order = new Order();
  String orderID="";
+
     /**
      * Creates new form DisplayCatalog
      */
     public DisplayCatalog() {
         initComponents();
         initialize();
+
     }
     public DisplayCatalog(Order order1, ListInterface<OrderList> confirmOrderList){
      //class for receive from catalog order.
@@ -56,11 +59,14 @@ public class DisplayCatalog extends javax.swing.JFrame {
         for(int i =0;i<confirmOrderList.getNumberOfEntries();i++){
             orderList.add(confirmOrderList.getEntry(i+1));
         }
+
     }
-public void initialize(){
+
+    public void initialize() {
     //initialize product details
-   
+
    // CatalogProduct catalogProduct = new CatalogProduct();
+
    //fake order ID
    
    jLabel3.setVisible(false);
@@ -112,27 +118,26 @@ public void initialize(){
                 if(prodList.getEntry(i+1).getProdType().equals(Flowerddl.getItemAt(j+1))){
                  //   System.out.println(prodList.getEntry(i+1).getProdType());
                     containsInDDL++;
+
                 }
-            }
-             if(containsInDDL==0){
-                    
-                Flowerddl.addItem(prodList.getEntry(i+1).getProdType());
+                if (containsInDDL == 0) {
+
+                    Flowerddl.addItem(prodList.getEntry(i + 1).getProdType());
             //check if no such item contain in drop down
-            
+
+                }
+            } else {
+                //System.out.print(prodList.getEntry(i+1).getProdName());
+                Flowerddl.addItem(prodList.getEntry(i + 1).getProdType().toString()); // if no item, add it
             }
-    }else{
-            //System.out.print(prodList.getEntry(i+1).getProdName());
-            Flowerddl.addItem(prodList.getEntry(i+1).getProdType().toString()); // if no item, add it
         }
-    }
-    
-    //close all the error message
-    errorMsg.setVisible(false);
-    errorMsg1.setVisible(false);
-    errorMsg2.setVisible(false);
+
+        //close all the error message
+        errorMsg.setVisible(false);
+        errorMsg1.setVisible(false);
+        errorMsg2.setVisible(false);
     // display order ini
-    
-        
+
         FlowerStyleddl.setVisible(false);
         flowerStyleLabel.setVisible(false);
         FlowerStyleddl.addItem(" ");
@@ -140,9 +145,10 @@ public void initialize(){
         tfQuantity.setVisible(false);
         lblQuanity.setVisible(false);
         errorMsg.setVisible(false);
-      
-       // current order ini
+
+        // current order ini
         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+
        for(int i=0;i<orderList.getNumberOfEntries();i++){
            for(int j=0;j<prodList.getNumberOfEntries();j++){
             //   System.out.println(prodList.getEntry(j+1).getProdName());
@@ -159,7 +165,9 @@ public void initialize(){
      jTable2.getSize();
       jTable2.getColumnModel().getColumn(0).setPreferredWidth((jTable2.getSize().width)/100*70);
         jTable2.getColumnModel().getColumn(1).setPreferredWidth((jTable2.getSize().width)/100*30);
+
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -178,8 +186,8 @@ public void initialize(){
         jButton2 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         flowerStyleLabel = new javax.swing.JLabel();
-        Flowerddl = new javax.swing.JComboBox<>();
-        FlowerStyleddl = new javax.swing.JComboBox<>();
+        Flowerddl = new javax.swing.JComboBox<String>();
+        FlowerStyleddl = new javax.swing.JComboBox<String>();
         errorMsg = new javax.swing.JLabel();
         FlowerImage = new javax.swing.JLabel();
         imgDesclbl = new javax.swing.JLabel();
@@ -307,6 +315,12 @@ public void initialize(){
         imgDesclbl.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         lblQuanity.setText("Quanity ");
+
+        tfQuantity.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfQuantityActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Unit Price:");
 
@@ -563,6 +577,7 @@ public void initialize(){
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+
     public void refreshSalesOrderTable(){
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         int rowCount = model.getRowCount();
@@ -584,10 +599,12 @@ public void initialize(){
     }
     public void refreshOrderTable(){
         totalAmt=0.00;
+
         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
         int rowCount = model.getRowCount();
-      //  System.out.print(rowCount+"222");
+        //  System.out.print(rowCount+"222");
         for (int i = rowCount - 1; i >= 0; i--) {
+
     model.removeRow(i);
 }
 
@@ -657,14 +674,13 @@ public void initialize(){
           
      return newID;
           
+
     }
     private void FlowerddlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FlowerddlActionPerformed
-      // Flowerddl.removeAllItems();
-       
-        
-        String flower=Flowerddl.getSelectedItem().toString();
-        
-        if(flower =="Roses"){
+
+        String flower = Flowerddl.getSelectedItem().toString();
+
+        if (flower == "Roses") {
 
             FlowerStyleddl.removeAllItems();
             FlowerStyleddl.addItem("Just For You");
@@ -674,7 +690,7 @@ public void initialize(){
             flowerStyleLabel.setVisible(true);
             FlowerStyleddl.setVisible(true);
             //FlowerStyleddl.setSelectedIndex(0);
-        }else if(flower == "Lilies"){
+        } else if (flower == "Lilies") {
 
             FlowerStyleddl.removeAllItems();
             FlowerStyleddl.addItem("Pink Delight");
@@ -683,7 +699,7 @@ public void initialize(){
             flowerStyleLabel.setVisible(true);
             FlowerStyleddl.setVisible(true);
             //FlowerStyleddl.setSelectedIndex(0);
-        }else if(flower == "Tulips"){
+        } else if (flower == "Tulips") {
 
             FlowerStyleddl.removeAllItems();
             FlowerStyleddl.addItem("Montrex Tulips");
@@ -691,8 +707,7 @@ public void initialize(){
             flowerStyleLabel.setVisible(true);
             FlowerStyleddl.setVisible(true);
             //FlowerStyleddl.setSelectedIndex(0);
-        }
-        else if(flower =="Others"){
+        } else if (flower == "Others") {
 
             FlowerStyleddl.removeAllItems();
             FlowerStyleddl.addItem("Over the Rainbow");
@@ -713,22 +728,23 @@ public void initialize(){
     }//GEN-LAST:event_FlowerStyleddlMousePressed
 
     private void FlowerStyleddlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FlowerStyleddlActionPerformed
-        String s="";
-        String imgFile="";
-        String imgDesc="";
-       // jLabel3.setVisible(true);
-        String price="Unit price: ";
-        
+        String s = "";
+        String imgFile = "";
+        String imgDesc = "";
+        // jLabel3.setVisible(true);
+        String price = "Unit price: ";
+
         FlowerStyleddl.addItem(" ");
         // the image is show only when the flower styl drop down list is enable
-        if(FlowerStyleddl.isShowing()){
-        s = FlowerStyleddl.getSelectedItem().toString();
-           /* for(int i=0; i<prodList.getNumberOfEntries();i++){
-                if(s==prodList.getEntry(i+1).getProdName()){
+        if (FlowerStyleddl.isShowing()) {
+            s = FlowerStyleddl.getSelectedItem().toString();
+            /* for(int i=0; i<prodList.getNumberOfEntries();i++){
+             if(s==prodList.getEntry(i+1).getProdName()){
                     
-                }
-            }*/
+             }
+             }*/
             //  FlowerStyleddl.setSelectedIndex(0);
+
             
 
             if(s=="Just For You"){
@@ -765,12 +781,13 @@ public void initialize(){
             }else if(s=="Purple Tulips"){
                 imgFile="PurpleTulips.jpg";
                 imgDesc="";price+= String.format("%.2f",100.00);
+
             }
             ImageIcon imgIcon;
-            
-            imgIcon = new ImageIcon(getClass().getResource("../ui/images/"+imgFile));
+
+            imgIcon = new ImageIcon(getClass().getResource("../ui/images/" + imgFile));
             Image image = imgIcon.getImage();
-            Image resize = image.getScaledInstance( 200, 150, java.awt.Image.SCALE_SMOOTH);
+            Image resize = image.getScaledInstance(200, 150, java.awt.Image.SCALE_SMOOTH);
             imgIcon = new ImageIcon(resize);
             jLabel3.setText(price);
             jLabel3.setVisible(true);
@@ -778,13 +795,14 @@ public void initialize(){
 
             FlowerImage.setIcon(imgIcon);
         }
-        if(FlowerStyleddl.getSelectedIndex()!=0){
+        if (FlowerStyleddl.getSelectedIndex() != 0) {
             lblQuanity.setVisible(true);
             tfQuantity.setVisible(true);
         }
     }//GEN-LAST:event_FlowerStyleddlActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+
         System.out.print(order.getOrderID());
         if(jTable2.getRowCount()!=0){
            new ConfirmOrder(order,orderList,prodList).setVisible(true);
@@ -793,6 +811,7 @@ public void initialize(){
      }
       
      
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -802,22 +821,21 @@ public void initialize(){
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
         int selected = jTable2.getSelectedRow();
         String selectedItem = jTable2.getModel().getValueAt(selected, 0).toString();
-        String updatedQuantity ="";
-        String string="";
+        String updatedQuantity = "";
+        String string = "";
         do {
-                 string= JOptionPane.showInputDialog("Quantity");
-                if (string.matches("^[0-9]*$")) {
-                    updatedQuantity = string;
-                  
-                } else {
-                   JOptionPane.showMessageDialog(null, "Please enter a number");
-                }
-            } while (!string.matches("^[0-9]*$"));
-        
-        
-        
+            string = JOptionPane.showInputDialog("Quantity");
+            if (string.matches("^[0-9]*$")) {
+                updatedQuantity = string;
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Please enter a number");
+            }
+        } while (!string.matches("^[0-9]*$"));
+
         //String updatedQuantity =JOptionPane.showInputDialog(null,selectedItem+"\n Change Quantity: ","Edit Product Quantity",JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jTable2MouseClicked
+
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
       int rowSelected = jTable1.getSelectedRow();
@@ -838,6 +856,7 @@ public void initialize(){
       System.out.print(selectOrderList.getNumberOfEntries()+"NO");
       new SalesOrder(order,selectOrderList).setVisible(true);
     }//GEN-LAST:event_jTable1MouseClicked
+
 
     /**
      * @param args the command line arguments

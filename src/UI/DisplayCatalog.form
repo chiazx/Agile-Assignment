@@ -222,7 +222,9 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="tfQuantity" alignment="3" min="-2" max="-2" attributes="0"/>
+
                           <Component id="lblQuanity" alignment="3" min="-2" max="-2" attributes="0"/>
+
                       </Group>
 
 
@@ -340,6 +342,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="tfQuantity">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfQuantityActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel3">
               <Properties>
@@ -413,6 +418,8 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Microsoft Himalaya" size="24" style="1"/>
                 </Property>
+
+
 
 
 
@@ -533,6 +540,8 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Microsoft Himalaya" size="24" style="1"/>
                 </Property>
+
+
 
 
 
