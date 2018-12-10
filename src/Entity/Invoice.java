@@ -26,12 +26,10 @@ public class Invoice {
 
     }
 
-    
-
+    public Invoice() {
+    }
 
     public Invoice( String invoiceNo, String orderID, String paymentStatus, String invoiceAmount, String invoiceDate) {
-       
-
         this.invoiceNo = invoiceNo;
         this.orderID = orderID;
         this.paymentStatus = paymentStatus;

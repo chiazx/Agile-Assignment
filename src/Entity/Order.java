@@ -45,7 +45,15 @@ public class Order {
         this.orderStatus = orderStatus;
         this.totalAmount = totalAmount;
     }
-    
+
+    public Order(ConsumerE consumer, CooperateE cooperate, String orderID, String orderStatus, String orderType, double totalAmount) {
+        this.consumer = consumer;
+        this.cooperate = cooperate;
+        this.orderID = orderID;
+        this.orderStatus = orderStatus;
+        this.orderType = orderType;
+        this.totalAmount = totalAmount;
+    }
     
 
     

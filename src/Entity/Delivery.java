@@ -23,7 +23,6 @@ public class Delivery {
         this.orderID = orderID;
     }
     
-
     
     public String getDeliveredTime() {
         return deliveredTime;

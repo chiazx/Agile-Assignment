@@ -9,7 +9,6 @@ import ADT.LList;
 import ADT.ListInterface;
 import java.awt.Color;
 import Entity.*;
-import UI.DisplayCatalog;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -109,15 +108,17 @@ public class ConfirmOrder extends javax.swing.JFrame {
        model.addRow(new Object[]{null,"TOTAL",totalAmount});
     }
     public void initialize(){
+        deliveryList=allDeliveryList;
+        pickupList=allPickupList;
+        coopCustList=allCoopList;
+        
         lblCredit.setVisible(false);
         this.rbDelivery.setActionCommand("delivery");
         this.rbPickup.setActionCommand("pickup");
         this.rbConsumer.setActionCommand("Individual");
         this.rbCoop.setActionCommand("Coop");
         lblDisplayDate.setVisible(false);
-        coopCustList.add(new CooperateE("CP1000","Meow Sdn Bd","017-9996666",1000.00,"Jalan Tak tau"));
-        coopCustList.add(new CooperateE("CP1001","Wang Sdn Bd","017-3366666",2000.00,"Jalan Tak tau2"));
-        coopCustList.add(new CooperateE("CP1002","Oh yeah Sdn Bd","017-5554444",1500.00,"Jalan Tak tau3"));
+        
        refreshTable();
     }
     public void refreshCustomerDetails(){
@@ -355,7 +356,7 @@ public class ConfirmOrder extends javax.swing.JFrame {
                                     .addGroup(jPanel10Layout.createSequentialGroup()
                                         .addGap(88, 88, 88)
                                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(tfCustName)
+                                            .addComponent(tfCustName, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
                                             .addComponent(tfCustPhone)))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel6)
@@ -387,7 +388,7 @@ public class ConfirmOrder extends javax.swing.JFrame {
                             .addGroup(jPanel10Layout.createSequentialGroup()
                                 .addGap(5, 5, 5)
                                 .addComponent(jLabel11)))))
-                .addGap(120, 234, Short.MAX_VALUE))
+                .addGap(120, 183, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -556,15 +557,17 @@ return validate;
                   
                }
                if(DorP.getSelection().getActionCommand().equals("delivery")){
-                   deliveryList.add(new Delivery(order1,"D0001","Not assigned yet","","",DateorPriority,taAddress.getText()));
+                   deliveryList.add(new Delivery(order1,"D001","Not assigned yet","","",DateorPriority,taAddress.getText()));
                    System.out.println(deliveryList);
                }else if(DorP.getSelection().getActionCommand().toLowerCase().equals("pickup")){
-                   pickupList.add(new Pickup(order1,"P0001","","",DateorPriority.toLowerCase(),"Not yet pickup"));
+                   pickupList.add(new Pickup(order1,"P001","","",DateorPriority.toLowerCase(),"Not yet pickup"));
                              
                }
                
+               allSalesOrderList.add(order1);
+               
                JOptionPane.showMessageDialog(null, "Order is sucessfully addedd");
-               System.out.print(order);
+               
               
                //pass back param
                new DisplayCatalog(order1,orderList,allCatProdList,allCustProdList,allSalesOrderList,allOrderList,allConsumerList,allCoopList,allDeliveryList,allPickupList,allInvoiceList).setVisible(true);
@@ -642,6 +645,7 @@ return validate;
   {jframe.setVisible(false);}});*/
     
     //initialize the frame componenet
+    jframe.setTitle("Choose a customer.");
     jframe.setSize(300, 300);
     jframe.add(jsp);
     jframe.setLocation(750, 500);
@@ -675,11 +679,14 @@ return validate;
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ConfirmOrder(order1,orderList,prodList,allCatProdList,allCustProdList,allSalesOrderList,allOrderList,allConsumerList,allCoopList,allDeliveryList,allPickupList,allInvoiceList).setVisible(true);
+            new ConfirmOrder(order1,orderList,prodList,allCatProdList,allCustProdList,allSalesOrderList,allOrderList,allConsumerList,allCoopList,allDeliveryList,allPickupList,allInvoiceList).setVisible(true);
+           
             }
         });
     }

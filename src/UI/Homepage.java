@@ -54,15 +54,28 @@ public class Homepage extends javax.swing.JFrame {
              this.allOrderList=allOrderList;
              this.allPickupList=allPickupList;
              this.allSalesOrderList=allSalesOrderList;
-             
+             initComponents();
+             if(allCatProdList.getNumberOfEntries()==0){
+                 initialize();
+             }
              
          }
     public void initialize(){
              //init catalog product list
-         allCatProdList.add(new CatalogProduct("FL001","Lily","Bouquet","Available","Funny",120.00,120));
-        allCatProdList.add(new CatalogProduct("FL002","Rose","Floral arrangement","Remaining Stock Rarely","Funny",120.00,30));
-        allCatProdList.add(new CatalogProduct("FL003","Carnation","Bouquet","Out-of-Stock","Funny",120.00,0));
-        allCatProdList.add(new CatalogProduct("FL004","Tuplis","Fresh Flower","Available","Funny",120.00,120));
+         
+        
+        allCatProdList.add(new CatalogProduct("CP001","Just For You","Fresh Flower","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",120.00));
+     allCatProdList.add(new CatalogProduct("CP002","True Romance","Floral arrangement","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",120.00));
+      allCatProdList.add(new CatalogProduct("CP003","Teddy Red","Fresh Flower","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",120.00));
+       allCatProdList.add(new CatalogProduct("CP004","Queen","Floral arrangement","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",120.00));
+        allCatProdList.add(new CatalogProduct("CP005","Pink Delight","Fresh Flower","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",100.00));
+         allCatProdList.add(new CatalogProduct("CP006","Lily Love","Bouquet","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",100.00));
+          allCatProdList.add(new CatalogProduct("CP007","Princess","Fresh Flower","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",100.00));
+           allCatProdList.add(new CatalogProduct("CP008","Montrex Tulips","Bouquet","Available","Include red tulips, yellow tulips, purple tulips.",100.00));
+            allCatProdList.add(new CatalogProduct("CP009","Purple Tulips","Bouquet","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",100.00));
+             allCatProdList.add(new CatalogProduct("CP010","Over The Rainbow","Fresh Flower","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",100.00));
+              allCatProdList.add(new CatalogProduct("CP011","Sweet Admiration","Floral arrangement","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",100.00));
+              allCatProdList.add(new CatalogProduct("CP012","Ribbon","Accessories","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",100.00));
         
         //initialize invoice list
         
@@ -71,7 +84,9 @@ public class Homepage extends javax.swing.JFrame {
         //initiazize pickup list
         
         //initialize cooperate list
-        
+        allCoopList.add(new CooperateE("CP1000","Meow Sdn Bd","017-9996666",1000.00,"Jalan Tak tau"));
+        allCoopList.add(new CooperateE("CP1001","Wang Sdn Bd","017-3366666",2000.00,"Jalan Tak tau2"));
+        allCoopList.add(new CooperateE("CP1002","Oh yeah Sdn Bd","017-5554444",1500.00,"Jalan Tak tau3"));
          }
     
     @SuppressWarnings("unchecked")
@@ -88,6 +103,7 @@ public class Homepage extends javax.swing.JFrame {
         OrderPickup = new javax.swing.JButton();
         catalogOrders = new javax.swing.JButton();
         customer = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -162,10 +178,17 @@ public class Homepage extends javax.swing.JFrame {
             }
         });
 
-        customer.setText("Customer Maintenance and Invoice Payment.");
+        customer.setText("Customer Maintenance");
         customer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 customerActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Invoice Report");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -176,11 +199,12 @@ public class Homepage extends javax.swing.JFrame {
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1)
+                    .addComponent(catalogOrders)
                     .addComponent(customize, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(OrderPickup)
                     .addComponent(customer)
-                    .addComponent(catalogMaintenance)
-                    .addComponent(catalogOrders))
+                    .addComponent(catalogMaintenance))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
@@ -191,12 +215,14 @@ public class Homepage extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(customer)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(catalogOrders)
+                .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(catalogOrders)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(OrderPickup)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(customize)
-                .addContainerGap(150, Short.MAX_VALUE))
+                .addContainerGap(116, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -237,8 +263,8 @@ public class Homepage extends javax.swing.JFrame {
     }//GEN-LAST:event_catalogOrdersActionPerformed
 
     private void customerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customerActionPerformed
-        // TODO add your handling code here:
-        
+        new Register(allCatProdList,allCustProdList,allSalesOrderList,allOrderList,allConsumerList,allCoopList,allDeliveryList,allPickupList,allInvoiceList).setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_customerActionPerformed
 
     private void OrderPickupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OrderPickupActionPerformed
@@ -246,6 +272,11 @@ public class Homepage extends javax.swing.JFrame {
         new OrderRecordMain(allCatProdList,allCustProdList,allSalesOrderList,allOrderList,allConsumerList,allCoopList,allDeliveryList,allPickupList,allInvoiceList).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_OrderPickupActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+     new InvoiceReport(allCatProdList,allCustProdList,allSalesOrderList,allOrderList,allConsumerList,allCoopList,allDeliveryList,allPickupList,allInvoiceList).setVisible(true);
+     this.setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -532,7 +563,7 @@ public class Homepage extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Homepage().setVisible(true);
+                new Homepage(allCatProdList,allCustProdList,allSalesOrderList,allOrderList,allConsumerList,allCoopList,allDeliveryList,allPickupList,allInvoiceList).setVisible(true);
             }
         });
     }
@@ -544,6 +575,7 @@ public class Homepage extends javax.swing.JFrame {
     private javax.swing.JButton catalogOrders;
     private javax.swing.JButton customer;
     private javax.swing.JButton customize;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
