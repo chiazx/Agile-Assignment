@@ -5,21 +5,14 @@
  */
 package UI;
 
-import Entity.Flower;
 import ADT.LList;
 import ADT.ListInterface;
 import Entity.CatalogProduct;
-import java.io.File;
+import Entity.Promotion;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 /**
  *
@@ -34,8 +27,9 @@ public class Product extends javax.swing.JFrame {
         initComponents();
         initialize();
     }
-   
-    ListInterface<Flower> flowerList = new LList<>();     
+    
+    ListInterface<Promotion> promotionList = new LList<>();
+    ListInterface<CatalogProduct> productList = new LList<>();  
     File srcFolder;
     File destFolder;
     /**
@@ -54,6 +48,8 @@ public class Product extends javax.swing.JFrame {
         jSplitPane1 = new javax.swing.JSplitPane();
         jScrollBar1 = new javax.swing.JScrollBar();
         jToggleButton1 = new javax.swing.JToggleButton();
+
+
         jPanel4 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -61,7 +57,7 @@ public class Product extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jPanel7 = new javax.swing.JPanel();
         create = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        Reset = new javax.swing.JButton();
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
@@ -99,21 +95,14 @@ public class Product extends javax.swing.JFrame {
         uImage = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         uQuantity = new javax.swing.JTextField();
-        jPanel6 = new javax.swing.JPanel();
-        jLabel16 = new javax.swing.JLabel();
-        jDesktopPane3 = new javax.swing.JDesktopPane();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        jButton9 = new javax.swing.JButton();
-        jSeparator2 = new javax.swing.JSeparator();
-        sQuantity = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        uStatus = new javax.swing.JTextField();
         ChooseStatus = new javax.swing.JComboBox<>();
-        sName = new javax.swing.JComboBox<>();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        ProductDetails = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
-        sType = new javax.swing.JTextField();
-        sStatus = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -125,7 +114,8 @@ public class Product extends javax.swing.JFrame {
 
         jToggleButton1.setText("jToggleButton1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jToggleButton2.setText("jToggleButton2");
+
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -154,7 +144,7 @@ public class Product extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(439, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,10 +165,10 @@ public class Product extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("Cancel");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        Reset.setText("Cancel");
+        Reset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                ResetActionPerformed(evt);
             }
         });
 
@@ -196,11 +186,6 @@ public class Product extends javax.swing.JFrame {
         jScrollPane4.setViewportView(fDescription);
 
         Price.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
-        Price.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PriceActionPerformed(evt);
-            }
-        });
 
         fName.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
 
@@ -232,7 +217,9 @@ public class Product extends javax.swing.JFrame {
         );
         jDesktopPane4Layout.setVerticalGroup(
             jDesktopPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+
             .addComponent(Image, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+
         );
 
         path.setText("path");
@@ -244,16 +231,14 @@ public class Product extends javax.swing.JFrame {
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(81, 81, 81)
+                .addGap(60, 60, 60)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(jLabel22)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(path, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jDesktopPane4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(browse, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(path, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jDesktopPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel7Layout.createSequentialGroup()
@@ -267,37 +252,41 @@ public class Product extends javax.swing.JFrame {
                                         .addGap(277, 277, 277)
                                         .addComponent(create)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+
                                         .addComponent(jButton3))
+
                                     .addComponent(jScrollPane4)
                                     .addComponent(Price)
-                                    .addComponent(Quantity)))
+                                    .addComponent(Quantity, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel23)
-                                    .addComponent(jLabel27, javax.swing.GroupLayout.Alignment.TRAILING))
+                                    .addComponent(jLabel27))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+
                                     .addComponent(fName)
                                     .addComponent(Type))))
                         .addGap(187, 187, 187)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                        .addComponent(jLabel22)
+                        .addGap(61, 61, 61))
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jDesktopPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(browse)))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(144, 144, 144)
-                        .addComponent(jLabel22)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(browse)
+                            .addComponent(jDesktopPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(path)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(fName, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel23))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -322,8 +311,10 @@ public class Product extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(create)
+
                     .addComponent(jButton3))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+
         );
 
         jScrollPane2.setViewportView(jPanel7);
@@ -348,7 +339,6 @@ public class Product extends javax.swing.JFrame {
 
         jLabel28.setText("Flower Name");
 
-        uName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Rose", "Lily", "Carnation" }));
         uName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 uNameActionPerformed(evt);
@@ -400,15 +390,24 @@ public class Product extends javax.swing.JFrame {
         );
         jDesktopPane5Layout.setVerticalGroup(
             jDesktopPane5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+
             .addComponent(uImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+
         );
 
         jLabel7.setText("Quantity");
 
         uQuantity.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
-        uQuantity.addActionListener(new java.awt.event.ActionListener() {
+
+        jLabel3.setText("Status");
+
+        uStatus.setEditable(false);
+        uStatus.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+
+        ChooseStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Available", "Remaining Stock Rarely", "Out-of-Stock" }));
+        ChooseStatus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                uQuantityActionPerformed(evt);
+                ChooseStatusActionPerformed(evt);
             }
         });
 
@@ -417,12 +416,6 @@ public class Product extends javax.swing.JFrame {
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jLabel28)
-                .addGap(18, 18, 18)
-                .addComponent(uName, javax.swing.GroupLayout.PREFERRED_SIZE, 461, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel8Layout.createSequentialGroup()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGap(48, 48, 48)
@@ -430,28 +423,28 @@ public class Product extends javax.swing.JFrame {
                             .addComponent(jLabel8)
                             .addComponent(jLabel32)
                             .addComponent(jLabel7)
+                            .addComponent(jLabel3)
                             .addComponent(jLabel30)
                             .addComponent(jLabel29))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(uType)
-                                .addComponent(uQuantity)
-                                .addComponent(uPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 462, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel8Layout.createSequentialGroup()
                                 .addComponent(jDesktopPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(MaintainBrowse1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(jPanel8Layout.createSequentialGroup()
-                                    .addComponent(update)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(delete)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(reset))
-                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 462, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPanel8Layout.createSequentialGroup()
+                                .addComponent(uStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 462, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(ChooseStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(uPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 462, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 462, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(uType, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
+                                .addComponent(uQuantity, javax.swing.GroupLayout.Alignment.LEADING))))
                     .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 908, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
+
+
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -459,7 +452,7 @@ public class Product extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel28)
-                    .addComponent(uName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(uName, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -479,6 +472,11 @@ public class Product extends javax.swing.JFrame {
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(uStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(ChooseStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(uPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel30))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -490,23 +488,20 @@ public class Product extends javax.swing.JFrame {
                     .addComponent(reset)
                     .addComponent(delete)
                     .addComponent(update))
+
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+
         );
 
         jScrollPane1.setViewportView(jPanel8);
 
         jTabbedPane2.addTab("Maintain Flower", jScrollPane1);
 
-        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel16.setText("Flower Name");
+        ProductDetails.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
 
-        jDesktopPane3.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel17.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        jDesktopPane3.setLayer(jLabel17, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane3Layout = new javax.swing.GroupLayout(jDesktopPane3);
         jDesktopPane3.setLayout(jDesktopPane3Layout);
@@ -529,29 +524,36 @@ public class Product extends javax.swing.JFrame {
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton9ActionPerformed(evt);
+
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(ProductDetails);
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel4.setText("Product Details");
+
+        jButton1.setText("Create Promotion");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
-        sQuantity.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
-        sQuantity.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sQuantityActionPerformed(evt);
-            }
-        });
-
-        ChooseStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Available", "Remaining Stock Rarely", "Out-of-Stock" }));
-        ChooseStatus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ChooseStatusActionPerformed(evt);
-            }
-        });
-
-        sName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Rose", "Lily", "Carnation" }));
-        sName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sNameActionPerformed(evt);
-            }
-        });
 
         jLabel4.setText("Product Type");
 
@@ -592,42 +594,21 @@ public class Product extends javax.swing.JFrame {
                         .addComponent(ChooseStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jSeparator2)
+
         );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel16)
-                    .addComponent(sName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(16, 16, 16)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(13, 13, 13)
-                        .addComponent(jDesktopPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(128, 128, 128)
-                        .addComponent(jLabel18)))
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(sType, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addGap(13, 13, 13)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(sQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel21))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel20)
-                    .addComponent(sStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ChooseStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton9)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jButton1)
+                .addContainerGap(199, Short.MAX_VALUE))
         );
 
-        jTabbedPane2.addTab("Modify Status", jPanel6);
+        jTabbedPane2.addTab("Flower Details", jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -636,140 +617,96 @@ public class Product extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(442, 442, 442)
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 860, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 18, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 752, javax.swing.GroupLayout.PREFERRED_SIZE))
+
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
     public void initialize(){
         //add dummy flower data
-        flowerList.add(new Flower("Over the rainbow","Roses",20,120.00,"A good flower","Available"));
-         flowerList.add(new Flower("Sweer Admiration","Others",20,120.00,"A good flower","Available"));
-          flowerList.add(new Flower("Purples vase","Lilies",20,120.00,"A good flower","Available"));
-           flowerList.add(new Flower("Just For You","Roses",20,120.00,"A good flower","Available"));
-           
+        productList.add(new CatalogProduct("FL001","Lily","Bouquet","Available","Funny",120.00,120));
+        productList.add(new CatalogProduct("FL002","Rose","Floral arrangement","Remaining Stock Rarely","Funny",120.00,30));
+        productList.add(new CatalogProduct("FL003","Carnation","Bouquet","Out-of-Stock","Funny",120.00,0));
+        productList.add(new CatalogProduct("FL004","Tuplis","Fresh Flower","Available","Funny",120.00,120));
            refreshFlowerDropDownList();
-           refreshsFlowerDropDownList();
-    }
-    private void sNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sNameActionPerformed
 
-for( int i=0;i<flowerList.getNumberOfEntries();i++){
-            if(sName.getSelectedItem() == flowerList.getEntry(i+1).getfName()){
-                ImageIcon imgThisImg = new ImageIcon("\\Users\\User\\Desktop\\Agile-Assignment\\src\\UI\\Image\\Rose.jpeg");
-            jLabel17.setIcon(imgThisImg);
-            sType.setText(flowerList.getEntry(i+1).getfType());
-            sQuantity.setText(flowerList.getEntry(i+1).getQuantity()+"");
-            sStatus.setText(flowerList.getEntry(i+1).getfStatus());
-            }
-        }        
-       /* if(sName.getSelectedItem() == "Rose"){
-            ImageIcon imgThisImg = new ImageIcon("\\Users\\User\\Desktop\\Agile-Assignment\\src\\UI\\Image\\Rose.jpeg");
-            jLabel17.setIcon(imgThisImg);
-            sType.setText("bouquet");
-            sQuantity.setText("100");
-            sStatus.setText("Available");
-        }
-        else if(sName.getSelectedItem() == "Lily"){
-            ImageIcon imgThisImg = new ImageIcon("\\Users\\User\\Desktop\\Agile-Assignment\\src\\UI\\Image\\Lily.jpg");
-            jLabel17.setIcon(imgThisImg);
-            sType.setText("Fresh Flower");
-            sQuantity.setText("20");
-            sStatus.setText("Remaining Stock Rarely");
-
-        }
-        else if(sName.getSelectedItem() == "Carnation"){
-            ImageIcon imgThisImg = new ImageIcon("\\Users\\User\\Desktop\\Agile-Assignment\\src\\UI\\Image\\Carnation.jpg");
-            jLabel17.setIcon(imgThisImg);
-            sType.setText("Floral Arrangement");
-            sQuantity.setText("0");
-            sStatus.setText("Out-Of-Stock");
-        }*/
-
-    }//GEN-LAST:event_sNameActionPerformed
-
-    private void ChooseStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChooseStatusActionPerformed
-        if(ChooseStatus.getSelectedItem() == "Available"){
-            sStatus.setText("Available");
-        }
-        else if(ChooseStatus.getSelectedItem() == "Remaining Stock Rarely"){
-            sStatus.setText("Remaining Stock Rarely");
-        }
-        else if(ChooseStatus.getSelectedItem() == "Out-of-Stock"){
-            sStatus.setText("Out-Of-Stock");
-        }
-    }//GEN-LAST:event_ChooseStatusActionPerformed
+        DefaultTableModel model = (DefaultTableModel) ProductDetails.getModel();
+          for(int i=0;i< productList.getNumberOfEntries(); i++){
+              model.addRow(new Object[]{
+              productList.getEntry(i+1).getProdID(),
+              productList.getEntry(i+1).getProdName(),
+              productList.getEntry(i+1).getProdType(),
+              productList.getEntry(i+1).getProdQuantity(),
+              productList.getEntry(i+1).getProdStatus(),
+              productList.getEntry(i+1).getProdPrice(),
+              productList.getEntry(i+1).getProdDescription(),  
+              });
+          }
+          refreshProductTable();
+    }   
+    
     public void refreshFlowerDropDownList(){
         uName.removeAllItems(); // make sure nothing in ddl
               uName.addItem(" ");
-           for(int i =0 ; i<flowerList.getNumberOfEntries();i++){
-               uName.addItem(flowerList.getEntry(i+1).getfName());
+           for(int i =0 ; i<productList.getNumberOfEntries();i++){
+               uName.addItem(productList.getEntry(i+1).getProdName());
            }
     }
-    public void refreshsFlowerDropDownList(){
-        sName.removeAllItems(); // make sure nothing in ddl
-              sName.addItem(" ");
-           for(int i =0 ; i<flowerList.getNumberOfEntries();i++){
-               sName.addItem(flowerList.getEntry(i+1).getfName());
-           }
+    
+    public String Status(){
+        String Status;
+        if(Quantity.getText().matches("0")){
+            Status = "Out-of-Stock";
+        }
+        else if(Quantity.getText().matches("([1-9]|[1-5][0-9]|60)")){
+            Status = "Remaining Stock Rarely";
+        }
+        else {
+            Status = "Available";
     }
-    private void sQuantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sQuantityActionPerformed
-
-    }//GEN-LAST:event_sQuantityActionPerformed
-
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        if( sType.getText().matches("") || sStatus.getText().matches("")){
-            JOptionPane.showMessageDialog(null,"Haven't insert data yet","Information",JOptionPane.INFORMATION_MESSAGE);
+        return Status;
+    }
+    
+    public void refreshProductTable(){
+        DefaultTableModel model =(DefaultTableModel) ProductDetails.getModel();
+        int rowCount = model.getRowCount();
+        for(int i=rowCount-1 ; i>=0;i--){
+            model.removeRow(i);
         }
-        else if(sQuantity.getText().matches("")){
-            JOptionPane.showMessageDialog(null,"Please do not leave blank","Information",JOptionPane.INFORMATION_MESSAGE);
+        for(int a=0; a<productList.getNumberOfEntries(); a++){
+            model.addRow(new Object[]{
+              productList.getEntry(a+1).getProdID(),
+              productList.getEntry(a+1).getProdName(),
+              productList.getEntry(a+1).getProdType(),
+              productList.getEntry(a+1).getProdQuantity(),
+              productList.getEntry(a+1).getProdStatus(),
+              productList.getEntry(a+1).getProdPrice(),
+              productList.getEntry(a+1).getProdDescription(), 
+            });
         }
-        else if(!sQuantity.getText().matches("^[0-9]*$")){
-            JOptionPane.showMessageDialog(null,"Only in digit format","Information", JOptionPane.INFORMATION_MESSAGE);
-        }
-        else{
-            int a =JOptionPane.showConfirmDialog(null, "Do you want to update the status","Confirmation", JOptionPane.YES_OPTION);
-            if(a ==0){
-                for( int i=0;i<flowerList.getNumberOfEntries();i++){
-            if(sName.getSelectedItem() == flowerList.getEntry(i+1).getfName()){
-                JOptionPane.showMessageDialog(null, "Product record :"+flowerList.getEntry(i+1).getfName()+" has been successfully updated.","INFORMATION",JOptionPane.INFORMATION_MESSAGE);
-
-                 flowerList.getEntry(i+1).setQuantity(Integer.parseInt(sQuantity.getText()));
-                  flowerList.getEntry(i+1).setfStatus(sStatus.getText());
-                  refreshsFlowerDropDownList();
-            }
-        }
-            ImageIcon imgThisImg = new ImageIcon("\\Users\\User\\Desktop\\Agile-Assignment\\src\\UI\\Image\\white.png");
-            jLabel17.setIcon(imgThisImg);
-            sType.setText("");
-            sQuantity.setText("");
-            sStatus.setText("");
-            
-            }
-            else if(a == 1){
-            ImageIcon imgThisImg = new ImageIcon("\\Users\\User\\Desktop\\Agile-Assignment\\src\\UI\\Image\\white.png");
-            jLabel17.setIcon(imgThisImg);
-            sType.setText("");
-            sQuantity.setText("");
-            sStatus.setText("");
-            JOptionPane.showMessageDialog(null, "Update Cancel","Information", JOptionPane.INFORMATION_MESSAGE);
-            }
-        }
-    }//GEN-LAST:event_jButton9ActionPerformed
-
+    }
+    
+    public void refreshTable(){
+    }
+    
     private void browseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseActionPerformed
         JFileChooser chooser = new JFileChooser();
         chooser.showOpenDialog(null);
@@ -780,10 +717,22 @@ for( int i=0;i<flowerList.getNumberOfEntries();i++){
         path.setText(filename);
     }//GEN-LAST:event_browseActionPerformed
 
-    private void PriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PriceActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_PriceActionPerformed
-
+    public String GenerateNextFLID(){
+        String newID ="";
+        if(!productList.isEmpty()){
+            int lastFlowerIndex = productList.getNumberOfEntries();
+            String lastFlowerID = productList.getEntry(lastFlowerIndex).getProdID();
+            String prefix = lastFlowerID.substring(0,2);
+            int integer = Integer.parseInt(lastFlowerID.substring(2,5));
+            integer +=1;
+            newID =prefix+ String.format("%03d", integer);
+        }
+        else{
+                newID ="FL001";
+        }
+        return newID;
+    }
+    
     private void createActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createActionPerformed
         if(fName.getText().matches("") || Quantity.getText().matches("") || Price.getText().matches("")|| fDescription.getText().matches("") || Type.getText().matches("")){
             JOptionPane.showMessageDialog(null,"Please do not leave blank","Information",JOptionPane.INFORMATION_MESSAGE);
@@ -804,16 +753,17 @@ for( int i=0;i<flowerList.getNumberOfEntries();i++){
         int quantity = Integer.parseInt(Quantity.getText());
         double price = Double.parseDouble(Price.getText());
         String description = fDescription.getText();
-        Flower flower = new Flower(name,type,quantity,price,description);
-        flowerList.add(flower);
-        System.out.println(flowerList);
+        CatalogProduct flower = new CatalogProduct(GenerateNextFLID(),name,type,Status(),description,price,quantity);
+        productList.add(flower);
+        System.out.println(productList);      
+            Image.setIcon(null);
             fName.setText("");
             Type.setText("");
             Quantity.setText("");
             Price.setText("");
             fDescription.setText("");
             refreshFlowerDropDownList();
-            refreshsFlowerDropDownList();
+            refreshProductTable();
         //srcFolder = new File(filename);
         //destFolder = new File("\\Users\\User\\Desktop\\Agile-Assignment\\src\\UI\\Image" );
 
@@ -830,13 +780,13 @@ for( int i=0;i<flowerList.getNumberOfEntries();i++){
         }
         else if(z == 1){
             JOptionPane.showMessageDialog(null, "Create cancel","Information", JOptionPane.INFORMATION_MESSAGE);
+            Image.setIcon(null);
             fName.setText("");
             Type.setText("");
             Quantity.setText("");
             Price.setText("");
             fDescription.setText("");
         }
-
         }
     }//GEN-LAST:event_createActionPerformed
 
@@ -851,58 +801,35 @@ for( int i=0;i<flowerList.getNumberOfEntries();i++){
             JOptionPane.showMessageDialog(null,"Example format be like this 00.00","Information", JOptionPane.INFORMATION_MESSAGE);
         }
         else{
-        /*for(int i=0; i<flowerList.getNumberOfEntries();i++){
-        //String newImage = path.getText();
-        String newName = (String) uName.getSelectedItem();
-        String newType = uType.getText();
-        int newQuantity = Integer.parseInt(uQuantity.getText());
-        double newPrice = Double.parseDouble(uPrice.getText());
-        String newDescription = uDescription.getText();
-        Flower nflower = new Flower(newName, newType, newQuantity,newPrice, newDescription);
-        flowerList.replace(i, nflower);
-        
-        //srcFolder = new File(filename);
-        //destFolder = new File("\\Users\\User\\Desktop\\Agile-Assignment\\src\\UI\\Image");
-
-        if(!srcFolder.exists()){
-            System.out.println("Directory does not exist.");
-        }
-        else
-        {
-            try{
-                copyFolder(srcFolder,destFolder);
-            }catch(IOException e){
-                e.printStackTrace();
-            }}
-        }   */ 
-        
         int s = JOptionPane.showConfirmDialog(null, "Do you want to update","Confirmation", JOptionPane.YES_NO_OPTION);
         if(s==0){
             // update the specific flower information
-            for( int i=0;i<flowerList.getNumberOfEntries();i++){
-            if(uName.getSelectedItem() == flowerList.getEntry(i+1).getfName()){
-                JOptionPane.showMessageDialog(null, "Product record :"+flowerList.getEntry(i+1).getfName()+" has been successfully updated.","INFORMATION",JOptionPane.INFORMATION_MESSAGE);
-                flowerList.getEntry(i+1).setfType(uType.getText());
-                flowerList.getEntry(i+1).setPrice(Double.parseDouble(uPrice.getText()));
-                 flowerList.getEntry(i+1).setQuantity(Integer.parseInt(uQuantity.getText()));
-                  flowerList.getEntry(i+1).setfDescription(uDescription.getText());
+            for( int i=0;i<productList.getNumberOfEntries();i++){
+            if(uName.getSelectedItem() == productList.getEntry(i+1).getProdName()){
+                JOptionPane.showMessageDialog(null, "Product record :"+productList.getEntry(i+1).getProdName()+" has been successfully updated.","INFORMATION",JOptionPane.INFORMATION_MESSAGE);
+                productList.getEntry(i+1).setProdStatus(uStatus.getText());
+                productList.getEntry(i+1).setProdType(uType.getText());
+                productList.getEntry(i+1).setProdPrice(Double.parseDouble(uPrice.getText()));
+                productList.getEntry(i+1).setProdQuantity(Integer.parseInt(uQuantity.getText()));
+                productList.getEntry(i+1).setProdDescription(uDescription.getText());
+                
             }
         }
         JOptionPane.showMessageDialog(null, "Updated successful","Information", JOptionPane.INFORMATION_MESSAGE);
-        ImageIcon imgThisImg = new ImageIcon("\\Users\\User\\Desktop\\Agile-Assignment\\src\\UI\\Image\\white.png");
-        uImage.setIcon(imgThisImg);
+        uImage.setIcon(null);
+        uStatus.setText("");
         uName.setSelectedItem("");
         uType.setText("");
         uQuantity.setText("");
         uPrice.setText("");
         uDescription.setText("");
         refreshFlowerDropDownList();
-        refreshsFlowerDropDownList();
+        refreshProductTable();
         }
         else if(s==1){
         JOptionPane.showMessageDialog(null,"Update cancel","Information",JOptionPane.INFORMATION_MESSAGE);}
-        ImageIcon imgThisImg = new ImageIcon("\\Users\\User\\Desktop\\Agile-Assignment\\src\\UI\\Image\\white.png");
-        uImage.setIcon(imgThisImg);
+        uImage.setIcon(null);
+        uStatus.setText("");
         uName.setSelectedItem("");
         uType.setText("");
         uQuantity.setText("");
@@ -920,72 +847,40 @@ for( int i=0;i<flowerList.getNumberOfEntries();i++){
     }//GEN-LAST:event_MaintainBrowse1ActionPerformed
     
     private void uNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uNameActionPerformed
-        /*for(int i=0; i<flowerList.getNumberOfEntries(); i++){
-            flowerList.getEntry(i);
-        }*/
-        for( int i=0;i<flowerList.getNumberOfEntries();i++){
-            if(uName.getSelectedItem() == flowerList.getEntry(i+1).getfName()){
-                ImageIcon imgThisImg = new ImageIcon("\\Users\\User\\Desktop\\Agile-Assignment\\src\\UI\\Image\\Rose.jpeg");
-                 uImage.setIcon(imgThisImg);
-            uType.setText(flowerList.getEntry(i+1).getfType());
-            uQuantity.setText(flowerList.getEntry(i+1).getQuantity()+"");
-            uPrice.setText(flowerList.getEntry(i+1).getPrice()+"");
-            uDescription.setText(flowerList.getEntry(i+1).getfDescription());
-            }
-        }
-        
-       /* if(uName.getSelectedItem() == "Rose"){
+        for( int i=0;i<productList.getNumberOfEntries();i++){
+            if(uName.getSelectedItem() == productList.getEntry(i+1).getProdName()){   
             ImageIcon imgThisImg = new ImageIcon("\\Users\\User\\Desktop\\Agile-Assignment\\src\\UI\\Image\\Rose.jpeg");
             uImage.setIcon(imgThisImg);
-            uType.setText("Floral Arrangement");
-            uQuantity.setText("100");
-            uPrice.setText("20");
-            uDescription.setText("Suitable to girl friend");
-        }
-        else if(uName.getSelectedItem() == "Lily"){
-            ImageIcon imgThisImg = new ImageIcon("\\Users\\User\\Desktop\\Agile-Assignment\\src\\UI\\Image\\Lily.jpg");
-            uImage.setIcon(imgThisImg);
-            uType.setText("Bouquet");
-            uQuantity.setText("100");
-            uPrice.setText("12.30");
-            uDescription.setText("So Beutiful");
-        }
-        else if(uName.getSelectedItem() == "Carnation"){
-            ImageIcon imgThisImg = new ImageIcon("\\Users\\User\\Desktop\\Agile-Assignment\\src\\UI\\Image\\Carnation.jpg");
-            uImage.setIcon(imgThisImg);
-            uType.setText("Fresh Flower");
-            uQuantity.setText("10");
-            uPrice.setText("15.00");
-            uDescription.setText("Suitable gift for mother");
-        }*/
+            uStatus.setText(productList.getEntry(i+1).getProdStatus());
+            uType.setText(productList.getEntry(i+1).getProdType());
+            uQuantity.setText(productList.getEntry(i+1).getProdQuantity()+"");
+            uPrice.setText(productList.getEntry(i+1).getProdPrice()+"");
+            uDescription.setText(productList.getEntry(i+1).getProdDescription());
+            }               
+        }    
     }//GEN-LAST:event_uNameActionPerformed
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
-        /*for(int i=0; i< flowerList.getNumberOfEntries();i++){
-            flowerList.remove(i);
-        }*/
-        for( int i=0;i<flowerList.getNumberOfEntries();i++){
-            if(uName.getSelectedItem() == flowerList.getEntry(i+1).getfName()){
-                JOptionPane.showMessageDialog(null, "Product record :"+flowerList.getEntry(i+1).getfName()+" has been successfully deleted.","INFORMATION",JOptionPane.INFORMATION_MESSAGE);
-                flowerList.remove(i+1);
-                
+        for( int i=0;i<productList.getNumberOfEntries();i++){
+            if(uName.getSelectedItem() == productList.getEntry(i+1).getProdName()){
+                JOptionPane.showMessageDialog(null, "Product record :"+productList.getEntry(i+1).getProdName()+" has been successfully deleted.","INFORMATION",JOptionPane.INFORMATION_MESSAGE);
+                uImage.setIcon(null);
+                productList.remove(i+1);
+                uStatus.setText("");
+                uType.setText("");
+                uQuantity.setText("");
+                uPrice.setText("");
+                uDescription.setText("");
+                System.out.print(productList);
             }
         }
         refreshFlowerDropDownList();
-        refreshsFlowerDropDownList();
-       /* JOptionPane.showMessageDialog(null, "Delete successful","Information", JOptionPane.INFORMATION_MESSAGE);
-        ImageIcon imgThisImg = new ImageIcon("\\Users\\User\\Desktop\\Agile-Assignment\\src\\UI\\Image\\white.png");
-        uImage.setIcon(imgThisImg);
-        uName.setSelectedItem("");
-        uType.setText("");
-        uQuantity.setText("");
-        uPrice.setText("");
-        uDescription.setText("");*/
+        refreshProductTable(); 
     }//GEN-LAST:event_deleteActionPerformed
 
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
-        ImageIcon imgThisImg = new ImageIcon("\\Users\\User\\Desktop\\Agile-Assignment\\src\\UI\\Image\\white.png");
-        uImage.setIcon(imgThisImg);
+        uStatus.setText("");
+        uImage.setIcon(null);
         uName.setSelectedItem("");
         uType.setText("");
         uQuantity.setText("");
@@ -993,17 +888,30 @@ for( int i=0;i<flowerList.getNumberOfEntries();i++){
         uDescription.setText("");
     }//GEN-LAST:event_resetActionPerformed
 
-    private void uQuantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uQuantityActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_uQuantityActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void ResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetActionPerformed
+        Image.setIcon(null);
         fName.setText("");
         Type.setText("");
         Quantity.setText("");
         Price.setText("");
         fDescription.setText("");
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_ResetActionPerformed
+
+    private void ChooseStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChooseStatusActionPerformed
+        if(ChooseStatus.getSelectedItem() == "Available"){
+            uStatus.setText("Available");
+        }
+        else if(ChooseStatus.getSelectedItem() == "Remaining Stock Rarely"){
+            uStatus.setText("Remaining Stock Rarely");
+        }
+        else if(ChooseStatus.getSelectedItem() == "Out-of-Stock"){
+            uStatus.setText("Out-Of-Stock");
+        }
+    }//GEN-LAST:event_ChooseStatusActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        new PromotionDetail().setVisible(true);   
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /*public static void copyFolder(File src, File dest)throws IOException{  	
     	if(src.isDirectory()){
@@ -1063,26 +971,22 @@ for( int i=0;i<flowerList.getNumberOfEntries();i++){
     private javax.swing.JLabel Image;
     private javax.swing.JButton MaintainBrowse1;
     private javax.swing.JTextField Price;
+    private javax.swing.JTable ProductDetails;
     private javax.swing.JTextField Quantity;
+    private javax.swing.JButton Reset;
     private javax.swing.JTextField Type;
     private javax.swing.JButton browse;
     private javax.swing.JButton create;
     private javax.swing.JButton delete;
     private javax.swing.JTextArea fDescription;
     private javax.swing.JTextField fName;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton9;
     private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JDesktopPane jDesktopPane3;
     private javax.swing.JDesktopPane jDesktopPane4;
     private javax.swing.JDesktopPane jDesktopPane5;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
@@ -1091,6 +995,7 @@ for( int i=0;i<flowerList.getNumberOfEntries();i++){
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel4;
@@ -1100,30 +1005,27 @@ for( int i=0;i<flowerList.getNumberOfEntries();i++){
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JLabel path;
     private javax.swing.JButton reset;
-    private javax.swing.JComboBox<String> sName;
-    private javax.swing.JTextField sQuantity;
-    private javax.swing.JTextField sStatus;
-    private javax.swing.JTextField sType;
     private javax.swing.JTextArea uDescription;
     private javax.swing.JLabel uImage;
     private javax.swing.JComboBox<String> uName;
     private javax.swing.JTextField uPrice;
     private javax.swing.JTextField uQuantity;
+    private javax.swing.JTextField uStatus;
     private javax.swing.JTextField uType;
     private javax.swing.JButton update;
     // End of variables declaration//GEN-END:variables

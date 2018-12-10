@@ -91,6 +91,11 @@ public class InvoiceReport extends javax.swing.JFrame {
         jLabel3.setText("Choose Cooperate Compay Name");
 
         ListCoNa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+        ListCoNa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ListCoNaActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -284,6 +289,10 @@ public class InvoiceReport extends javax.swing.JFrame {
      System.out.print(ex.getMessage());
  }
     }//GEN-LAST:event_btnPrintActionPerformed
+
+    private void ListCoNaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListCoNaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ListCoNaActionPerformed
 
     /**
      * @param args the command line arguments
