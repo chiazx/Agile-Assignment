@@ -9,20 +9,11 @@ import ADT.LList;
 import ADT.ListInterface;
 import Entity.CatalogProduct;
 import Entity.Promotion;
-import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.Date;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 /**
  *
  * @author User
@@ -607,7 +598,7 @@ public class Product extends javax.swing.JFrame {
         productList.add(new CatalogProduct("FL001","Lily","Bouquet","Available","Funny",120.00,120));
         productList.add(new CatalogProduct("FL002","Rose","Floral arrangement","Remaining Stock Rarely","Funny",120.00,30));
         productList.add(new CatalogProduct("FL003","Carnation","Bouquet","Out-of-Stock","Funny",120.00,0));
-        productList.add(new CatalogProduct("FL004","Tuplis","Bouquet","Available","Funny",120.00,120));
+        productList.add(new CatalogProduct("FL004","Tuplis","Fresh Flower","Available","Funny",120.00,120));
            refreshFlowerDropDownList();
 
         DefaultTableModel model = (DefaultTableModel) ProductDetails.getModel();
@@ -621,7 +612,8 @@ public class Product extends javax.swing.JFrame {
               productList.getEntry(i+1).getProdPrice(),
               productList.getEntry(i+1).getProdDescription(),  
               });
-          }      
+          }
+          refreshProductTable();
     }    
     public void refreshFlowerDropDownList(){
         uName.removeAllItems(); // make sure nothing in ddl
@@ -631,13 +623,26 @@ public class Product extends javax.swing.JFrame {
            }
     }
     
+    public String Status(){
+        String Status;
+        if(Quantity.getText().matches("0")){
+            Status = "Out-of-Stock";
+        }
+        else if(Quantity.getText().matches("([1-9]|[1-5][0-9]|60)")){
+            Status = "Remaining Stock Rarely";
+        }
+        else {
+            Status = "Available";
+    }
+        return Status;
+    }
+    
     public void refreshProductTable(){
         DefaultTableModel model =(DefaultTableModel) ProductDetails.getModel();
         int rowCount = model.getRowCount();
         for(int i=rowCount-1 ; i>=0;i--){
             model.removeRow(i);
         }
-   
         for(int a=0; a<productList.getNumberOfEntries(); a++){
             model.addRow(new Object[]{
               productList.getEntry(a+1).getProdID(),
@@ -697,17 +702,15 @@ public class Product extends javax.swing.JFrame {
         int quantity = Integer.parseInt(Quantity.getText());
         double price = Double.parseDouble(Price.getText());
         String description = fDescription.getText();
-        CatalogProduct flower = new CatalogProduct(GenerateNextFLID(),name,type,description,price,quantity);
+        CatalogProduct flower = new CatalogProduct(GenerateNextFLID(),name,type,Status(),description,price,quantity);
         productList.add(flower);
-        
-        System.out.println(productList);
+        System.out.println(productList);      
             fName.setText("");
             Type.setText("");
             Quantity.setText("");
             Price.setText("");
             fDescription.setText("");
             refreshFlowerDropDownList();
-            productList.add(new CatalogProduct());
             refreshProductTable();
         //srcFolder = new File(filename);
         //destFolder = new File("\\Users\\User\\Desktop\\Agile-Assignment\\src\\UI\\Image" );
@@ -856,7 +859,6 @@ public class Product extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         new PromotionDetail().setVisible(true);
-        CloseFrame();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /*public static void copyFolder(File src, File dest)throws IOException{  	

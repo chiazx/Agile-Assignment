@@ -8,8 +8,6 @@ package UI;
 import ADT.LList;
 import ADT.ListInterface;
 import Entity.*;
-import java.awt.Component;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -19,9 +17,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
-import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 /**
  *
@@ -428,7 +424,7 @@ public class PromotionDetail extends javax.swing.JFrame {
         else if(!DiscountRate.getText().matches("^[0-9]*$")){
             JOptionPane.showMessageDialog(null, "Discount Rate must be numeric", "Information", JOptionPane.INFORMATION_MESSAGE);
         }
-        else if(!DiscountRate.getText().matches("(?:\\b|-)([1-9]{1,2}|100)\\b")){
+        else if(!DiscountRate.getText().matches("([1-9]|[1-8][0-9]|9[0-9]|100)")){
             JOptionPane.showMessageDialog(null, "Number range is between 1-100 ","Information",JOptionPane.INFORMATION_MESSAGE);
         }
         else{
