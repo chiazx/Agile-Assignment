@@ -27,6 +27,15 @@ import javax.swing.table.DefaultTableModel;
 public class ConfirmOrder extends javax.swing.JFrame {
     static ListInterface<OrderList> orderList = new LList<>();
     static ListInterface<CatalogProduct> prodList = new LList<>();
+    static ListInterface<CatalogProduct> allCatProdList = new LList<>();
+    static ListInterface<CustomizedFloral> allCustProdList = new LList<>();
+    static ListInterface<Order> allSalesOrderList = new LList<>();
+    static ListInterface<OrderList> allOrderList = new LList<>();
+    static ListInterface<ConsumerE> allConsumerList = new LList<>();
+    static ListInterface<CooperateE> allCoopList = new LList<>();
+    static ListInterface<Delivery> allDeliveryList = new LList<>();
+    static ListInterface<Pickup> allPickupList = new LList<>();
+    static ListInterface<Invoice> allInvoiceList = new LList<>();
     static Order order1=new Order();
     ListInterface<CooperateE> coopCustList = new LList<>();
     Order order = new Order();
@@ -43,7 +52,18 @@ public class ConfirmOrder extends javax.swing.JFrame {
      */
     
     
-    public ConfirmOrder(Order order1,ListInterface<OrderList> orderList,ListInterface<CatalogProduct> prodList) {
+    public ConfirmOrder(Order order1,ListInterface<OrderList> orderList,ListInterface<CatalogProduct> prodList,ListInterface<CatalogProduct> allCatProdList ,ListInterface<CustomizedFloral> allCustProdList ,ListInterface<Order> allSalesOrderList ,
+         ListInterface<OrderList> allOrderList ,ListInterface<ConsumerE> allConsumerList ,ListInterface<CooperateE> allCoopList ,
+         ListInterface<Delivery> allDeliveryList ,ListInterface<Pickup> allPickupList,ListInterface<Invoice> allInvoiceList) {
+         this.allCatProdList=allCatProdList;
+             this.allConsumerList=allConsumerList;
+             this.allCoopList=allCoopList;
+             this.allCustProdList =allCustProdList;
+             this.allDeliveryList = allDeliveryList;
+             this.allInvoiceList=allInvoiceList;
+             this.allOrderList=allOrderList;
+             this.allPickupList=allPickupList;
+             this.allSalesOrderList=allSalesOrderList;
         this.order1=order1;
         this.prodList = prodList;
         this.orderList = orderList;
@@ -88,15 +108,17 @@ public class ConfirmOrder extends javax.swing.JFrame {
        model.addRow(new Object[]{null,"TOTAL",totalAmount});
     }
     public void initialize(){
+        deliveryList=allDeliveryList;
+        pickupList=allPickupList;
+        coopCustList=allCoopList;
+        
         lblCredit.setVisible(false);
         this.rbDelivery.setActionCommand("delivery");
         this.rbPickup.setActionCommand("pickup");
         this.rbConsumer.setActionCommand("Individual");
         this.rbCoop.setActionCommand("Coop");
         lblDisplayDate.setVisible(false);
-        coopCustList.add(new CooperateE("CP1000","Meow Sdn Bd","017-9996666",1000.00,"Jalan Tak tau"));
-        coopCustList.add(new CooperateE("CP1001","Wang Sdn Bd","017-3366666",2000.00,"Jalan Tak tau2"));
-        coopCustList.add(new CooperateE("CP1002","Oh yeah Sdn Bd","017-5554444",1500.00,"Jalan Tak tau3"));
+        
        refreshTable();
     }
     public void refreshCustomerDetails(){
@@ -170,8 +192,6 @@ public class ConfirmOrder extends javax.swing.JFrame {
         Cancel = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         lblCredit = new javax.swing.JLabel();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -303,22 +323,6 @@ public class ConfirmOrder extends javax.swing.JFrame {
 
         lblCredit.setText("jLabel12");
 
-        DorP.add(jRadioButton3);
-        jRadioButton3.setText("jRadioButton3");
-        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton3ActionPerformed(evt);
-            }
-        });
-
-        DorP.add(jRadioButton4);
-        jRadioButton4.setText("jRadioButton4");
-        jRadioButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton4ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
@@ -379,18 +383,12 @@ public class ConfirmOrder extends javax.swing.JFrame {
                                                     .addComponent(jLabel9))
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addGroup(jPanel10Layout.createSequentialGroup()
-                                                        .addComponent(rbPickup)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(jRadioButton4))
-                                                    .addGroup(jPanel10Layout.createSequentialGroup()
-                                                        .addComponent(rbDelivery)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
-                                                        .addComponent(jRadioButton3))))))))
+                                                    .addComponent(rbPickup)
+                                                    .addComponent(rbDelivery)))))))
                             .addGroup(jPanel10Layout.createSequentialGroup()
                                 .addGap(5, 5, 5)
                                 .addComponent(jLabel11)))))
-                .addGap(120, 120, 120))
+                .addGap(120, 183, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -439,12 +437,9 @@ public class ConfirmOrder extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
-                            .addComponent(rbDelivery)
-                            .addComponent(jRadioButton3))
+                            .addComponent(rbDelivery))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(rbPickup)
-                            .addComponent(jRadioButton4))
+                        .addComponent(rbPickup)
                         .addGap(14, 14, 14)
                         .addComponent(lblDisplayDate)
                         .addGap(0, 0, Short.MAX_VALUE))))
@@ -562,18 +557,20 @@ return validate;
                   
                }
                if(DorP.getSelection().getActionCommand().equals("delivery")){
-                   deliveryList.add(new Delivery(order1,"D0001","Not assigned yet","","",DateorPriority,taAddress.getText()));
+                   deliveryList.add(new Delivery(order1,"D001","Not assigned yet","","",DateorPriority,taAddress.getText()));
                    System.out.println(deliveryList);
                }else if(DorP.getSelection().getActionCommand().toLowerCase().equals("pickup")){
-                   pickupList.add(new Pickup(order1,"P0001","","",DateorPriority.toLowerCase(),"Not yet pickup"));
+                   pickupList.add(new Pickup(order1,"P001","","",DateorPriority.toLowerCase(),"Not yet pickup"));
                              
                }
                
+               allSalesOrderList.add(order1);
+               
                JOptionPane.showMessageDialog(null, "Order is sucessfully addedd");
-               System.out.print(order);
+               
               
                //pass back param
-               new DisplayCatalog(order1,orderList).setVisible(true);
+               new DisplayCatalog(order1,orderList,allCatProdList,allCustProdList,allSalesOrderList,allOrderList,allConsumerList,allCoopList,allDeliveryList,allPickupList,allInvoiceList).setVisible(true);
                
            this.setVisible(false);
            
@@ -648,19 +645,12 @@ return validate;
   {jframe.setVisible(false);}});*/
     
     //initialize the frame componenet
+    jframe.setTitle("Choose a customer.");
     jframe.setSize(300, 300);
     jframe.add(jsp);
     jframe.setLocation(750, 500);
     jframe.setVisible(true);
     }//GEN-LAST:event_rbCoopActionPerformed
-
-    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
-    
-    }//GEN-LAST:event_jRadioButton3ActionPerformed
-
-    private void jRadioButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton4ActionPerformed
-
-    }//GEN-LAST:event_jRadioButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -689,11 +679,14 @@ return validate;
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ConfirmOrder(order1,orderList,prodList).setVisible(true);
+            new ConfirmOrder(order1,orderList,prodList,allCatProdList,allCustProdList,allSalesOrderList,allOrderList,allConsumerList,allCoopList,allDeliveryList,allPickupList,allInvoiceList).setVisible(true);
+           
             }
         });
     }
@@ -715,8 +708,6 @@ return validate;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel10;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;

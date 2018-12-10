@@ -25,6 +25,15 @@ import Entity.*;
  * @author Student
  */
 public class InvoiceReport extends javax.swing.JFrame {
+    static ListInterface<CatalogProduct> allCatProdList = new LList<>();
+    static ListInterface<CustomizedFloral> allCustProdList = new LList<>();
+    static ListInterface<Order> allSalesOrderList = new LList<>();
+    static ListInterface<OrderList> allOrderList = new LList<>();
+    static ListInterface<ConsumerE> allConsumerList = new LList<>();
+    static ListInterface<CooperateE> allCoopList = new LList<>();
+    static ListInterface<Delivery> allDeliveryList = new LList<>();
+    static ListInterface<Pickup> allPickupList = new LList<>();
+    static ListInterface<Invoice> allInvoiceList = new LList<>();
     
        ListInterface<Order> orderList = new LList();
     static final java.text.SimpleDateFormat fmt = new java.text.SimpleDateFormat("dd/MM/yyyy");
@@ -37,7 +46,24 @@ public class InvoiceReport extends javax.swing.JFrame {
         ListCoNa.addItem("KL Company.BHD");
         ListCoNa.addItem("Test Company.BHD");
     }
-
+    public InvoiceReport(ListInterface<CatalogProduct> allCatProdList ,ListInterface<CustomizedFloral> allCustProdList ,ListInterface<Order> allSalesOrderList ,
+         ListInterface<OrderList> allOrderList ,ListInterface<ConsumerE> allConsumerList ,ListInterface<CooperateE> allCoopList ,
+         ListInterface<Delivery> allDeliveryList ,ListInterface<Pickup> allPickupList,ListInterface<Invoice> allInvoiceList){
+         this.allCatProdList=allCatProdList;
+             this.allConsumerList=allConsumerList;
+             this.allCoopList=allCoopList;
+             this.allCustProdList =allCustProdList;
+             this.allDeliveryList = allDeliveryList;
+             this.allInvoiceList=allInvoiceList;
+             this.allOrderList=allOrderList;
+             this.allPickupList=allPickupList;
+             this.allSalesOrderList=allSalesOrderList;
+        
+        initComponents();
+        ListCoNa.addItem("SBS Company.BHD");
+        ListCoNa.addItem("KL Company.BHD");
+        ListCoNa.addItem("Test Company.BHD");
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -49,6 +75,7 @@ public class InvoiceReport extends javax.swing.JFrame {
 
         jPanel2 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
+        jButton6 = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -69,6 +96,13 @@ public class InvoiceReport extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Monthly Invoice");
 
+        jButton6.setText("Back");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -76,13 +110,17 @@ public class InvoiceReport extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton6)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(70, 70, 70)
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton6))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -91,11 +129,6 @@ public class InvoiceReport extends javax.swing.JFrame {
         jLabel3.setText("Choose Cooperate Compay Name");
 
         ListCoNa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
-        ListCoNa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ListCoNaActionPerformed(evt);
-            }
-        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -290,9 +323,12 @@ public class InvoiceReport extends javax.swing.JFrame {
  }
     }//GEN-LAST:event_btnPrintActionPerformed
 
-    private void ListCoNaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListCoNaActionPerformed
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_ListCoNaActionPerformed
+       
+        new Homepage(allCatProdList,allCustProdList,allSalesOrderList,allOrderList,allConsumerList,allCoopList,allDeliveryList,allPickupList,allInvoiceList).setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -337,6 +373,7 @@ public class InvoiceReport extends javax.swing.JFrame {
     private javax.swing.JButton btnPrint;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;

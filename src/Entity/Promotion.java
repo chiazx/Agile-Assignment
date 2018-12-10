@@ -18,6 +18,9 @@ public class Promotion {
     private String promotionTitle;
     private int discountRate;
     private CatalogProduct CP;
+
+    public Promotion() {
+    }
     
     public Promotion(String promotionID, String StartDate, String EndDate, String promotionTitle, int discountRate) {
         this.promotionID = promotionID;
@@ -25,8 +28,18 @@ public class Promotion {
         this.EndDate = EndDate;
         this.promotionTitle = promotionTitle;
         this.discountRate = discountRate;
-        //this.CP = CP;
     }
+
+    public Promotion(String promotionID, String StartDate, String EndDate, String promotionTitle, int discountRate, CatalogProduct CP) {
+        this.promotionID = promotionID;
+        this.StartDate = StartDate;
+        this.EndDate = EndDate;
+        this.promotionTitle = promotionTitle;
+        this.discountRate = discountRate;
+        this.CP = CP;
+    }
+    
+    
 
     public String getPromotionID() {
         return promotionID;

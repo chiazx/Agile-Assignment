@@ -9,8 +9,11 @@ import ADT.*;
 import Entity.CatalogProduct;
 import Entity.ConsumerE;
 import Entity.CooperateE;
+import Entity.Delivery;
+import Entity.Invoice;
 import Entity.Order;
 import Entity.OrderList;
+import Entity.Pickup;
 import static UI.SalesOrder.salesOrderList;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -25,7 +28,16 @@ import javax.swing.table.DefaultTableModel;
  * @author boonk
  */
 public class DisplayCatalog extends javax.swing.JFrame {
-
+     static ListInterface<CatalogProduct> allCatProdList = new LList<>();
+    static ListInterface<CustomizedFloral> allCustProdList = new LList<>();
+    static ListInterface<Order> allSalesOrderList = new LList<>();
+    static ListInterface<OrderList> allOrderList = new LList<>();
+    static ListInterface<ConsumerE> allConsumerList = new LList<>();
+    static ListInterface<CooperateE> allCoopList = new LList<>();
+    static ListInterface<Delivery> allDeliveryList = new LList<>();
+    static ListInterface<Pickup> allPickupList = new LList<>();
+    static ListInterface<Invoice> allInvoiceList = new LList<>();
+    
  ListInterface<CatalogProduct> prodList = new LList();
  ListInterface<OrderList> orderList = new LList();
  ListInterface<Order> salesOrderList = new LList<>();
@@ -33,19 +45,44 @@ public class DisplayCatalog extends javax.swing.JFrame {
  double totalAmt=0.00;
  Order order = new Order();
  String orderID="";
-
     /**
      * Creates new form DisplayCatalog
      */
     public DisplayCatalog() {
         initComponents();
         initialize();
-
     }
-    public DisplayCatalog(Order order1, ListInterface<OrderList> confirmOrderList){
+     public DisplayCatalog(ListInterface<CatalogProduct> allCatProdList ,ListInterface<CustomizedFloral> allCustProdList ,ListInterface<Order> allSalesOrderList ,
+         ListInterface<OrderList> allOrderList ,ListInterface<ConsumerE> allConsumerList ,ListInterface<CooperateE> allCoopList ,
+         ListInterface<Delivery> allDeliveryList ,ListInterface<Pickup> allPickupList,ListInterface<Invoice> allInvoiceList){
+         this.allCatProdList=allCatProdList;
+             this.allConsumerList=allConsumerList;
+             this.allCoopList=allCoopList;
+             this.allCustProdList =allCustProdList;
+             this.allDeliveryList = allDeliveryList;
+             this.allInvoiceList=allInvoiceList;
+             this.allOrderList=allOrderList;
+             this.allPickupList=allPickupList;
+             this.allSalesOrderList=allSalesOrderList;
+             
+             initComponents();
+            initialize();
+            
+    }
+    public DisplayCatalog(Order order1, ListInterface<OrderList> confirmOrderList,ListInterface<CatalogProduct> allCatProdList ,ListInterface<CustomizedFloral> allCustProdList ,ListInterface<Order> allSalesOrderList ,
+         ListInterface<OrderList> allOrderList ,ListInterface<ConsumerE> allConsumerList ,ListInterface<CooperateE> allCoopList ,
+         ListInterface<Delivery> allDeliveryList ,ListInterface<Pickup> allPickupList,ListInterface<Invoice> allInvoiceList){
      //class for receive from catalog order.
-    
-      salesOrderList.add(order1);
+    this.allCatProdList=allCatProdList;
+             this.allConsumerList=allConsumerList;
+             this.allCoopList=allCoopList;
+             this.allCustProdList =allCustProdList;
+             this.allDeliveryList = allDeliveryList;
+             this.allInvoiceList=allInvoiceList;
+             this.allOrderList=allOrderList;
+             this.allPickupList=allPickupList;
+             this.allSalesOrderList=allSalesOrderList;
+         System.out.print(allSalesOrderList.getNumberOfEntries());
         for(int i =0;i<confirmOrderList.getNumberOfEntries();i++){
 
             orderList.add(confirmOrderList.getEntry(i+1));
@@ -54,38 +91,24 @@ public class DisplayCatalog extends javax.swing.JFrame {
         initialize();
          
     }
-    public void getConfirmSales(Order order, ListInterface<OrderList> confirmOrderList){
-        salesOrderList.add(order);
-        for(int i =0;i<confirmOrderList.getNumberOfEntries();i++){
-            orderList.add(confirmOrderList.getEntry(i+1));
-        }
-
-    }
-
-    public void initialize() {
+    
+public void initialize(){
     //initialize product details
-
+   
    // CatalogProduct catalogProduct = new CatalogProduct();
-
    //fake order ID
+   
+   salesOrderList =allSalesOrderList;
+   prodList=allCatProdList;
+   orderList=allOrderList;
    
    jLabel3.setVisible(false);
    //insert dummy flower data
    // for sales table use
    
-    prodList.add(new CatalogProduct("CP001","Just For You","Roses","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",120.00));
-     prodList.add(new CatalogProduct("CP002","True Romance","Roses","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",120.00));
-      prodList.add(new CatalogProduct("CP003","Teddy Red","Roses","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",120.00));
-       prodList.add(new CatalogProduct("CP004","Queen","Roses","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",120.00));
-        prodList.add(new CatalogProduct("CP005","Pink Delight","Lilies","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",100.00));
-         prodList.add(new CatalogProduct("CP006","Lily Love","Lilies","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",100.00));
-          prodList.add(new CatalogProduct("CP007","Princess","Lilies","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",100.00));
-           prodList.add(new CatalogProduct("CP008","Montrex Tulips","Tulips","Available","Include red tulips, yellow tulips, purple tulips.",100.00));
-            prodList.add(new CatalogProduct("CP009","Purple Tulips","Tulips","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",100.00));
-             prodList.add(new CatalogProduct("CP010","Over The Rainbow","Others","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",100.00));
-              prodList.add(new CatalogProduct("CP011","Sweet Admiration","Others","Available","Including lavish wrapping with luxurious paper, \n guaranteed to make the recipient smile.",100.00));
+    
               //insert dummy order data
-              ConsumerE consumer= new ConsumerE("CP1000","POPPY","017-99912345","Jalan Pokong \n 99999");
+       /* ConsumerE consumer= new ConsumerE("CP1000","POPPY","017-99912345","Jalan Pokong \n 99999");
         CooperateE cooperate = new CooperateE("CO1000","MEOW Sdn Bhd","012-1231231",200.00,"Jalan Pokok \n 010100");
         salesOrderList.add(new Order(consumer,"OR0001","confirm","delivery",200.00));
         salesOrderList.add(new Order(cooperate,"OR0002","confirm","pickup",200.00));
@@ -94,9 +117,10 @@ public class DisplayCatalog extends javax.swing.JFrame {
          orderList.add(new OrderList(prodList.getEntry(2),salesOrderList.getEntry(1),"OL0001","2"));
          orderList.add(new OrderList(prodList.getEntry(3),salesOrderList.getEntry(2),"OL0002","4"));
          orderList.add(new OrderList(prodList.getEntry(5),salesOrderList.getEntry(1),"OL0003","2"));
-         orderList.add(new OrderList(prodList.getEntry(4),salesOrderList.getEntry(3),"OL0001","3"));
+         orderList.add(new OrderList(prodList.getEntry(4),salesOrderList.getEntry(3),"OL0001","3"));*/
+       
           order.setOrderID(GenerateNextORID());//everytime the class is called add new one.
-   order.setOrderStatus("processing");
+          order.setOrderStatus("processing");
    /*orderList.add(new OrderList("OL0001","CP001","2","OR0001"));
       orderList.add(new OrderList("OL0002","CP002","1","OR0001"));
          orderList.add(new OrderList("OL0003","CP010","3","OR0001"));
@@ -118,37 +142,37 @@ public class DisplayCatalog extends javax.swing.JFrame {
                 if(prodList.getEntry(i+1).getProdType().equals(Flowerddl.getItemAt(j+1))){
                  //   System.out.println(prodList.getEntry(i+1).getProdType());
                     containsInDDL++;
-
                 }
-                if (containsInDDL == 0) {
-
-                    Flowerddl.addItem(prodList.getEntry(i + 1).getProdType());
-            //check if no such item contain in drop down
-
-                }
-            } else {
-                //System.out.print(prodList.getEntry(i+1).getProdName());
-                Flowerddl.addItem(prodList.getEntry(i + 1).getProdType().toString()); // if no item, add it
             }
+             if(containsInDDL==0){
+                    
+                Flowerddl.addItem(prodList.getEntry(i+1).getProdType());
+            //check if no such item contain in drop down
+            
+            }
+    }else{
+            //System.out.print(prodList.getEntry(i+1).getProdName());
+            Flowerddl.addItem(prodList.getEntry(i+1).getProdType().toString()); // if no item, add it
         }
-
-        //close all the error message
-        errorMsg.setVisible(false);
-        errorMsg1.setVisible(false);
-        errorMsg2.setVisible(false);
+    }
+    
+    //close all the error message
+    errorMsg.setVisible(false);
+    errorMsg1.setVisible(false);
+    errorMsg2.setVisible(false);
     // display order ini
-
+    
+        
         FlowerStyleddl.setVisible(false);
         flowerStyleLabel.setVisible(false);
         FlowerStyleddl.addItem(" ");
-        FlowerImage.setText("");
+        
         tfQuantity.setVisible(false);
         lblQuanity.setVisible(false);
         errorMsg.setVisible(false);
-
-        // current order ini
+      
+       // current order ini
         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
-
        for(int i=0;i<orderList.getNumberOfEntries();i++){
            for(int j=0;j<prodList.getNumberOfEntries();j++){
             //   System.out.println(prodList.getEntry(j+1).getProdName());
@@ -165,9 +189,7 @@ public class DisplayCatalog extends javax.swing.JFrame {
      jTable2.getSize();
       jTable2.getColumnModel().getColumn(0).setPreferredWidth((jTable2.getSize().width)/100*70);
         jTable2.getColumnModel().getColumn(1).setPreferredWidth((jTable2.getSize().width)/100*30);
-
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -181,16 +203,16 @@ public class DisplayCatalog extends javax.swing.JFrame {
         jPanel7 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jButton6 = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel9 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         flowerStyleLabel = new javax.swing.JLabel();
-        Flowerddl = new javax.swing.JComboBox<String>();
-        FlowerStyleddl = new javax.swing.JComboBox<String>();
+        Flowerddl = new javax.swing.JComboBox<>();
+        FlowerStyleddl = new javax.swing.JComboBox<>();
         errorMsg = new javax.swing.JLabel();
-        FlowerImage = new javax.swing.JLabel();
-        imgDesclbl = new javax.swing.JLabel();
+        lblDesc = new javax.swing.JLabel();
         lblQuanity = new javax.swing.JLabel();
         tfQuantity = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -234,6 +256,13 @@ public class DisplayCatalog extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Order Catlog Product from here!");
 
+        jButton6.setText("Back");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -244,19 +273,27 @@ public class DisplayCatalog extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton6)
+                .addGap(40, 40, 40))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21)
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8)
+                        .addComponent(jLabel2)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton6)
+                        .addGap(21, 21, 21))))
         );
 
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
@@ -276,14 +313,14 @@ public class DisplayCatalog extends javax.swing.JFrame {
 
         flowerStyleLabel.setText("Please choose a product");
 
-        Flowerddl.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        Flowerddl.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Flowerddl.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 FlowerddlActionPerformed(evt);
             }
         });
 
-        FlowerStyleddl.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        FlowerStyleddl.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         FlowerStyleddl.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 FlowerStyleddlMouseExited(evt);
@@ -302,25 +339,11 @@ public class DisplayCatalog extends javax.swing.JFrame {
         errorMsg.setForeground(new java.awt.Color(255, 51, 51));
         errorMsg.setText("ERROR");
 
-        FlowerImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        FlowerImage.setToolTipText("");
-        FlowerImage.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        FlowerImage.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
-        FlowerImage.setIconTextGap(2);
-        FlowerImage.setName(""); // NOI18N
-
-        imgDesclbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        imgDesclbl.setText("6");
-        imgDesclbl.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        imgDesclbl.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        lblDesc.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblDesc.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblDesc.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         lblQuanity.setText("Quanity ");
-
-        tfQuantity.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfQuantityActionPerformed(evt);
-            }
-        });
 
         jLabel3.setText("Unit Price:");
 
@@ -348,22 +371,18 @@ public class DisplayCatalog extends javax.swing.JFrame {
                                     .addGroup(jPanel9Layout.createSequentialGroup()
                                         .addComponent(jLabel5)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(Flowerddl, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(43, 43, 43)
+                                        .addComponent(Flowerddl, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(flowerStyleLabel))
                                     .addComponent(jLabel3)
                                     .addComponent(lblQuanity))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(FlowerStyleddl, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tfQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 25, Short.MAX_VALUE))
-                            .addComponent(imgDesclbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(tfQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(FlowerStyleddl, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 11, Short.MAX_VALUE))
+                            .addComponent(lblDesc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(FlowerImage, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(160, 160, 160))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -382,11 +401,9 @@ public class DisplayCatalog extends javax.swing.JFrame {
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblQuanity))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
-                .addComponent(FlowerImage, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(imgDesclbl, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
+                .addComponent(lblDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 254, Short.MAX_VALUE)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(errorMsg))
@@ -552,11 +569,7 @@ public class DisplayCatalog extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-
-
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 593, Short.MAX_VALUE)
-
-
+            .addComponent(jTabbedPane1)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -564,19 +577,14 @@ public class DisplayCatalog extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-
-
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE)
-
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
-
         );
 
         jTabbedPane1.getAccessibleContext().setAccessibleName("Catalog");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
 
     public void refreshSalesOrderTable(){
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
@@ -599,12 +607,10 @@ public class DisplayCatalog extends javax.swing.JFrame {
     }
     public void refreshOrderTable(){
         totalAmt=0.00;
-
         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
         int rowCount = model.getRowCount();
-        //  System.out.print(rowCount+"222");
+      //  System.out.print(rowCount+"222");
         for (int i = rowCount - 1; i >= 0; i--) {
-
     model.removeRow(i);
 }
 
@@ -614,48 +620,22 @@ public class DisplayCatalog extends javax.swing.JFrame {
                totalAmt+=orderList.getEntry(i+1).getCatalogProduct().getProdPrice()*(Integer.parseInt(orderList.getEntry(i+1).getQuantity()));
            }
        }
+    }    public String GenerateNextORID(){
+        String newID ="";
+         if(!salesOrderList.isEmpty()){
+          int lastOrderItemIndex = salesOrderList.getNumberOfEntries();
+          //update the last orderListID
+          String lastOrderListID = salesOrderList.getEntry(lastOrderItemIndex).getOrderID();
+          String prefix =lastOrderListID.substring(0, 2);
+          int integer = Integer.parseInt(lastOrderListID.substring(2,6));
+          integer +=1;
+          
+          newID=prefix+String.format("%04d", integer);
+        }else{
+            newID="OR0001";
+        }
+        return newID;
     }
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-      // check whether item is slected
-      //System.out.print(FlowerStyleddl.getItemCount()<3);
-      CatalogProduct selectedProd = new CatalogProduct();
-      if(Flowerddl.getSelectedIndex()==0){
-          JOptionPane.showMessageDialog(null,"Please select product type!","Warning", JOptionPane.WARNING_MESSAGE);
-      }else if(tfQuantity.getText().equals("")){
-          //check if quantity is entered
-           // check whether item is slected
-      
-          JOptionPane.showMessageDialog(null,"Please enter quantity!","Warning", JOptionPane.WARNING_MESSAGE);
-      }else if (tfQuantity.getText()!=""){
-          //check if quantity is number
-          if(!tfQuantity.getText().matches("^[0-9]*$")){
-          JOptionPane.showMessageDialog(null,"Quantity must be Integer! \n E.G(0-9)","Warning", JOptionPane.WARNING_MESSAGE);
-      }else{
-              //get the flower ID
-              String prodID="";
-              for(int j=0;j<prodList.getNumberOfEntries();j++){
-            if(prodList.getEntry(j+1).getProdName().equals(FlowerStyleddl.getSelectedItem().toString())){
-                prodID =prodList.getEntry(j+1).getProdID();
-                selectedProd=prodList.getEntry(j+1);
-            }
-           }
-           
-               if(jTable2.getRowCount()==0){
-                   order.setOrderStatus("processing");
-                   salesOrderList.add(order);
-               }
-               
-              orderList.add(new OrderList(selectedProd,order,GenerateNextOLID(),tfQuantity.getText()));
-              refreshOrderTable();
-          JOptionPane.showMessageDialog(null,"Item is successfully addedd to cart","Confirmation message", JOptionPane.INFORMATION_MESSAGE);
-      }  
-      }
-        
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    
-    
-
     public String GenerateNextOLID(){
         // read the last item and add to next
         String newID="";
@@ -674,80 +654,89 @@ public class DisplayCatalog extends javax.swing.JFrame {
           
      return newID;
           
-
     }
-    private void FlowerddlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FlowerddlActionPerformed
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        
+        if(jTable2.getRowCount()!=0){
+           new ConfirmOrder(order,orderList,prodList,allCatProdList,allCustProdList,allSalesOrderList,allOrderList,allConsumerList,allCoopList,allDeliveryList,allPickupList,allInvoiceList).setVisible(true);
+     
+     }else{
+         JOptionPane.showMessageDialog(null, "Please choose at least one item or product! ","INFORMATION",JOptionPane.INFORMATION_MESSAGE);
+     }
+      
+     
+    }//GEN-LAST:event_jButton3ActionPerformed
 
-        String flower = Flowerddl.getSelectedItem().toString();
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
 
-        if (flower == "Roses") {
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+        int selected = jTable2.getSelectedRow();
+        String selectedItem = jTable2.getModel().getValueAt(selected, 0).toString();
+        String updatedQuantity ="";
+        String string="";
+        do {
+                 string= JOptionPane.showInputDialog("Quantity");
+                if (string.matches("^[0-9]*$")) {
+                    updatedQuantity = string;
+                  
+                } else {
+                   JOptionPane.showMessageDialog(null, "Please enter a number");
+                }
+            } while (!string.matches("^[0-9]*$"));
+        
+        
+        
+        //String updatedQuantity =JOptionPane.showInputDialog(null,selectedItem+"\n Change Quantity: ","Edit Product Quantity",JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_jTable2MouseClicked
 
-            FlowerStyleddl.removeAllItems();
-            FlowerStyleddl.addItem("Just For You");
-            FlowerStyleddl.addItem("True Romance");
-            FlowerStyleddl.addItem("Teddy Red");
-            FlowerStyleddl.addItem("Queen");
-            flowerStyleLabel.setVisible(true);
-            FlowerStyleddl.setVisible(true);
-            //FlowerStyleddl.setSelectedIndex(0);
-        } else if (flower == "Lilies") {
-
-            FlowerStyleddl.removeAllItems();
-            FlowerStyleddl.addItem("Pink Delight");
-            FlowerStyleddl.addItem("Lily Love");
-            FlowerStyleddl.addItem("Princess");
-            flowerStyleLabel.setVisible(true);
-            FlowerStyleddl.setVisible(true);
-            //FlowerStyleddl.setSelectedIndex(0);
-        } else if (flower == "Tulips") {
-
-            FlowerStyleddl.removeAllItems();
-            FlowerStyleddl.addItem("Montrex Tulips");
-            FlowerStyleddl.addItem("Purple Tulips in a Vase");
-            flowerStyleLabel.setVisible(true);
-            FlowerStyleddl.setVisible(true);
-            //FlowerStyleddl.setSelectedIndex(0);
-        } else if (flower == "Others") {
-
-            FlowerStyleddl.removeAllItems();
-            FlowerStyleddl.addItem("Over the Rainbow");
-            FlowerStyleddl.addItem("Sweet Admiration");
-
-            flowerStyleLabel.setVisible(true);
-            FlowerStyleddl.setVisible(true);
-            //FlowerStyleddl.setSelectedIndex(0);
-        }
-    }//GEN-LAST:event_FlowerddlActionPerformed
-
-    private void FlowerStyleddlMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FlowerStyleddlMouseExited
-
-    }//GEN-LAST:event_FlowerStyleddlMouseExited
-
-    private void FlowerStyleddlMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FlowerStyleddlMousePressed
-
-    }//GEN-LAST:event_FlowerStyleddlMousePressed
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+      int rowSelected = jTable1.getSelectedRow();
+      Order order = new Order();//to get selected order order
+     
+      for(int i=0;i<orderList.getNumberOfEntries();i++){
+          
+         if(orderList.getEntry(i+1).getOrder().getOrderID().equals(jTable1.getModel().getValueAt(rowSelected, 0))) {
+             selectOrderList.add(orderList.getEntry(i+1));
+           
+         }
+      }
+      for(int i=0;i<salesOrderList.getNumberOfEntries();i++){
+          if(salesOrderList.getEntry(i+1).getOrderID().equals(jTable1.getModel().getValueAt(rowSelected, 0))){
+              order = salesOrderList.getEntry(i+1);
+          }
+      }
+     
+      new SalesOrder(order,selectOrderList).setVisible(true);
+    }//GEN-LAST:event_jTable1MouseClicked
 
     private void FlowerStyleddlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FlowerStyleddlActionPerformed
-        String s = "";
-        String imgFile = "";
-        String imgDesc = "";
+        String s="";
+        String imgFile="";
+        String imgDesc="";
         // jLabel3.setVisible(true);
-        String price = "Unit price: ";
+        String price="Unit price: ";
 
-        FlowerStyleddl.addItem(" ");
+           FlowerStyleddl.addItem(" ");
         // the image is show only when the flower styl drop down list is enable
-        if (FlowerStyleddl.isShowing()) {
+        if(FlowerStyleddl.isShowing()){
             s = FlowerStyleddl.getSelectedItem().toString();
+
+            for(int i=0;i<prodList.getNumberOfEntries();i++){
+                if(prodList.getEntry(i+1).getProdName().equals(s)){
+                    price +=String.format("%.2f",prodList.getEntry(i+1).getProdPrice());
+                    imgDesc="Description: \n"+prodList.getEntry(i+1).getProdDescription();
+                }
+            }
             /* for(int i=0; i<prodList.getNumberOfEntries();i++){
-             if(s==prodList.getEntry(i+1).getProdName()){
-                    
-             }
-             }*/
+                if(s==prodList.getEntry(i+1).getProdName()){
+
+                }
+            }*/
             //  FlowerStyleddl.setSelectedIndex(0);
 
-            
-
-            if(s=="Just For You"){
+            /* if(s=="Just For You"){
                 imgFile="JustForYou.jpg";
                 imgDesc="";
                 price+= String.format("%.2f",120.00);
@@ -781,82 +770,131 @@ public class DisplayCatalog extends javax.swing.JFrame {
             }else if(s=="Purple Tulips"){
                 imgFile="PurpleTulips.jpg";
                 imgDesc="";price+= String.format("%.2f",100.00);
-
             }
             ImageIcon imgIcon;
 
-            imgIcon = new ImageIcon(getClass().getResource("../ui/images/" + imgFile));
+            imgIcon = new ImageIcon(getClass().getResource("../ui/images/"+imgFile));
             Image image = imgIcon.getImage();
-            Image resize = image.getScaledInstance(200, 150, java.awt.Image.SCALE_SMOOTH);
-            imgIcon = new ImageIcon(resize);
+            Image resize = image.getScaledInstance( 200, 150, java.awt.Image.SCALE_SMOOTH);
+            imgIcon = new ImageIcon(resize);*/
             jLabel3.setText(price);
             jLabel3.setVisible(true);
-            imgDesclbl.setText(imgDesc);
-
-            FlowerImage.setIcon(imgIcon);
+            lblDesc.setText(imgDesc);
+            lblDesc.setVisible(true);
+            // FlowerImage.setIcon(imgIcon);
         }
-        if (FlowerStyleddl.getSelectedIndex() != 0) {
+        if(FlowerStyleddl.getSelectedIndex()!=0){
             lblQuanity.setVisible(true);
             tfQuantity.setVisible(true);
         }
     }//GEN-LAST:event_FlowerStyleddlActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void FlowerStyleddlMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FlowerStyleddlMousePressed
 
-        System.out.print(order.getOrderID());
-        if(jTable2.getRowCount()!=0){
-           new ConfirmOrder(order,orderList,prodList).setVisible(true);
-     }else{
-         JOptionPane.showMessageDialog(null, "Please choose at least one item or product! ","INFORMATION",JOptionPane.INFORMATION_MESSAGE);
-     }
-      
-     
+    }//GEN-LAST:event_FlowerStyleddlMousePressed
 
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void FlowerStyleddlMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FlowerStyleddlMouseExited
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_FlowerStyleddlMouseExited
 
-    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
-        int selected = jTable2.getSelectedRow();
-        String selectedItem = jTable2.getModel().getValueAt(selected, 0).toString();
-        String updatedQuantity = "";
-        String string = "";
-        do {
-            string = JOptionPane.showInputDialog("Quantity");
-            if (string.matches("^[0-9]*$")) {
-                updatedQuantity = string;
+    private void FlowerddlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FlowerddlActionPerformed
+        // Flowerddl.removeAllItems();
 
-            } else {
-                JOptionPane.showMessageDialog(null, "Please enter a number");
+        String flower=Flowerddl.getSelectedItem().toString();
+        FlowerStyleddl.removeAllItems();
+        for(int i =0;i<prodList.getNumberOfEntries();i++){
+            if(prodList.getEntry(i+1).getProdType().equals(flower)){
+                
+                FlowerStyleddl.addItem(prodList.getEntry(i+1).getProdName());
             }
-        } while (!string.matches("^[0-9]*$"));
+        }
+        flowerStyleLabel.setVisible(true);
+        FlowerStyleddl.setVisible(true);
+        /*  if(flower =="Roses"){
 
-        //String updatedQuantity =JOptionPane.showInputDialog(null,selectedItem+"\n Change Quantity: ","Edit Product Quantity",JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_jTable2MouseClicked
+            FlowerStyleddl.removeAllItems();
+            FlowerStyleddl.addItem("Just For You");
+            FlowerStyleddl.addItem("True Romance");
+            FlowerStyleddl.addItem("Teddy Red");
+            FlowerStyleddl.addItem("Queen");
+            flowerStyleLabel.setVisible(true);
+            FlowerStyleddl.setVisible(true);
+            //FlowerStyleddl.setSelectedIndex(0);
+        }else if(flower == "Lilies"){
 
+            FlowerStyleddl.removeAllItems();
+            FlowerStyleddl.addItem("Pink Delight");
+            FlowerStyleddl.addItem("Lily Love");
+            FlowerStyleddl.addItem("Princess");
+            flowerStyleLabel.setVisible(true);
+            FlowerStyleddl.setVisible(true);
+            //FlowerStyleddl.setSelectedIndex(0);
+        }else if(flower == "Tulips"){
 
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-      int rowSelected = jTable1.getSelectedRow();
-      Order order = new Order();//to get selected order order
-     
-      for(int i=0;i<orderList.getNumberOfEntries();i++){
-          
-         if(orderList.getEntry(i+1).getOrder().getOrderID().equals(jTable1.getModel().getValueAt(rowSelected, 0))) {
-             selectOrderList.add(orderList.getEntry(i+1));
-            
-         }
-      }
-      for(int i=0;i<salesOrderList.getNumberOfEntries();i++){
-          if(salesOrderList.getEntry(i+1).getOrderID().equals(jTable1.getModel().getValueAt(rowSelected, 0))){
-              order = salesOrderList.getEntry(i+1);
-          }
-      }
-      System.out.print(selectOrderList.getNumberOfEntries()+"NO");
-      new SalesOrder(order,selectOrderList).setVisible(true);
-    }//GEN-LAST:event_jTable1MouseClicked
+            FlowerStyleddl.removeAllItems();
+            FlowerStyleddl.addItem("Montrex Tulips");
+            FlowerStyleddl.addItem("Purple Tulips in a Vase");
+            flowerStyleLabel.setVisible(true);
+            FlowerStyleddl.setVisible(true);
+            //FlowerStyleddl.setSelectedIndex(0);
+        }
+        else if(flower =="Others"){
 
+            FlowerStyleddl.removeAllItems();
+            FlowerStyleddl.addItem("Over the Rainbow");
+            FlowerStyleddl.addItem("Sweet Admiration");
+
+            flowerStyleLabel.setVisible(true);
+            FlowerStyleddl.setVisible(true);
+            //FlowerStyleddl.setSelectedIndex(0);
+        }*/
+    }//GEN-LAST:event_FlowerddlActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // check whether item is slected
+        //System.out.print(FlowerStyleddl.getItemCount()<3);
+        System.out.print(allSalesOrderList.getNumberOfEntries());
+        CatalogProduct selectedProd = new CatalogProduct();
+        if(Flowerddl.getSelectedIndex()==0){
+            JOptionPane.showMessageDialog(null,"Please select product type!","Warning", JOptionPane.WARNING_MESSAGE);
+        }else if(tfQuantity.getText().equals("")){
+            //check if quantity is entered
+            // check whether item is slected
+
+            JOptionPane.showMessageDialog(null,"Please enter quantity!","Warning", JOptionPane.WARNING_MESSAGE);
+        }else if (tfQuantity.getText()!=""){
+            //check if quantity is number
+            if(!tfQuantity.getText().matches("^[0-9]*$")){
+                JOptionPane.showMessageDialog(null,"Quantity must be Integer! \n E.G(0-9)","Warning", JOptionPane.WARNING_MESSAGE);
+            }else{
+                //get the flower ID
+                String prodID="";
+                for(int j=0;j<prodList.getNumberOfEntries();j++){
+                    if(prodList.getEntry(j+1).getProdName().equals(FlowerStyleddl.getSelectedItem().toString())){
+                        prodID =prodList.getEntry(j+1).getProdID();
+                        selectedProd=prodList.getEntry(j+1);
+                    }
+                }
+
+                if(jTable2.getRowCount()==0){
+                    order.setOrderStatus("processing");
+                   // salesOrderList.add(order);
+                }
+                System.out.print(allSalesOrderList.getNumberOfEntries());
+                orderList.add(new OrderList(selectedProd,order,GenerateNextOLID(),tfQuantity.getText()));
+                refreshOrderTable();
+                JOptionPane.showMessageDialog(null,"Item is successfully addedd to cart","Confirmation message", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        
+        new Homepage(allCatProdList,allCustProdList,allSalesOrderList,allOrderList,allConsumerList,allCoopList,allDeliveryList,allPickupList,allInvoiceList).setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -885,6 +923,8 @@ public class DisplayCatalog extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -895,17 +935,16 @@ public class DisplayCatalog extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel FlowerImage;
     private javax.swing.JComboBox<String> FlowerStyleddl;
     private javax.swing.JComboBox<String> Flowerddl;
     private javax.swing.JLabel errorMsg;
     private javax.swing.JLabel errorMsg1;
     private javax.swing.JLabel errorMsg2;
     private javax.swing.JLabel flowerStyleLabel;
-    private javax.swing.JLabel imgDesclbl;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -923,6 +962,7 @@ public class DisplayCatalog extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
+    private javax.swing.JLabel lblDesc;
     private javax.swing.JLabel lblQuanity;
     private javax.swing.JTextField tfQuantity;
     // End of variables declaration//GEN-END:variables

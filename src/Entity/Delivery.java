@@ -18,20 +18,14 @@ public class Delivery {
     private String deliveredTime;
     private String roadName;
     private String address;
-    
-
-    public String getDeliveredTime() {
-        return deliveredTime;
-    }
 
     public Delivery(String orderID) {
         this.orderID = orderID;
     }
-
-    public Delivery(String deliveryID, String deliveryManName, String address) {
-        this.deliveryID = deliveryID;
-        this.deliveryManName = deliveryManName;
-        this.address = address;
+    
+    
+    public String getDeliveredTime() {
+        return deliveredTime;
     }
 
     public void setDeliveredTime(String deliveredTime) {

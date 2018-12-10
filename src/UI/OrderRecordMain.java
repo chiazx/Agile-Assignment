@@ -7,8 +7,7 @@ package UI;
 
 import ADT.LList;
 import ADT.ListInterface;
-import Entity.Pickup;
-import Entity.Delivery;
+import Entity.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
@@ -29,6 +28,16 @@ public class OrderRecordMain extends javax.swing.JFrame {
     private ListInterface<Delivery> deliveryList = new LList<Delivery>();
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
     LocalDateTime now = LocalDateTime.now();
+    
+    static ListInterface<CatalogProduct> allCatProdList = new LList<>();
+    static ListInterface<CustomizedFloral> allCustProdList = new LList<>();
+    static ListInterface<Order> allSalesOrderList = new LList<>();
+    static ListInterface<OrderList> allOrderList = new LList<>();
+    static ListInterface<ConsumerE> allConsumerList = new LList<>();
+    static ListInterface<CooperateE> allCoopList = new LList<>();
+    static ListInterface<Delivery> allDeliveryList = new LList<>();
+    static ListInterface<Pickup> allPickupList = new LList<>();
+    static ListInterface<Invoice> allInvoiceList = new LList<>();
 
     public OrderRecordMain() {
         initComponents();
@@ -38,20 +47,43 @@ public class OrderRecordMain extends javax.swing.JFrame {
         jTable1.setAutoCreateRowSorter(true);
         jTable3.setAutoCreateRowSorter(true);
     }
+     public OrderRecordMain(ListInterface<CatalogProduct> allCatProdList ,ListInterface<CustomizedFloral> allCustProdList ,ListInterface<Order> allSalesOrderList ,
+         ListInterface<OrderList> allOrderList ,ListInterface<ConsumerE> allConsumerList ,ListInterface<CooperateE> allCoopList ,
+         ListInterface<Delivery> allDeliveryList ,ListInterface<Pickup> allPickupList,ListInterface<Invoice> allInvoiceList){
+             this.allCatProdList=allCatProdList;
+             this.allConsumerList=allConsumerList;
+             this.allCoopList=allCoopList;
+             this.allCustProdList =allCustProdList;
+             this.allDeliveryList = allDeliveryList;
+             this.allInvoiceList=allInvoiceList;
+             this.allOrderList=allOrderList;
+             this.allPickupList=allPickupList;
+             this.allSalesOrderList=allSalesOrderList;
+             
+             initComponents();
+        initialize();
+        initialize1();
+        refreshPickupTable();
+        jTable1.setAutoCreateRowSorter(true);
+        jTable3.setAutoCreateRowSorter(true);
+         }
+    
 
     public void initialize() {
-        pickupList.add(new Pickup("PU001", "PU0001", "12-12-2018", "", "High", "Not pickup"));
+        pickupList=allPickupList;
+        deliveryList=allDeliveryList;
+        /*pickupList.add(new Pickup("PU001", "PU0001", "12-12-2018", "", "High", "Not pickup"));
         pickupList.add(new Pickup("PU002", "PU0002", "12-12-2018", "", "Low", "Not pickup"));
-        pickupList.add(new Pickup("PU003", "PU0003", "12-12-2018", "", "Low", "Not pickup"));
+        pickupList.add(new Pickup("PU003", "PU0003", "12-12-2018", "", "Low", "Not pickup"));*/
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
 
     }
 
     public void initialize1() {
-        deliveryList.add(new Delivery("OR001", "DL001", "", "12-12-2018", "", "", ""));
+        /*deliveryList.add(new Delivery("OR001", "DL001", "", "12-12-2018", "", "", ""));
         deliveryList.add(new Delivery("OR002", "DL002", "", "12-12-2018", " ", "", ""));
         deliveryList.add(new Delivery("OR003", "DL003", "", "12-12-2018", "", "", ""));
-        deliveryList.add(new Delivery("OR004", "DL004", "", "12-12-2018", "", "", ""));
+        deliveryList.add(new Delivery("OR004", "DL004", "", "12-12-2018", "", "", ""));*/
 
         DefaultTableModel model = (DefaultTableModel) jTable3.getModel();
         for (int i = 0; i < deliveryList.getNumberOfEntries(); i++) {
@@ -91,7 +123,7 @@ public class OrderRecordMain extends javax.swing.JFrame {
             model.removeRow(i);
         }
         for (int i = 0; i < pickupList.getNumberOfEntries(); i++) {
-            model.addRow(new Object[]{pickupList.getEntry(i + 1).getOrderID(), pickupList.getEntry(i + 1).getPickupPriority(), pickupList.getEntry(i + 1).getPickupTime(), pickupList.getEntry(i + 1).getPickupStatus()});
+            model.addRow(new Object[]{pickupList.getEntry(i + 1).getPickupID(), pickupList.getEntry(i + 1).getPickupPriority(), pickupList.getEntry(i + 1).getPickupTime(), pickupList.getEntry(i + 1).getPickupStatus()});
         }
     }
 
@@ -137,6 +169,7 @@ public class OrderRecordMain extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
+        jButton6 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -430,25 +463,36 @@ public class OrderRecordMain extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Order Info");
 
+        jButton6.setText("Back");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(52, 52, 52)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton6)
+                .addGap(39, 39, 39))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21)
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton6))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -632,6 +676,14 @@ public class OrderRecordMain extends javax.swing.JFrame {
 
     }//GEN-LAST:event_DMddlCtypeActionPerformed
 
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        allDeliveryList=deliveryList;
+        allPickupList=pickupList;
+        new Homepage(allCatProdList,allCustProdList,allSalesOrderList,allOrderList,allConsumerList,allCoopList,allDeliveryList,allPickupList,allInvoiceList).setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton6ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -664,6 +716,8 @@ public class OrderRecordMain extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -682,6 +736,7 @@ public class OrderRecordMain extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> addddl;
     private javax.swing.JButton confirm;
     private javax.swing.JButton jButton16;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;

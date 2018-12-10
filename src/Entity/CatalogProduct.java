@@ -11,7 +11,7 @@ package Entity;
  */
 public class CatalogProduct {
     
-    private String prodImg;
+   
     private String prodID;
     private String prodName;
     private String prodType;
@@ -60,14 +60,9 @@ public class CatalogProduct {
         this.prodPrice = prodPrice;
         this.prodQuantity = prodQuantity;
     }
+    
 
-    public String getProdImg() {
-        return prodImg;
-    }
-
-    public void setProdImg(String prodImg) {
-        this.prodImg = prodImg;
-    }
+    
 
     public String getProdID() {
         return prodID;

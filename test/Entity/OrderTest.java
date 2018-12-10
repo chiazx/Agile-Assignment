@@ -11,26 +11,18 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author boonk
+ * @author User
  */
 public class OrderTest {
-    private Customer customer;
-    private ConsumerE consumer;
-    private CooperateE cooperate;
-    private String orderID;
-    private String orderStatus;
-    private String orderType; // delivery or pickup
-    private double totalAmount;
-    private String custID;
-    public OrderTest() {
+    Order o = new Order();
+    ConsumerE CE = new ConsumerE();
+    CooperateE CPE = new CooperateE();
+    public OrderTest() { 
     }
     
     @Before
     public void setUp() {
-        customer=new Customer();
-        consumer = new ConsumerE();
-        cooperate =new CooperateE();
-        
+        o = new Order(CE,CPE,"OID001","Pending","",12.00);
     }
 
     /**
@@ -44,7 +36,7 @@ public class OrderTest {
         ConsumerE result = instance.getConsumer();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-       // fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
 
     /**
@@ -57,7 +49,7 @@ public class OrderTest {
         Order instance = new Order();
         instance.setConsumer(consumer);
         // TODO review the generated test code and remove the default call to fail.
-       // fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
 
     /**
@@ -114,33 +106,9 @@ public class OrderTest {
         //fail("The test case is a prototype.");
     }
 
-
     /**
-     * Test of getCustomer method, of class Order.
+     * Test of toString method, of class Order.
      */
-    @Test
-    public void testGetCustomer() {
-        System.out.println("getCustomer");
-        Order instance = new Order();
-        Customer expResult = null;
-        Customer result = instance.getCustomer();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setCustomer method, of class Order.
-     */
-    @Test
-    public void testSetCustomer() {
-        System.out.println("setCustomer");
-        Customer customer = null;
-        Order instance = new Order();
-        instance.setCustomer(customer);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
-    }
 
     /**
      * Test of getOrderID method, of class Order.
@@ -148,13 +116,12 @@ public class OrderTest {
     @Test
     public void testGetOrderID() {
         System.out.println("getOrderID");
-        Order instance = new Order();
-        instance.setOrderID("OR0001");
-        String expResult = "OR0001";
-        String result = instance.getOrderID();
+        
+        String expResult = "OID001";
+        String result = o.getOrderID();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-       // fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
 
     /**
@@ -167,7 +134,7 @@ public class OrderTest {
         Order instance = new Order();
         instance.setOrderID(orderID);
         // TODO review the generated test code and remove the default call to fail.
-       // fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
 
     /**
@@ -176,13 +143,12 @@ public class OrderTest {
     @Test
     public void testGetOrderStatus() {
         System.out.println("getOrderStatus");
-        Order instance = new Order();
-        instance.setOrderStatus("ok");
-        String expResult = "ok";
-        String result = instance.getOrderStatus();
+        
+        String expResult = "Pending";
+        String result = o.getOrderStatus();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-       // fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
 
     /**
@@ -195,7 +161,7 @@ public class OrderTest {
         Order instance = new Order();
         instance.setOrderStatus(orderStatus);
         // TODO review the generated test code and remove the default call to fail.
-       // fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
 
     /**
@@ -204,13 +170,12 @@ public class OrderTest {
     @Test
     public void testGetOrderType() {
         System.out.println("getOrderType");
-        Order instance = new Order();
-        instance.setOrderType("delivery");
-        String expResult = "delivery";
-        String result = instance.getOrderType();
+        
+        String expResult = "";
+        String result = o.getOrderType();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-       // fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
 
     /**
@@ -223,35 +188,7 @@ public class OrderTest {
         Order instance = new Order();
         instance.setOrderType(orderType);
         // TODO review the generated test code and remove the default call to fail.
-       // fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getCustID method, of class Order.
-     */
-    @Test
-    public void testGetCustID() {
-        System.out.println("getCustID");
-        Order instance = new Order();
-        instance.setCustID("ok");
-        String expResult = "ok";
-        String result = instance.getCustID();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-       // fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setCustID method, of class Order.
-     */
-    @Test
-    public void testSetCustID() {
-        System.out.println("setCustID");
-        String custID = "";
-        Order instance = new Order();
-        instance.setCustID(custID);
-        // TODO review the generated test code and remove the default call to fail.
-       // fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
     
 }
