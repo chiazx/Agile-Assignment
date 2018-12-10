@@ -9,6 +9,8 @@ import ADT.*;
 import Entity.CatalogProduct;
 import Entity.OrderList;
 import java.awt.Image;
+import java.awt.Toolkit;
+import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -28,6 +30,9 @@ public class DisplayCatalog extends javax.swing.JFrame {
     public DisplayCatalog() {
         initComponents();
         initialize();
+        ImageIcon tenP = new ImageIcon("4.jpg");
+         System.out.println(tenP==null);
+        System.out.println(getClass().getResource("1.jpg")==null);
        
     }
 public void initialize(){
@@ -204,7 +209,6 @@ public void initialize(){
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
 
         jButton2.setFont(new java.awt.Font("Microsoft Himalaya", 1, 24)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ui/images/icons8_Add_28px.png"))); // NOI18N
         jButton2.setText("Add to current order");
         jButton2.setActionCommand("Add");
         jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -331,7 +335,6 @@ public void initialize(){
         jPanel10.setBackground(new java.awt.Color(255, 255, 255));
 
         jButton3.setFont(new java.awt.Font("Microsoft Himalaya", 1, 24)); // NOI18N
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ui/images/icons8_Checked_26px.png"))); // NOI18N
         jButton3.setText("Confirm Order");
         jButton3.setActionCommand("Add");
         jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -402,7 +405,6 @@ public void initialize(){
         jPanel11.setBackground(new java.awt.Color(255, 255, 255));
 
         jButton4.setFont(new java.awt.Font("Microsoft Himalaya", 1, 24)); // NOI18N
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ui/images/icons8_Next_page_28px.png"))); // NOI18N
         jButton4.setText("Next");
         jButton4.setActionCommand("Add");
         jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -442,7 +444,9 @@ public void initialize(){
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 702, Short.MAX_VALUE)
+
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 593, Short.MAX_VALUE)
+
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -450,8 +454,10 @@ public void initialize(){
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+
         );
 
         jTabbedPane1.getAccessibleContext().setAccessibleName("Catalog");
@@ -587,7 +593,7 @@ public void initialize(){
         String s="";
         String imgFile="";
         String imgDesc="";
-        jLabel3.setVisible(true);
+       // jLabel3.setVisible(true);
         String price="Unit price: ";
         
         FlowerStyleddl.addItem(" ");
@@ -638,7 +644,8 @@ public void initialize(){
                 imgDesc="";price+= String.format("%.2f",100.00);
             }
             ImageIcon imgIcon;
-            imgIcon = new ImageIcon(getClass().getResource("/ui/images/"+imgFile));
+            
+            imgIcon = new ImageIcon(getClass().getResource("../ui/images/"+imgFile));
             Image image = imgIcon.getImage();
             Image resize = image.getScaledInstance( 200, 150, java.awt.Image.SCALE_SMOOTH);
             imgIcon = new ImageIcon(resize);
