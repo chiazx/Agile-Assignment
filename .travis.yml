@@ -2,3 +2,4 @@ language : java
 sudo : required
 before_script:
   - rm -rf test
+  - rm -rf UI
