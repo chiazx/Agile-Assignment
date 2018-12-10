@@ -636,6 +636,7 @@ public class OrderRecordMain extends javax.swing.JFrame {
             addddl.addItem("Kepong");
             addddl.setVisible(true);
             AddLabel.setVisible(true);
+            /*jsnshshshsh*/
         }
 
 
