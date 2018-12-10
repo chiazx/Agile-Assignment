@@ -27,9 +27,7 @@ public class Product extends javax.swing.JFrame {
         initComponents();
         initialize();
     }
-    public void CloseFrame(){
-    super.dispose();
-    }   
+    
     ListInterface<Promotion> promotionList = new LList<>();
     ListInterface<CatalogProduct> productList = new LList<>();  
     File srcFolder;
@@ -268,7 +266,6 @@ public class Product extends javax.swing.JFrame {
                                     .addComponent(fName, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
                                     .addComponent(Type))))
                         .addGap(6, 6, 6)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(browse, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(231, Short.MAX_VALUE))
         );
@@ -614,7 +611,8 @@ public class Product extends javax.swing.JFrame {
               });
           }
           refreshProductTable();
-    }    
+    }   
+    
     public void refreshFlowerDropDownList(){
         uName.removeAllItems(); // make sure nothing in ddl
               uName.addItem(" ");
@@ -654,6 +652,9 @@ public class Product extends javax.swing.JFrame {
               productList.getEntry(a+1).getProdDescription(), 
             });
         }
+    }
+    
+    public void refreshTable(){
     }
     
     private void browseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseActionPerformed
@@ -705,6 +706,7 @@ public class Product extends javax.swing.JFrame {
         CatalogProduct flower = new CatalogProduct(GenerateNextFLID(),name,type,Status(),description,price,quantity);
         productList.add(flower);
         System.out.println(productList);      
+            Image.setIcon(null);
             fName.setText("");
             Type.setText("");
             Quantity.setText("");
@@ -728,6 +730,7 @@ public class Product extends javax.swing.JFrame {
         }
         else if(z == 1){
             JOptionPane.showMessageDialog(null, "Create cancel","Information", JOptionPane.INFORMATION_MESSAGE);
+            Image.setIcon(null);
             fName.setText("");
             Type.setText("");
             Quantity.setText("");
@@ -763,8 +766,7 @@ public class Product extends javax.swing.JFrame {
             }
         }
         JOptionPane.showMessageDialog(null, "Updated successful","Information", JOptionPane.INFORMATION_MESSAGE);
-        ImageIcon imgThisImg = new ImageIcon("\\Users\\User\\Desktop\\Agile-Assignment\\src\\UI\\Image\\white.png");
-        uImage.setIcon(imgThisImg);
+        uImage.setIcon(null);
         uStatus.setText("");
         uName.setSelectedItem("");
         uType.setText("");
@@ -776,8 +778,7 @@ public class Product extends javax.swing.JFrame {
         }
         else if(s==1){
         JOptionPane.showMessageDialog(null,"Update cancel","Information",JOptionPane.INFORMATION_MESSAGE);}
-        ImageIcon imgThisImg = new ImageIcon("\\Users\\User\\Desktop\\Agile-Assignment\\src\\UI\\Image\\white.png");
-        uImage.setIcon(imgThisImg);
+        uImage.setIcon(null);
         uStatus.setText("");
         uName.setSelectedItem("");
         uType.setText("");
@@ -797,8 +798,7 @@ public class Product extends javax.swing.JFrame {
     
     private void uNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uNameActionPerformed
         for( int i=0;i<productList.getNumberOfEntries();i++){
-            if(uName.getSelectedItem() == productList.getEntry(i+1).getProdName()){
-                
+            if(uName.getSelectedItem() == productList.getEntry(i+1).getProdName()){   
             ImageIcon imgThisImg = new ImageIcon("\\Users\\User\\Desktop\\Agile-Assignment\\src\\UI\\Image\\Rose.jpeg");
             uImage.setIcon(imgThisImg);
             uStatus.setText(productList.getEntry(i+1).getProdStatus());
@@ -806,7 +806,7 @@ public class Product extends javax.swing.JFrame {
             uQuantity.setText(productList.getEntry(i+1).getProdQuantity()+"");
             uPrice.setText(productList.getEntry(i+1).getProdPrice()+"");
             uDescription.setText(productList.getEntry(i+1).getProdDescription());
-            }
+            }               
         }    
     }//GEN-LAST:event_uNameActionPerformed
 
@@ -814,6 +814,7 @@ public class Product extends javax.swing.JFrame {
         for( int i=0;i<productList.getNumberOfEntries();i++){
             if(uName.getSelectedItem() == productList.getEntry(i+1).getProdName()){
                 JOptionPane.showMessageDialog(null, "Product record :"+productList.getEntry(i+1).getProdName()+" has been successfully deleted.","INFORMATION",JOptionPane.INFORMATION_MESSAGE);
+                uImage.setIcon(null);
                 productList.remove(i+1);
                 uStatus.setText("");
                 uType.setText("");
@@ -824,12 +825,12 @@ public class Product extends javax.swing.JFrame {
             }
         }
         refreshFlowerDropDownList();
+        refreshProductTable(); 
     }//GEN-LAST:event_deleteActionPerformed
 
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
-        ImageIcon imgThisImg = new ImageIcon("\\Users\\User\\Desktop\\Agile-Assignment\\src\\UI\\Image\\white.png");
         uStatus.setText("");
-        uImage.setIcon(imgThisImg);
+        uImage.setIcon(null);
         uName.setSelectedItem("");
         uType.setText("");
         uQuantity.setText("");
@@ -838,6 +839,7 @@ public class Product extends javax.swing.JFrame {
     }//GEN-LAST:event_resetActionPerformed
 
     private void ResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetActionPerformed
+        Image.setIcon(null);
         fName.setText("");
         Type.setText("");
         Quantity.setText("");
@@ -858,7 +860,7 @@ public class Product extends javax.swing.JFrame {
     }//GEN-LAST:event_ChooseStatusActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        new PromotionDetail().setVisible(true);
+        new PromotionDetail().setVisible(true);   
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /*public static void copyFolder(File src, File dest)throws IOException{  	
