@@ -34,6 +34,8 @@ public class CustomizedFloral extends javax.swing.JFrame {
         private QueueInterface<String> line=new LinkedQueue<String>();
         private QueueInterface<String> normalLine=new LinkedQueue<String>();
        private QueueInterface<String> flexiLine=new LinkedQueue<String>();
+        
+        
        
         String id;
         int cust_id=0;
@@ -70,15 +72,20 @@ public class CustomizedFloral extends javax.swing.JFrame {
         productList.add(f2);
         productList.add(f3);
         
-        CustomizeProduct cp = new CustomizeProduct("CFA0001","abc","abd","Express");
-        CustomizeProduct cp1 = new CustomizeProduct("CFA0001","abc","abd","Normal");
-        
-        Order order1=new Order("OR0001","Confirm",cp);
-        Order order2=new Order("OR0002","Confirm",cp1);
-        Order order3=new Order("OR0003","Confirm",cp);
+        Order order1=new Order("OR0001","Confirm");
+        Order order2=new Order("OR0002","Confirm");
+        Order order3=new Order("OR0003","Confirm");
         orderList.add(order1);
         orderList.add(order2);
         orderList.add(order3);
+        
+        CustomizeProduct cp = new CustomizeProduct("CFA0001","abc","abd","Express",order1);
+        CustomizeProduct cp1 = new CustomizeProduct("CFA0001","abc","abd","Normal",order2);
+        floralList.add(cp1);
+        floralList.add(cp);
+        
+        
+        
         
         
         
@@ -86,22 +93,22 @@ public class CustomizedFloral extends javax.swing.JFrame {
         Object[] rowData = new Object[1];
         
         
-        for(int i=0;i<orderList.getNumberOfEntries();i++){
-            String pr=orderList.getEntry(i+1).getCp().getPriority();
+        for(int i=0;i<floralList.getNumberOfEntries();i++){
+            String pr=floralList.getEntry(i+1).getPriority();
             if(pr.equals("Express")){
-                line.enqueue(orderList.getEntry(i+1).getOrderID());
+                line.enqueue(floralList.getEntry(i+1).getOrder().getOrderID());
                 
              
                 
             }
             
             if(pr.equals("Normal")){
-                normalLine.enqueue(orderList.getEntry(i+1).getOrderID());
+                normalLine.enqueue(floralList.getEntry(i+1).getOrder().getOrderID());
   
             }
             
             if(pr.equals("Flexi")){
-                flexiLine.enqueue(orderList.getEntry(i+1).getOrderID());
+                flexiLine.enqueue(floralList.getEntry(i+1).getOrder().getOrderID());
             }
             
             
@@ -118,7 +125,7 @@ public class CustomizedFloral extends javax.swing.JFrame {
     model.removeRow(i);
 }
         
-        System.out.print(orderList.getNumberOfEntries());
+        System.out.print(floralList.getNumberOfEntries());
        while(!line.isEmpty()){
            model.addRow(new Object[]{line.dequeue(),"Express"});
            
@@ -781,7 +788,9 @@ public class CustomizedFloral extends javax.swing.JFrame {
         // TODO add your handling code here:
         cfaCode++;
         String custProdID = "CFA"+String.format("%04d", cfaCode);
-        CustomizeProduct cf = new CustomizeProduct(custProdID,style.getSelectedItem().toString(),size.getSelectedItem().toString(),priority.getSelectedItem().toString());
+        Order order1=new Order("OR0001","Confirm");
+        orderList.add(order1);
+        CustomizeProduct cf = new CustomizeProduct(custProdID,style.getSelectedItem().toString(),size.getSelectedItem().toString(),priority.getSelectedItem().toString(),order1);
         floralList.add(cf);
         
         double totalFlowerPrice=0;
@@ -865,8 +874,8 @@ public class CustomizedFloral extends javax.swing.JFrame {
             jTextArea7.setText(fList);
             error.setText("Total Price :"+totalPrice);
             title.setText("Itemized Bill");
-            Order o3=new Order("OR0003","Confirm",cf);
-            orderList.add(o3);
+            
+            
         }
         
     }//GEN-LAST:event_jButton4MouseClicked

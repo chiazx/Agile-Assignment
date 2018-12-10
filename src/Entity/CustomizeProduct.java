@@ -14,6 +14,7 @@ public class CustomizeProduct {
     private String style;
     private String size;
     private String priority;
+    private Order order;
     
     public CustomizeProduct() {
     }
@@ -22,16 +23,28 @@ public class CustomizeProduct {
         this.custProdID = custProdID;
     }
 
-    public CustomizeProduct(String custProdID, String style, String size, String priority) {
+    public CustomizeProduct(String custProdID, String style, String size, String priority,Order order) {
         this.custProdID = custProdID;
         this.style = style;
         this.size = size;
         this.priority = priority;
+        this.order=order;
     }
 
     @Override
     public String toString() {
-        return "CustomizeProduct{" + "custProdID=" + custProdID + ", style=" + style + ", size=" + size + ", priority=" + priority + '}';
+        return "CustomizeProduct{" + "custProdID=" + custProdID + ", style=" + style + ", size=" + size + ", priority=" + priority + ", order=" + order + '}';
+    }
+
+   
+   
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     

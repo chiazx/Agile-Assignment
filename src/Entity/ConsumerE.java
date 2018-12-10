@@ -24,6 +24,7 @@ public class ConsumerE {
         this.custAddress = custAddress;
         this.num=nextNumber++;
     }
+    
 
     public ConsumerE() {
     }

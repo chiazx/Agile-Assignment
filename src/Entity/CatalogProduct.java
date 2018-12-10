@@ -11,16 +11,36 @@ package Entity;
  */
 public class CatalogProduct {
     
+   
     private String prodID;
     private String prodName;
     private String prodType;
     private String prodStatus;
     private String prodDescription;
     private double prodPrice;
+    private int prodQuantity;
 
     public CatalogProduct(){
         
     }
+    public CatalogProduct(String prodID, String prodName, String prodType, double prodPrice, int prodQuantity) {
+        this.prodID = prodID;
+        this.prodName = prodName;
+        this.prodType = prodType;
+        this.prodPrice = prodPrice;
+        this.prodQuantity = prodQuantity;
+    }
+
+    
+    public CatalogProduct(String prodID,String prodName, String prodType, String prodDescription, double prodPrice, int prodQuantity) {
+        this.prodID = prodID;
+        this.prodName = prodName;
+        this.prodType = prodType;
+        this.prodDescription = prodDescription;
+        this.prodPrice = prodPrice;
+        this.prodQuantity = prodQuantity;
+    }
+
     public CatalogProduct(String prodID, String prodName, String prodType, String prodStatus, String prodDescription, double prodPrice) {
         this.prodID = prodID;
         this.prodName = prodName;
@@ -29,6 +49,20 @@ public class CatalogProduct {
         this.prodDescription = prodDescription;
         this.prodPrice = prodPrice;
     }
+    
+    
+    public CatalogProduct(String prodID, String prodName, String prodType, String prodStatus, String prodDescription, double prodPrice, int prodQuantity) {
+        this.prodID = prodID;
+        this.prodName = prodName;
+        this.prodType = prodType;
+        this.prodStatus = prodStatus;
+        this.prodDescription = prodDescription;
+        this.prodPrice = prodPrice;
+        this.prodQuantity = prodQuantity;
+    }
+    
+
+    
 
     public String getProdID() {
         return prodID;
@@ -77,6 +111,22 @@ public class CatalogProduct {
     public void setProdPrice(double prodPrice) {
         this.prodPrice = prodPrice;
     }
+
+    public int getProdQuantity() {
+        return prodQuantity;
+    }
+
+    public void setProdQuantity(int prodQuantity) {
+        this.prodQuantity = prodQuantity;
+    }
+
+    
+    
+    @Override
+    public String toString() {
+        return String.format(" ID: %s\n Flower name :%s \n Flower type :%s \n Quantity :%d \n Price :RM%.2f \n Description :%s \n",prodID ,prodName , prodType, prodQuantity, prodPrice, prodDescription);
+    }
    
+
     
 }

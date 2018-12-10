@@ -10,13 +10,60 @@ package Entity;
  * @author boonk
  */
 public class Order {
-    private Customer customer;
+    
+    private ConsumerE consumer;
+    private CooperateE cooperate;
     private String orderID;
     private String orderStatus;
     private String orderType; // delivery or pickup
     private double totalAmount;
-    private String custID;
-    private CustomizeProduct cp;
+
+    public Order(String orderID, String orderStatus) {
+        this.orderID = orderID;
+        this.orderStatus = orderStatus;
+    }
+   
+
+    public Order(ConsumerE consumer, String orderID, String orderStatus, String orderType, double totalAmount) {
+        this.consumer = consumer;
+        this.orderID = orderID;
+        this.orderStatus = orderStatus;
+        this.orderType = orderType;
+        this.totalAmount = totalAmount;
+    }
+
+    public Order(CooperateE cooperate, String orderID, String orderStatus, String orderType, double totalAmount) {
+        this.cooperate = cooperate;
+        this.orderID = orderID;
+        this.orderStatus = orderStatus;
+        this.orderType = orderType;
+        this.totalAmount = totalAmount;
+    }
+
+    public Order(String orderID, String orderStatus, double totalAmount) {
+        this.orderID = orderID;
+        this.orderStatus = orderStatus;
+        this.totalAmount = totalAmount;
+    }
+    
+    
+
+    
+    public ConsumerE getConsumer() {
+        return consumer;
+    }
+
+    public void setConsumer(ConsumerE consumer) {
+        this.consumer = consumer;
+    }
+
+    public CooperateE getCooperate() {
+        return cooperate;
+    }
+
+    public void setCooperate(CooperateE cooperate) {
+        this.cooperate = cooperate;
+    }
 
     public double getTotalAmount() {
         return totalAmount;
@@ -26,71 +73,30 @@ public class Order {
         this.totalAmount = totalAmount;
     }
 
-    public Order(Customer customer, String orderID, String orderStatus, String orderType, double totalAmount, String custID) {
-        this.customer = customer;
-        this.orderID = orderID;
-    
-        this.orderStatus = orderStatus;
-        this.orderType = orderType;
-        this.totalAmount = totalAmount;
-        this.custID = custID;
-    }
+   
 
-    public Order(String orderID, String orderStatus, String orderType, double totalAmount, String custID) {
+    public Order(String orderID, String orderStatus, String orderType, double totalAmount) {
         this.orderID = orderID;
         this.orderStatus = orderStatus;
         this.orderType = orderType;
         this.totalAmount = totalAmount;
-        this.custID = custID;
+        
     }
-
-    public Order(String orderID) {
-        this.orderID = orderID;
-    }
-
-    public Order(String orderID, String orderStatus, CustomizeProduct cp) {
-        this.orderID = orderID;
-        this.orderStatus = orderStatus;
-        this.cp = cp;
-    }
-    
-    
-
-    public CustomizeProduct getCp() {
-        return cp;
-    }
-
-    public void setCp(CustomizeProduct cp) {
-        this.cp = cp;
-    }
-
-    
 
     @Override
     public String toString() {
-        return "Order{"  + customer + ", orderID=" + orderID + ", orderStatus=" + orderStatus + ", orderType=" + orderType + ", totalAmount=" + totalAmount + ", custID=" + custID + '}';
+        return "Order{" + "consumer=" + consumer + ", cooperate=" + cooperate + ", orderID=" + orderID + ", orderStatus=" + orderStatus + ", orderType=" + orderType + ", totalAmount=" + totalAmount + '}';
     }
+
+   
+
+    
 
   
 
     public Order() {
     }
 
-    public Order(Customer customer, String orderID, String OLID, String orderStatus, String orderType, String custID) {
-        this.customer = customer;
-        this.orderID = orderID;
-        this.orderStatus = orderStatus;
-        this.orderType = orderType;
-        this.custID = custID;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
 
     public String getOrderID() {
         return orderID;
@@ -117,12 +123,6 @@ public class Order {
         this.orderType = orderType;
     }
 
-    public String getCustID() {
-        return custID;
-    }
-
-    public void setCustID(String custID) {
-        this.custID = custID;
-    }
+    
     
 }
