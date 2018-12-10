@@ -7,7 +7,6 @@ package UI;
 
 import ADT.LList;
 import ADT.ListInterface;
-import com.toedter.calendar.*;
 import Entity.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -135,6 +134,7 @@ public class PromotionDetail extends javax.swing.JFrame {
         Product.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
     }
     
+    
     ListInterface<Promotion> promotionList = new LList<>();
     ListInterface<CatalogProduct> productList = new LList<>();
     ListInterface<PromotionList> promoList = new LList<>(); 
@@ -161,11 +161,10 @@ public class PromotionDetail extends javax.swing.JFrame {
         Create = new javax.swing.JButton();
         PromotionTitle = new javax.swing.JTextField();
         DiscountRate = new javax.swing.JTextField();
-        StartDate = new com.toedter.calendar.JDateChooser();
         EndDate = new javax.swing.JTextField();
-        Show = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         Product = new javax.swing.JTable();
+        StartDate = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
         PromotionDetails = new javax.swing.JTable();
@@ -223,15 +222,6 @@ public class PromotionDetail extends javax.swing.JFrame {
             }
         });
 
-        EndDate.setEditable(false);
-
-        Show.setText("Show");
-        Show.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ShowActionPerformed(evt);
-            }
-        });
-
         Product.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -269,16 +259,14 @@ public class PromotionDetail extends javax.swing.JFrame {
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(PromotionTitle)
+                    .addComponent(PromotionTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
                     .addComponent(DiscountRate)
                     .addComponent(StartDate, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(EndDate, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Show)
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addContainerGap(168, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -296,15 +284,13 @@ public class PromotionDetail extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addGap(28, 28, 28)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel5)
-                                .addComponent(EndDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(Show))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel5)
+                            .addComponent(EndDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(StartDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -322,7 +308,7 @@ public class PromotionDetail extends javax.swing.JFrame {
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(2, 2, 2)
                 .addComponent(Create)
-                .addContainerGap(73, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Create Promotion", jPanel3);
@@ -409,15 +395,14 @@ public class PromotionDetail extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
  
     private void CreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateActionPerformed
-    SimpleDateFormat as = new SimpleDateFormat("dd-MM-yyyy"); 
     if(DiscountRate.getText().matches("") || PromotionTitle.getText().matches("") ){
             JOptionPane.showMessageDialog(null, "Cannot leave blane", "Information", JOptionPane.INFORMATION_MESSAGE);
         }
-        else if(StartDate.getDate() == null){
-            JOptionPane.showMessageDialog(null, "Please choose a date","Information",JOptionPane.INFORMATION_MESSAGE);
+        else if(StartDate.getText().matches("")){
+            JOptionPane.showMessageDialog(null, "Please insert a date","Information",JOptionPane.INFORMATION_MESSAGE);
         }
         else if(EndDate.getText().matches("")){
-            JOptionPane.showMessageDialog(null, "Please click the 'show' button to show the end date","Information",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Haven't insert the end date yet","Information",JOptionPane.INFORMATION_MESSAGE);
         }
         else if(Product.getSelectedRowCount() == 0){
             JOptionPane.showMessageDialog(null,"Please choose the product to promotion","Information",JOptionPane.INFORMATION_MESSAGE);
@@ -428,6 +413,9 @@ public class PromotionDetail extends javax.swing.JFrame {
         else if(!DiscountRate.getText().matches("([1-9]|[1-8][0-9]|9[0-9]|100)")){
             JOptionPane.showMessageDialog(null, "Number range is between 1-100 ","Information",JOptionPane.INFORMATION_MESSAGE);
         }
+        else if(!StartDate.getText().matches("((0?[13578]|10|12)(-|\\/)((0[0-9])|([12])([0-9]?)|(3[01]?))(-|\\/)((\\d{4})|(\\d{2}))|(0?[2469]|11)(-|\\/)((0[0-9])|([12])([0-9]?)|(3[0]?))(-|\\/)((\\d{4}|\\d{2})))") || !EndDate.getText().matches("((0?[13578]|10|12)(-|\\/)((0[0-9])|([12])([0-9]?)|(3[01]?))(-|\\/)((\\d{4})|(\\d{2}))|(0?[2469]|11)(-|\\/)((0[0-9])|([12])([0-9]?)|(3[0]?))(-|\\/)((\\d{4}|\\d{2})))")){
+            JOptionPane.showMessageDialog(null, "The date key in must valid.Please follow the formate(MM-DD-YYYY)","Information", JOptionPane.INFORMATION_MESSAGE);
+        }
         else{
             int a = JOptionPane.showConfirmDialog(null,"Do you want to create promotion?", "Question", JOptionPane.YES_OPTION);
             if(a == 0){  
@@ -435,7 +423,7 @@ public class PromotionDetail extends javax.swing.JFrame {
                 //Promotion
                 String title = PromotionTitle.getText();
                 int disRate = Integer.parseInt(DiscountRate.getText());
-                String sDate = as.format(StartDate.getDate());
+                String sDate = StartDate.getText();
                 String eDate = EndDate.getText();   
                 Promotion promotion = new Promotion(GenerateNextPromoID(),sDate,eDate,title,disRate);
                 promotionList.add(promotion);
@@ -455,7 +443,7 @@ public class PromotionDetail extends javax.swing.JFrame {
                     System.out.println(promoList);
                     }        
                 //-------------------------------------------------- refresh
-                StartDate.setCalendar(null);
+                StartDate.setText("");
                 EndDate.setText("");
                 PromotionTitle.setText("");
                 DiscountRate.setText("");
@@ -463,12 +451,12 @@ public class PromotionDetail extends javax.swing.JFrame {
                  }
             else if(a ==1){
                 JOptionPane.showMessageDialog(null,"Create promotion cancels","Information",JOptionPane.INFORMATION_MESSAGE);
-                StartDate.setCalendar(null);
+                StartDate.setText("");
                 EndDate.setText("");
                 PromotionTitle.setText("");
                 DiscountRate.setText("");
             }
-        }
+        }           
     }//GEN-LAST:event_CreateActionPerformed
 
     public String GenerateNextPromoID(){
@@ -529,26 +517,6 @@ public class PromotionDetail extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_pType2ActionPerformed
 
-    private void ShowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ShowActionPerformed
-        if(StartDate.getDate() == null){
-        JOptionPane.showMessageDialog(null, "Please choose a date before you click this button","Information",JOptionPane.INFORMATION_MESSAGE);
-        }
-        else{ 
-        try {
-            SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-            String Adate = df.format(StartDate.getDate());
-            Date date = df.parse(Adate);           
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(date);
-            cal.add(Calendar.DAY_OF_MONTH, 30);
-            Date futureDate  =cal.getTime();
-            EndDate.setText(df.format(futureDate));
-        } catch (ParseException ex) {
-            Logger.getLogger(PromotionDetail.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        }
-    }//GEN-LAST:event_ShowActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -591,8 +559,7 @@ public class PromotionDetail extends javax.swing.JFrame {
     private javax.swing.JTable Product;
     private javax.swing.JTable PromotionDetails;
     private javax.swing.JTextField PromotionTitle;
-    private javax.swing.JButton Show;
-    private com.toedter.calendar.JDateChooser StartDate;
+    private javax.swing.JTextField StartDate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
