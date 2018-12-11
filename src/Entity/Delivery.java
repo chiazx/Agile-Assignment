@@ -39,6 +39,11 @@ public class Delivery {
         this.deliveredTime = deliveredTime;
     }
 
+    public Delivery(String orderID) {
+        this.orderID = orderID;
+    }
+    
+
     public Delivery(Order order, String deliveryID, String deliveryManName, String deliveryDate, String deliveredTime, String roadName, String address) {
         this.order = order;
         this.deliveryID = deliveryID;
