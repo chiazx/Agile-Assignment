@@ -20,6 +20,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import Entity.*;
+import java.awt.List;
 /**
  *
  * @author Student
@@ -27,15 +28,31 @@ import Entity.*;
 public class InvoiceReport extends javax.swing.JFrame {
     
        ListInterface<Order> orderList = new LList();
-    static final java.text.SimpleDateFormat fmt = new java.text.SimpleDateFormat("dd/MM/yyyy");
+       ListInterface<CooperateE> cooList=new LList();
+       ListInterface<Invoice> invoice=new LList();
+       String custD="";
+       
     /**
      * Creates new form Invoice
      */
     public InvoiceReport() {
         initComponents();
-        ListCoNa.addItem("SBS Company.BHD");
-        ListCoNa.addItem("KL Company.BHD");
-        ListCoNa.addItem("Test Company.BHD");
+        cooList.add(new CooperateE("CP1000","SBS Company.BHD","011-11194912",1000,"test address 1"));
+        cooList.add(new CooperateE("CP1001","KL Company.BHD","012-3456789",888,"test address 2"));
+        cooList.add(new CooperateE("CP1002","Test Company.BHD","012-4567893",999,"test address 3"));
+        orderList.add(new Order("OL0001","Unpay","delivery",99.00,"CP1000"));
+        orderList.add(new Order("OL0002","Unpay","pickup",100.00,"CP1000"));
+        orderList.add(new Order("OL0003","Unpay","delivery",50.00,"CP1000"));
+        orderList.add(new Order("OL0004","Unpay","pickup",40.00,"CP1001"));
+        orderList.add(new Order("OL0005","Unpay","delivery",20.00,"CP1001"));
+        orderList.add(new Order("OL0006","Unpay","pickup",88.00,"CP1001"));
+        orderList.add(new Order("OL0007","Unpay","delivery",77.00,"CP1002"));
+        orderList.add(new Order("OL0008","Unpay","pickup",66.00,"CP1002"));
+        orderList.add(new Order("OL0009","Unpay","delivery",55.00,"CP1002"));
+        
+        for(int i=0;i<cooList.getNumberOfEntries();i++){
+            ListCoNa.addItem(cooList.getEntry(i+1).getCustName());
+        }
     }
 
     /**
@@ -97,17 +114,9 @@ public class InvoiceReport extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Order Number", "Order Day", "Cost", "Payment Status"
+                "Amount", "Due Date", "Status"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+        ));
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setText("Generate");
@@ -197,7 +206,8 @@ public class InvoiceReport extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -205,58 +215,53 @@ public class InvoiceReport extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        if(ListCoNa.getSelectedItem()=="SBS Company.BHD"){
+        Calendar calendar = Calendar.getInstance();
+        java.sql.Date ourJavaDateObject = new java.sql.Date(calendar.getTime().getTime());
+        DefaultTableModel model=(DefaultTableModel) jTable1.getModel();
+        ourJavaDateObject.setDate(ourJavaDateObject.getDate()+7);
+        model.setRowCount(0);
+        for(int i=0;i<cooList.getNumberOfEntries();i++){
+            if(ListCoNa.getSelectedItem()==cooList.getEntry(i+1).getCustName()){
+                for(int y=0;y<orderList.getNumberOfEntries();y++){
+                    if(cooList.getEntry(i+1).getCustID()==orderList.getEntry(y+1).getCustID()){
+                        custD=cooList.getEntry(i+1).getCustID();
+              
+                                model.addRow(new Object[]{orderList.getEntry(y+1).getTotalAmount(),
+                                ourJavaDateObject,
+                                orderList.getEntry(y+1).getOrderStatus()});
+                               
+
+                }
+                     
+            }
+        }
             
-            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-            int rowCount = model.getRowCount();
-        //Remove rows one by one from the end of the table
-            for (int i = rowCount - 1; i >= 0; i--) {
-                model.removeRow(i);
-        }
-            model.addRow(new Object[]{50,"19-07-2018","RM 50","Paid"});
-            model.addRow(new Object[]{90,"24-07-2018","RM 90","Unpaid"});
-            model.addRow(new Object[]{40,"31-07-2018","RM 50","Unpaid"});
-        }
-        else if(ListCoNa.getSelectedItem()=="KL Company.BHD"){
-            
-            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-               int rowCount = model.getRowCount();
-        //Remove rows one by one from the end of the table
-            for (int i = rowCount - 1; i >= 0; i--) {
-                model.removeRow(i);
-        }
-            model.addRow(new Object[]{40,"05-07-2018","RM 40","Unpaid"});
-            model.addRow(new Object[]{90,"17-07-2018","RM 90","Unpaid"});
-            model.addRow(new Object[]{40,"19-07-2018","RM 40","Unpaid"});
-            model.addRow(new Object[]{70,"24-07-2018","RM 70","Unpaid"});
-        }
-         else if(ListCoNa.getSelectedItem()=="Test Company.BHD"){
-            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-               int rowCount = model.getRowCount();
-        //Remove rows one by one from the end of the table
-            for (int i = rowCount - 1; i >= 0; i--) {
-                model.removeRow(i);
-        }
-            model.addRow(new Object[]{99,"08-07-2018","RM 99","Unpaid"});
-            model.addRow(new Object[]{63,"17-07-2018","RM 63","Unpaid"});
-            model.addRow(new Object[]{88,"19-07-2018","RM 88","Unpaid"});
-            model.addRow(new Object[]{44,"24-07-2018","RM 44","Unpaid"});
-        }
+      }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here: 
-         Calendar calendar = Calendar.getInstance();
+         
+        Calendar calendar = Calendar.getInstance();
         java.sql.Date ourJavaDateObject = new java.sql.Date(calendar.getTime().getTime());
+        DefaultTableModel model=(DefaultTableModel) jTable1.getModel();
+        String data="";
+        for (int row = 0; row < model.getRowCount(); row++){
+            for (int column = 0; column < model.getColumnCount(); column++){
+                data+=model.getValueAt(row, column).toString()+"\t\t";
+            }
+            data+="\n";
+        }
      taInvoice.setText("\t\t Invoice \n\n"
-             + "Customer ID:\t\t\t"
-             + "\nCustomer Name:\t\t\t"
+             + "Customer ID: "+custD+"\t\t\t"
+             + "\nCustomer Name: "+ListCoNa.getSelectedItem()+"\t\t\t"
              + "\n==========================================================\n"
-             + "\n\nDate:\t\t\t "
+             + "\n\nDate: "+ourJavaDateObject+"\t\t\t "
              + "\n\n\t\t Invoice "
              + "\n==========================================================\n"
              + "Amount\t\t Due Date\t\t Status "
              + "\n==========================================================\n"
+             + data
             );
 
     /*try{
@@ -280,6 +285,7 @@ public class InvoiceReport extends javax.swing.JFrame {
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
         try{
      taInvoice.print();
+     
  }catch(PrinterException ex){
      System.out.print(ex.getMessage());
  }
