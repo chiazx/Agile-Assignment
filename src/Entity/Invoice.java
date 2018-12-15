@@ -5,94 +5,71 @@
  */
 package Entity;
 
+import java.sql.Date;
+
 /**
  *
  * @author boonk
  */
 public class Invoice {
 
-    private static int nextNumber = 1000;
-    private int num;
-    private String invoiceNo;
-    private String orderID;
-    private String paymentStatus;
-    private String invoiceAmount;
-    private String invoiceDate;
+  
 
+    private String cooID;
+    private String cooName;
+    private double Amount;
+    private Date date;
+ 
+
+    public Invoice( String cooID, String cooName, double Amount, Date date) {
+        
+        this.cooID = cooID;
+        this.cooName = cooName;
+        this.Amount = Amount;
+        this.date = date;
+       
+
+    }
+
+    
+    public String getCooID() {
+        return cooID;
+    }
+
+    public void setCooID(String cooID) {
+        this.cooID = cooID;
+    }
+
+    public String getCooName() {
+        return cooName;
+    }
+
+    public void setCooName(String cooName) {
+        this.cooName = cooName;
+    }
+
+    public double getAmount() {
+        return Amount;
+    }
+
+    public void setAmount(double Amount) {
+        this.Amount = Amount;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+  
+ 
 
     @Override
     public String toString() {
-        return "Invoice{ invoiceNo=" + invoiceNo + ", Company Name=" + orderID + ", paymentStatus=" + paymentStatus + ", invoiceAmount=" + invoiceAmount + ", incoiceDate=" + invoiceDate + '}';
-
+        return "Invoice{" + "cooID=" + cooID + ", cooName=" + cooName + ", Amount=" + Amount + ", date=" + date + '}';
     }
-
-    
-
-
-    public Invoice( String invoiceNo, String orderID, String paymentStatus, String invoiceAmount, String invoiceDate) {
-       
-
-        this.invoiceNo = invoiceNo;
-        this.orderID = orderID;
-        this.paymentStatus = paymentStatus;
-        this.invoiceAmount = invoiceAmount;
-        this.invoiceDate = invoiceDate;
-    }
-
-
-
-    public String getInvoiceNo() {
-        return invoiceNo;
-    }
-
-    public void setInvoiceNo(String invoiceNo) {
-        this.invoiceNo = invoiceNo;
-    }
-
-    public String getOrderID() {
-        return orderID;
-    }
-
-    public void setOrderID(String orderID) {
-        this.orderID = orderID;
-    }
-
-    public String getPaymentStatus() {
-        return paymentStatus;
-    }
-
-    public void setPaymentStatus(String paymentStatus) {
-        this.paymentStatus = paymentStatus;
-    }
-
-    public String getInvoiceAmount() {
-        return invoiceAmount;
-    }
-
-    public void setInvoiceAmount(String invoiceAmount) {
-        this.invoiceAmount = invoiceAmount;
-    }
-
-
-    
-
-    public String getInvoiceDate() {
-        return invoiceDate;
-    }
-
-    public void setInvoiceDate(String invoiceDate) {
-        this.invoiceDate = invoiceDate;
-    }
-    public void setNumber(int number) {
-    this.num = number;
-  }
-
-  public static int getNextNumber() {
-    return nextNumber;
-  }
-
-  public static void setNextNumber(int nextNumber) {
-     Invoice.nextNumber = nextNumber;
-  }
     
 }
