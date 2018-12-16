@@ -37,6 +37,7 @@ public class ConfirmOrder extends javax.swing.JFrame {
     static ListInterface<Pickup> allPickupList = new LList<>();
     static ListInterface<Invoice> allInvoiceList = new LList<>();
     static Order order1=new Order();
+    ListInterface<Order> salesOrderList = new LList<>();
     ListInterface<CooperateE> coopCustList = new LList<>();
     Order order = new Order();
     ListInterface<Delivery> deliveryList = new LList<>();
@@ -51,7 +52,10 @@ public class ConfirmOrder extends javax.swing.JFrame {
      * Creates new form ConfirmOrder
      */
     
-    
+    public ConfirmOrder(){
+        initComponents();
+        initialize();
+    }
     public ConfirmOrder(Order order1,ListInterface<OrderList> orderList,ListInterface<CatalogProduct> prodList,ListInterface<CatalogProduct> allCatProdList ,ListInterface<CustomizedFloral> allCustProdList ,ListInterface<Order> allSalesOrderList ,
          ListInterface<OrderList> allOrderList ,ListInterface<ConsumerE> allConsumerList ,ListInterface<CooperateE> allCoopList ,
          ListInterface<Delivery> allDeliveryList ,ListInterface<Pickup> allPickupList,ListInterface<Invoice> allInvoiceList) {
@@ -487,7 +491,7 @@ public class ConfirmOrder extends javax.swing.JFrame {
             orderList.getEntry(i+1).setOrder(order1);
         }
     }
-     private boolean inputValidate() {
+     public boolean inputValidate() {
       //validate name
       
       String name="";
@@ -557,10 +561,10 @@ return validate;
                   
                }
                if(DorP.getSelection().getActionCommand().equals("delivery")){
-                   deliveryList.add(new Delivery(order1,"D001","Not assigned yet","","",DateorPriority,taAddress.getText()));
+                   deliveryList.add(new Delivery(order1,"D0001","Not assigned yet","","",DateorPriority,""));
                    System.out.println(deliveryList);
                }else if(DorP.getSelection().getActionCommand().toLowerCase().equals("pickup")){
-                   pickupList.add(new Pickup(order1,"P001","","",DateorPriority.toLowerCase(),"Not yet pickup"));
+                   pickupList.add(new Pickup(order1,"P0001","","",DateorPriority.toLowerCase(),"Not yet pickup"));
                              
                }
                

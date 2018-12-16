@@ -525,7 +525,7 @@ public class OrderRecordMain extends javax.swing.JFrame {
 
         String D_ID = Didddl.getSelectedItem().toString();
 
-        if (D_ID == "DL001") {
+        if (D_ID == "DL0001") {
             DMddl.removeAllItems();
             DMddl.addItem("Kong");
             DMddl.addItem("Muhd");
@@ -533,7 +533,7 @@ public class OrderRecordMain extends javax.swing.JFrame {
             DMddl.addItem("Abu");
             DMLabel.setVisible(true);
             DMddl.setVisible(true);
-        } else if (D_ID == "DL002") {
+        } else if (D_ID == "DL0002") {
             DMddl.removeAllItems();
             DMddl.addItem("Kong");
             DMddl.addItem("Muhd");
@@ -541,7 +541,7 @@ public class OrderRecordMain extends javax.swing.JFrame {
             DMddl.addItem("Abu");
             DMLabel.setVisible(true);
             DMddl.setVisible(true);
-        } else if (D_ID == "DL003") {
+        } else if (D_ID == "DL0003") {
             DMddl.removeAllItems();
             DMddl.addItem("Kong");
             DMddl.addItem("Muhd");
@@ -549,7 +549,7 @@ public class OrderRecordMain extends javax.swing.JFrame {
             DMddl.addItem("Abu");
             DMLabel.setVisible(true);
             DMddl.setVisible(true);
-        } else if (D_ID == "DL004") {
+        } else if (D_ID == "DL0004") {
             DMddl.removeAllItems();
             DMddl.addItem("Kong");
             DMddl.addItem("Muhd");
