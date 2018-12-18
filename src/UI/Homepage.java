@@ -104,6 +104,7 @@ public class Homepage extends javax.swing.JFrame {
         catalogOrders = new javax.swing.JButton();
         customer = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -192,6 +193,13 @@ public class Homepage extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setText("Update Monthly Credit");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
@@ -203,7 +211,10 @@ public class Homepage extends javax.swing.JFrame {
                     .addComponent(catalogOrders)
                     .addComponent(customize, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(OrderPickup)
-                    .addComponent(customer)
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addComponent(customer)
+                        .addGap(81, 81, 81)
+                        .addComponent(jButton2))
                     .addComponent(catalogMaintenance))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -213,7 +224,9 @@ public class Homepage extends javax.swing.JFrame {
                 .addGap(115, 115, 115)
                 .addComponent(catalogMaintenance)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(customer)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(customer)
+                    .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -277,6 +290,11 @@ public class Homepage extends javax.swing.JFrame {
      new InvoiceReport(allCatProdList,allCustProdList,allSalesOrderList,allOrderList,allConsumerList,allCoopList,allDeliveryList,allPickupList,allInvoiceList).setVisible(true);
      this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        new UpdateMonthlyCredit(allCatProdList,allCustProdList,allSalesOrderList,allOrderList,allConsumerList,allCoopList,allDeliveryList,allPickupList,allInvoiceList).setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -576,6 +594,7 @@ public class Homepage extends javax.swing.JFrame {
     private javax.swing.JButton customer;
     private javax.swing.JButton customize;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
