@@ -10,6 +10,7 @@ package Entity;
  * @author boonk
  */
 public class Delivery {
+    private DeliveryList DLID;
     private Order order;
     private String orderID; // ref
     private String deliveryID;
@@ -25,6 +26,14 @@ public class Delivery {
 
     public void setDeliveredTime(String deliveredTime) {
         this.deliveredTime = deliveredTime;
+    }
+
+    public DeliveryList getDLID() {
+        return DLID;
+    }
+
+    public void setDLID(DeliveryList DLID) {
+        this.DLID = DLID;
     }
 
     
